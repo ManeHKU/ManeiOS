@@ -11,7 +11,7 @@ import SwiftUI
 struct ManeHKUApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AuthSetupView()
         }
     }
 }

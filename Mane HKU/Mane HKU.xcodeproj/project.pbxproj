@@ -7,8 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B95B5F452B4BBAF9001A7070 /* Supabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F442B4BBAF9001A7070 /* Supabase.swift */; };
+		B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F462B4BD453001A7070 /* KeychainManager.swift */; };
+		B95B5F4A2B4BD56B001A7070 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = B95B5F492B4BD56B001A7070 /* KeychainAccess */; };
 		B98692162B3C8B1400F0D491 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = B98692152B3C8B1400F0D491 /* Auth */; };
-		B9B0FABD2B2608B500B63C02 /* Mane_HKUApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABC2B2608B500B63C02 /* Mane_HKUApp.swift */; };
+		B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABC2B2608B500B63C02 /* ManeApp.swift */; };
 		B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABE2B2608B500B63C02 /* ContentView.swift */; };
 		B9B0FAC12B2608B600B63C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B0FAC02B2608B600B63C02 /* Assets.xcassets */; };
 		B9B0FAC42B2608B600B63C02 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B0FAC32B2608B600B63C02 /* Preview Assets.xcassets */; };
@@ -23,6 +26,13 @@
 		B9B0FAF52B26275B00B63C02 /* Realtime in Frameworks */ = {isa = PBXBuildFile; productRef = B9B0FAF42B26275B00B63C02 /* Realtime */; };
 		B9B0FAF72B26275B00B63C02 /* Storage in Frameworks */ = {isa = PBXBuildFile; productRef = B9B0FAF62B26275B00B63C02 /* Storage */; };
 		B9B0FAFA2B26296A00B63C02 /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = B9B0FAF92B26296A00B63C02 /* Supabase */; };
+		B9B10E742B3DF67900A12CB6 /* pb in Resources */ = {isa = PBXBuildFile; fileRef = B9B10E732B3DF67900A12CB6 /* pb */; };
+		B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0B72B48183B006EE61B /* AuthSetupView.swift */; };
+		B9E7E0BA2B482831006EE61B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0B92B482831006EE61B /* Color.swift */; };
+		B9E7E0BC2B4835E2006EE61B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0BB2B4835E2006EE61B /* Enums.swift */; };
+		B9E7E0BE2B489301006EE61B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0BD2B489301006EE61B /* SignUpViewModel.swift */; };
+		B9E7E0C02B489F36006EE61B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0BF2B489F36006EE61B /* String.swift */; };
+		B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8861D2B46E242005ADADA /* SignUpView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,8 +53,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B95B5F442B4BBAF9001A7070 /* Supabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supabase.swift; sourceTree = "<group>"; };
+		B95B5F462B4BD453001A7070 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		B9B0FAB92B2608B500B63C02 /* Mane HKU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mane HKU.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B9B0FABC2B2608B500B63C02 /* Mane_HKUApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mane_HKUApp.swift; sourceTree = "<group>"; };
+		B9B0FABC2B2608B500B63C02 /* ManeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManeApp.swift; sourceTree = "<group>"; };
 		B9B0FABE2B2608B500B63C02 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B9B0FAC02B2608B600B63C02 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B9B0FAC32B2608B600B63C02 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -53,6 +65,13 @@
 		B9B0FAD32B2608B600B63C02 /* Mane HKUUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Mane HKUUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B0FAD72B2608B600B63C02 /* Mane_HKUUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mane_HKUUITests.swift; sourceTree = "<group>"; };
 		B9B0FAD92B2608B600B63C02 /* Mane_HKUUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mane_HKUUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B9B10E732B3DF67900A12CB6 /* pb */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pb; sourceTree = "<group>"; };
+		B9E7E0B72B48183B006EE61B /* AuthSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSetupView.swift; sourceTree = "<group>"; };
+		B9E7E0B92B482831006EE61B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		B9E7E0BB2B4835E2006EE61B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		B9E7E0BD2B489301006EE61B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
+		B9E7E0BF2B489F36006EE61B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		B9E8861D2B46E242005ADADA /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +83,7 @@
 				B9B0FAF32B26275B00B63C02 /* PostgREST in Frameworks */,
 				B9B0FAEA2B2626F300B63C02 /* GRPC in Frameworks */,
 				B9B0FAF72B26275B00B63C02 /* Storage in Frameworks */,
+				B95B5F4A2B4BD56B001A7070 /* KeychainAccess in Frameworks */,
 				B9B0FAFA2B26296A00B63C02 /* Supabase in Frameworks */,
 				B9B0FAEC2B2626F300B63C02 /* _GRPCCore in Frameworks */,
 				B9B0FAEE2B2626F300B63C02 /* protoc-gen-grpc-swift in Frameworks */,
@@ -114,7 +134,9 @@
 			isa = PBXGroup;
 			children = (
 				B9B10E6A2B3DE14900A12CB6 /* Common */,
-				B9B0FABC2B2608B500B63C02 /* Mane_HKUApp.swift */,
+				B9B10E752B3DF70500A12CB6 /* Auth */,
+				B9B10E732B3DF67900A12CB6 /* pb */,
+				B9B0FABC2B2608B500B63C02 /* ManeApp.swift */,
 				B9B0FABE2B2608B500B63C02 /* ContentView.swift */,
 				B9B0FAC02B2608B600B63C02 /* Assets.xcassets */,
 				B9B0FAC22B2608B600B63C02 /* Preview Content */,
@@ -157,8 +179,47 @@
 		B9B10E6A2B3DE14900A12CB6 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				B9E7E0B92B482831006EE61B /* Color.swift */,
+				B9E7E0BF2B489F36006EE61B /* String.swift */,
+				B95B5F442B4BBAF9001A7070 /* Supabase.swift */,
+				B95B5F462B4BD453001A7070 /* KeychainManager.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		B9B10E752B3DF70500A12CB6 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				B9E8861B2B46E19C005ADADA /* Models */,
+				B9E8861C2B46E1A5005ADADA /* ViewModels */,
+				B9E8861A2B46E187005ADADA /* Views */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		B9E8861A2B46E187005ADADA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B9E8861D2B46E242005ADADA /* SignUpView.swift */,
+				B9E7E0B72B48183B006EE61B /* AuthSetupView.swift */,
+				B9E7E0BB2B4835E2006EE61B /* Enums.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B9E8861B2B46E19C005ADADA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		B9E8861C2B46E1A5005ADADA /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B9E7E0BD2B489301006EE61B /* SignUpViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,7 +236,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				B9FF5DE62B3DDCC400A6B17C /* PBXTargetDependency */,
 			);
 			name = "Mane HKU";
 			packageProductDependencies = (
@@ -188,6 +248,7 @@
 				B9B0FAF62B26275B00B63C02 /* Storage */,
 				B9B0FAF92B26296A00B63C02 /* Supabase */,
 				B98692152B3C8B1400F0D491 /* Auth */,
+				B95B5F492B4BD56B001A7070 /* KeychainAccess */,
 			);
 			productName = "Mane HKU";
 			productReference = B9B0FAB92B2608B500B63C02 /* Mane HKU.app */;
@@ -265,6 +326,7 @@
 				B9B0FAE62B2626F300B63C02 /* XCRemoteSwiftPackageReference "grpc-swift" */,
 				B9B0FAEF2B26275B00B63C02 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 				B9FF5DE42B3DDC9800A6B17C /* XCRemoteSwiftPackageReference "SwiftLint" */,
+				B95B5F482B4BD56B001A7070 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = B9B0FABA2B2608B500B63C02 /* Products */;
 			projectDirPath = "";
@@ -282,6 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9B10E742B3DF67900A12CB6 /* pb in Resources */,
 				B9B0FAC42B2608B600B63C02 /* Preview Assets.xcassets in Resources */,
 				B9B0FAC12B2608B600B63C02 /* Assets.xcassets in Resources */,
 			);
@@ -308,8 +371,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */,
 				B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */,
-				B9B0FABD2B2608B500B63C02 /* Mane_HKUApp.swift in Sources */,
+				B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */,
+				B9E7E0BA2B482831006EE61B /* Color.swift in Sources */,
+				B95B5F452B4BBAF9001A7070 /* Supabase.swift in Sources */,
+				B9E7E0BC2B4835E2006EE61B /* Enums.swift in Sources */,
+				B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */,
+				B9E7E0C02B489F36006EE61B /* String.swift in Sources */,
+				B9E7E0BE2B489301006EE61B /* SignUpViewModel.swift in Sources */,
+				B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,10 +413,6 @@
 			isa = PBXTargetDependency;
 			target = B9B0FAB82B2608B500B63C02 /* Mane HKU */;
 			targetProxy = B9B0FAD42B2608B600B63C02 /* PBXContainerItemProxy */;
-		};
-		B9FF5DE62B3DDCC400A6B17C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			productRef = B9FF5DE52B3DDCC400A6B17C /* SwiftLintPlugin */;
 		};
 /* End PBXTargetDependency section */
 
@@ -477,7 +544,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Mane HKU/Preview Content\"";
-				DEVELOPMENT_TEAM = 864XSL2U7M;
+				DEVELOPMENT_TEAM = 3JQ3Q45R7F;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
@@ -647,6 +714,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B95B5F482B4BD56B001A7070 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		B9B0FAE62B2626F300B63C02 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/grpc/grpc-swift";
@@ -674,6 +749,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B95B5F492B4BD56B001A7070 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B95B5F482B4BD56B001A7070 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		B98692152B3C8B1400F0D491 /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B9B0FAEF2B26275B00B63C02 /* XCRemoteSwiftPackageReference "supabase-swift" */;
@@ -718,11 +798,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B9B0FAEF2B26275B00B63C02 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
-		};
-		B9FF5DE52B3DDCC400A6B17C /* SwiftLintPlugin */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B9FF5DE42B3DDC9800A6B17C /* XCRemoteSwiftPackageReference "SwiftLint" */;
-			productName = "plugin:SwiftLintPlugin";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
