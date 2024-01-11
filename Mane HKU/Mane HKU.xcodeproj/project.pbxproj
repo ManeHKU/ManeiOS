@@ -7,9 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B942D7F02B4E658F00A26DAD /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B942D7EF2B4E658F00A26DAD /* SwiftSoup */; };
+		B942D7F22B4E820D00A26DAD /* ConfirmEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7F12B4E820D00A26DAD /* ConfirmEmailView.swift */; };
+		B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7F32B4EE04900A26DAD /* PortalAuth.swift */; };
+		B942D7F62B4EFFB900A26DAD /* ConfirmEmailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7F52B4EFFB900A26DAD /* ConfirmEmailViewModel.swift */; };
+		B942D7FB2B4FDAF900A26DAD /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7FA2B4FDAF900A26DAD /* AlertToast.swift */; };
+		B942D8012B4FE8A600A26DAD /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = B942D8002B4FE8A600A26DAD /* AlertToast */; };
+		B942D8052B50182800A26DAD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D8042B50182800A26DAD /* HomeView.swift */; };
 		B95B5F452B4BBAF9001A7070 /* Supabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F442B4BBAF9001A7070 /* Supabase.swift */; };
 		B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F462B4BD453001A7070 /* KeychainManager.swift */; };
 		B95B5F4A2B4BD56B001A7070 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = B95B5F492B4BD56B001A7070 /* KeychainAccess */; };
+		B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */; };
+		B95B5F532B4C795A001A7070 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B95B5F522B4C795A001A7070 /* Alamofire */; };
+		B95B5F562B4C7B6C001A7070 /* PortalScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */; };
+		B95B5F582B4C7CB0001A7070 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F572B4C7CB0001A7070 /* APIService.swift */; };
 		B98692162B3C8B1400F0D491 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = B98692152B3C8B1400F0D491 /* Auth */; };
 		B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABC2B2608B500B63C02 /* ManeApp.swift */; };
 		B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABE2B2608B500B63C02 /* ContentView.swift */; };
@@ -29,7 +40,6 @@
 		B9B10E742B3DF67900A12CB6 /* pb in Resources */ = {isa = PBXBuildFile; fileRef = B9B10E732B3DF67900A12CB6 /* pb */; };
 		B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0B72B48183B006EE61B /* AuthSetupView.swift */; };
 		B9E7E0BA2B482831006EE61B /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0B92B482831006EE61B /* Color.swift */; };
-		B9E7E0BC2B4835E2006EE61B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0BB2B4835E2006EE61B /* Enums.swift */; };
 		B9E7E0BE2B489301006EE61B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0BD2B489301006EE61B /* SignUpViewModel.swift */; };
 		B9E7E0C02B489F36006EE61B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0BF2B489F36006EE61B /* String.swift */; };
 		B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8861D2B46E242005ADADA /* SignUpView.swift */; };
@@ -53,8 +63,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B942D7F12B4E820D00A26DAD /* ConfirmEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailView.swift; sourceTree = "<group>"; };
+		B942D7F32B4EE04900A26DAD /* PortalAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalAuth.swift; sourceTree = "<group>"; };
+		B942D7F52B4EFFB900A26DAD /* ConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewModel.swift; sourceTree = "<group>"; };
+		B942D7FA2B4FDAF900A26DAD /* AlertToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
+		B942D8042B50182800A26DAD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B95B5F442B4BBAF9001A7070 /* Supabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Supabase.swift; sourceTree = "<group>"; };
 		B95B5F462B4BD453001A7070 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAuthView.swift; sourceTree = "<group>"; };
+		B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalScraper.swift; sourceTree = "<group>"; };
+		B95B5F572B4C7CB0001A7070 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B9B0FAB92B2608B500B63C02 /* Mane HKU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mane HKU.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B0FABC2B2608B500B63C02 /* ManeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManeApp.swift; sourceTree = "<group>"; };
 		B9B0FABE2B2608B500B63C02 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -68,7 +86,6 @@
 		B9B10E732B3DF67900A12CB6 /* pb */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pb; sourceTree = "<group>"; };
 		B9E7E0B72B48183B006EE61B /* AuthSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthSetupView.swift; sourceTree = "<group>"; };
 		B9E7E0B92B482831006EE61B /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		B9E7E0BB2B4835E2006EE61B /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
 		B9E7E0BD2B489301006EE61B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		B9E7E0BF2B489F36006EE61B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B9E8861D2B46E242005ADADA /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
@@ -82,8 +99,11 @@
 				B9B0FAF52B26275B00B63C02 /* Realtime in Frameworks */,
 				B9B0FAF32B26275B00B63C02 /* PostgREST in Frameworks */,
 				B9B0FAEA2B2626F300B63C02 /* GRPC in Frameworks */,
+				B942D8012B4FE8A600A26DAD /* AlertToast in Frameworks */,
 				B9B0FAF72B26275B00B63C02 /* Storage in Frameworks */,
 				B95B5F4A2B4BD56B001A7070 /* KeychainAccess in Frameworks */,
+				B942D7F02B4E658F00A26DAD /* SwiftSoup in Frameworks */,
+				B95B5F532B4C795A001A7070 /* Alamofire in Frameworks */,
 				B9B0FAFA2B26296A00B63C02 /* Supabase in Frameworks */,
 				B9B0FAEC2B2626F300B63C02 /* _GRPCCore in Frameworks */,
 				B9B0FAEE2B2626F300B63C02 /* protoc-gen-grpc-swift in Frameworks */,
@@ -109,6 +129,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B942D8022B50180800A26DAD /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				B942D8032B50181400A26DAD /* Views */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		B942D8032B50181400A26DAD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B942D8042B50182800A26DAD /* HomeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B95B5F542B4C7B32001A7070 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B942D8022B50180800A26DAD /* Home */,
+				B95B5F592B4C874A001A7070 /* Request */,
+				B95B5F442B4BBAF9001A7070 /* Supabase.swift */,
+				B95B5F462B4BD453001A7070 /* KeychainManager.swift */,
+				B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */,
+				B95B5F572B4C7CB0001A7070 /* APIService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B95B5F592B4C874A001A7070 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		B9B0FAB02B2608B500B63C02 = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +189,7 @@
 		B9B0FABB2B2608B500B63C02 /* Mane HKU */ = {
 			isa = PBXGroup;
 			children = (
+				B95B5F542B4C7B32001A7070 /* Services */,
 				B9B10E6A2B3DE14900A12CB6 /* Common */,
 				B9B10E752B3DF70500A12CB6 /* Auth */,
 				B9B10E732B3DF67900A12CB6 /* pb */,
@@ -181,8 +238,7 @@
 			children = (
 				B9E7E0B92B482831006EE61B /* Color.swift */,
 				B9E7E0BF2B489F36006EE61B /* String.swift */,
-				B95B5F442B4BBAF9001A7070 /* Supabase.swift */,
-				B95B5F462B4BD453001A7070 /* KeychainManager.swift */,
+				B942D7FA2B4FDAF900A26DAD /* AlertToast.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -202,7 +258,8 @@
 			children = (
 				B9E8861D2B46E242005ADADA /* SignUpView.swift */,
 				B9E7E0B72B48183B006EE61B /* AuthSetupView.swift */,
-				B9E7E0BB2B4835E2006EE61B /* Enums.swift */,
+				B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */,
+				B942D7F12B4E820D00A26DAD /* ConfirmEmailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,6 +267,7 @@
 		B9E8861B2B46E19C005ADADA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B942D7F32B4EE04900A26DAD /* PortalAuth.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -218,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				B9E7E0BD2B489301006EE61B /* SignUpViewModel.swift */,
+				B942D7F52B4EFFB900A26DAD /* ConfirmEmailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -249,6 +308,9 @@
 				B9B0FAF92B26296A00B63C02 /* Supabase */,
 				B98692152B3C8B1400F0D491 /* Auth */,
 				B95B5F492B4BD56B001A7070 /* KeychainAccess */,
+				B95B5F522B4C795A001A7070 /* Alamofire */,
+				B942D7EF2B4E658F00A26DAD /* SwiftSoup */,
+				B942D8002B4FE8A600A26DAD /* AlertToast */,
 			);
 			productName = "Mane HKU";
 			productReference = B9B0FAB92B2608B500B63C02 /* Mane HKU.app */;
@@ -327,6 +389,9 @@
 				B9B0FAEF2B26275B00B63C02 /* XCRemoteSwiftPackageReference "supabase-swift" */,
 				B9FF5DE42B3DDC9800A6B17C /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				B95B5F482B4BD56B001A7070 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				B95B5F512B4C7959001A7070 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+				B942D7FF2B4FE8A600A26DAD /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = B9B0FABA2B2608B500B63C02 /* Products */;
 			projectDirPath = "";
@@ -371,15 +436,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B95B5F562B4C7B6C001A7070 /* PortalScraper.swift in Sources */,
 				B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */,
 				B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */,
 				B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */,
 				B9E7E0BA2B482831006EE61B /* Color.swift in Sources */,
 				B95B5F452B4BBAF9001A7070 /* Supabase.swift in Sources */,
-				B9E7E0BC2B4835E2006EE61B /* Enums.swift in Sources */,
+				B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */,
+				B942D7F62B4EFFB900A26DAD /* ConfirmEmailViewModel.swift in Sources */,
+				B942D8052B50182800A26DAD /* HomeView.swift in Sources */,
 				B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */,
+				B95B5F582B4C7CB0001A7070 /* APIService.swift in Sources */,
 				B9E7E0C02B489F36006EE61B /* String.swift in Sources */,
+				B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */,
 				B9E7E0BE2B489301006EE61B /* SignUpViewModel.swift in Sources */,
+				B942D7F22B4E820D00A26DAD /* ConfirmEmailView.swift in Sources */,
+				B942D7FB2B4FDAF900A26DAD /* AlertToast.swift in Sources */,
 				B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -714,12 +786,36 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.0;
+			};
+		};
+		B942D7FF2B4FE8A600A26DAD /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.9;
+			};
+		};
 		B95B5F482B4BD56B001A7070 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
 			requirement = {
 				branch = master;
 				kind = branch;
+			};
+		};
+		B95B5F512B4C7959001A7070 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.1;
 			};
 		};
 		B9B0FAE62B2626F300B63C02 /* XCRemoteSwiftPackageReference "grpc-swift" */ = {
@@ -749,10 +845,25 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B942D7EF2B4E658F00A26DAD /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+		B942D8002B4FE8A600A26DAD /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B942D7FF2B4FE8A600A26DAD /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
 		B95B5F492B4BD56B001A7070 /* KeychainAccess */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B95B5F482B4BD56B001A7070 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
 			productName = KeychainAccess;
+		};
+		B95B5F522B4C795A001A7070 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B95B5F512B4C7959001A7070 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 		B98692152B3C8B1400F0D491 /* Auth */ = {
 			isa = XCSwiftPackageProductDependency;

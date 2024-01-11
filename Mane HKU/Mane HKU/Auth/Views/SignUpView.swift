@@ -7,32 +7,44 @@
 
 import SwiftUI
 import Supabase
-
-// swiftlint:disable:next line_length
-
+import AlertToast
 
 struct SignUpView: View {
-    @Bindable var signUpVM = SignUpViewModel()
+    @Environment(\.colorScheme) var colorScheme
+    @Bindable private var signUpVM = SignUpViewModel()
     
     @State private var showSecurityInfo = false
+    @State private var showHaveAccountAlert = false
+    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
         NavigationStack {
-            VStack {
-                Text("In order to use Mane, we would like to ask for your HKU Portal ID and password to proceed.")
-                    .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
-                    .font(.title3)
-                    .padding(.bottom, 10)
+            ZStack {
+                BackgroundAuthView()
                 
-                loginFields
-                
-                signUpButton
-                
-                disclaimer
+                VStack {
+                    ScrollView {
+                        Text("In order to use Mane, we would like to ask for your HKU Portal ID and password to proceed.")
+                            .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                            .font(.callout)
+                            .padding(.bottom, 10)
+                        
+                        loginFields
+                        
+                        signUpButton
+                        
+                        disclaimer
+                    }
+                }
+                .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .topLeading)
+                .padding()
+                .background(.thinMaterial)
             }
             .navigationTitle("Setup")
-            .padding()
-            .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, maxHeight: .infinity, alignment: .topLeading)
+            .navigationDestination(isPresented: $signUpVM.showVerifyEmailView, destination: {
+                let loginDetails = PortalLoginDetails(portalId: signUpVM.portalId, password: signUpVM.password)
+                ConfirmEmailView(loginDetails: loginDetails)
+            })
         }
         .sheet(isPresented: $showSecurityInfo, content: {
             VStack(spacing: 30){
@@ -46,46 +58,50 @@ struct SignUpView: View {
             .presentationBackground(.thinMaterial)
             .presentationDetents([.medium])
         })
+        .errorToast(title: signUpVM.signUpErrorToast.title, subtitle: signUpVM.signUpErrorToast.subtitle, trigger: $signUpVM.signUpErrorToast.show)
+        .toast(isPresenting: $signUpVM.loading) {
+            AlertToast(type: .loading)
+        }
+        .toast(isPresenting: $signUpVM.shouldPopView, duration: 5.0 ,tapToDismiss: false, alert: {
+            AlertToast(displayMode: .alert, type: .error(.red), title: "You have an account already", subTitle: "Please login instead")
+        }, completion: {
+            presentationMode.wrappedValue.dismiss()
+        })
     }
     
     var signUpButton: some View {
-        Button(action: {
-            Task {
-                do {
-                    print(try await client.auth.signUp(
-                        email: "\(signUpVM.portalId)@connect.hku.hk",
-                        password: "123456789A"))
-                } catch {
-                    print(error)
+        NavigationLink(value: "signUp", label: {
+            Button {
+                Task {
+                    await signUpVM.signUpUser()
                 }
+            } label: {
+                HStack{
+                    Text("Sign Up")
+                    Image(systemName: "applepencil.and.scribble")
+                        .font(.title2)
+                }
+                .padding(.vertical, 5)
+                .padding(.horizontal, 60)
             }
-        }) {
-            HStack{
-                Text("Sign Up")
-                Image(systemName: "applepencil.and.scribble")
-                    .font(.title2)
-            }
-            .padding(.vertical, 5)
-            .padding(.horizontal, 60)
-        }
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.capsule)
+        })
+        .disabled(!signUpVM.signUpFieldsValid || signUpVM.loading)
         .padding(.vertical, 10)
-        .buttonBorderShape(.capsule)
-        .buttonStyle(.borderedProminent)
-        .disabled(!signUpVM.signUpFieldsValid)
     }
     
     var disclaimer: some View {
         VStack(alignment: .leading, spacing: 20) {
-            Text("It is impossible for us to access your information as we do not have access to your credentials.")
-                .foregroundStyle(.red)
+            Text("Your credentails are stored securely and we would only use it to access information on your account.")
                 .fixedSize(horizontal: false, vertical: /*@START_MENU_TOKEN@*/true/*@END_MENU_TOKEN@*/)
+                .foregroundStyle(colorScheme == .dark ? .cyan : .indigo)
             Button(action: {
                 showSecurityInfo.toggle()
             }, label: {
                 Image(systemName: "lock")
                 Text("How do we protect your data")
             })
-            .foregroundStyle(.blue)
             .buttonStyle(.borderless)
             .buttonBorderShape(.roundedRectangle)
         }
@@ -94,18 +110,39 @@ struct SignUpView: View {
     var loginFields: some View {
         VStack(alignment:.leading) {
             Text("Nickname:")
-            TextField("e.g. Frederick", text: $signUpVM.nickname, prompt: Text(signUpVM.nicknamePrompt))
+            TextField("e.g. Frederick", text: $signUpVM.nickname, prompt: Text("e.g. Tim"))
                 .textContentType(.nickname)
+                .disabled(signUpVM.loading || signUpVM.shouldPopView)
+            PromptText(promptWordings: signUpVM.nicknamePrompt, input: signUpVM.nickname)
             
             Text("Portal ID:")
             TextField("e.g. u353xxxxx", text: $signUpVM.portalId)
                 .textContentType(.username)
                 .textInputAutocapitalization(.never)
+                .disabled(signUpVM.loading || signUpVM.shouldPopView)
+            PromptText(promptWordings: signUpVM.portalIdPrompt, input: signUpVM.portalId)
             
             Text("Password:")
-            SecureField("Enter your password", text: $signUpVM.password)
+            SecureField("", text: $signUpVM.password)
                 .textContentType(.password)
-        }.textFieldStyle(.roundedBorder)
+                .disabled(signUpVM.loading || signUpVM.shouldPopView)
+            PromptText(promptWordings: signUpVM.passwordPrompt, input: signUpVM.password)
+        }
+        .textFieldStyle(.roundedBorder)
+    }
+}
+
+struct PromptText: View {
+    var promptWordings: String
+    var input: String
+    var body: some View {
+        if !promptWordings.isEmpty && !input.isEmpty {
+            Text(promptWordings)
+                .foregroundStyle(.secondary)
+                .font(.callout)
+                .padding(.bottom, 5)
+        }
+        
     }
 }
 

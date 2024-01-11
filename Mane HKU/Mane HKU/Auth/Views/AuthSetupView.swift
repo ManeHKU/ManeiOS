@@ -11,12 +11,7 @@ struct AuthSetupView: View {
     var body: some View {
         NavigationStack {
             ZStack{
-                Rectangle()
-                    .fill(
-                        LinearGradient(gradient:
-                                        Gradient(colors: [ .blue,.green, .accentColor]), startPoint: .topLeading, endPoint: .bottomTrailing))
-                
-                    .ignoresSafeArea()
+                BackgroundAuthView()
                 VStack {
                     Spacer()
                     VStack(alignment: .leading) {
@@ -57,7 +52,7 @@ struct AuthSetupView: View {
                     .padding(20)
                 }
             }
-            .navigationTitle("Welcome")
+            .navigationTitle("Home")
             .navigationBarHidden(true)
             
         }
