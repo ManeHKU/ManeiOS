@@ -148,7 +148,6 @@
 		B95B5F542B4C7B32001A7070 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B942D8022B50180800A26DAD /* Home */,
 				B95B5F592B4C874A001A7070 /* Request */,
 				B95B5F442B4BBAF9001A7070 /* Supabase.swift */,
 				B95B5F462B4BD453001A7070 /* KeychainManager.swift */,
@@ -191,6 +190,7 @@
 			children = (
 				B95B5F542B4C7B32001A7070 /* Services */,
 				B9B10E6A2B3DE14900A12CB6 /* Common */,
+				B942D8022B50180800A26DAD /* Home */,
 				B9B10E752B3DF70500A12CB6 /* Auth */,
 				B9B10E732B3DF67900A12CB6 /* pb */,
 				B9B0FABC2B2608B500B63C02 /* ManeApp.swift */,
