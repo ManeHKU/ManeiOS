@@ -13,7 +13,7 @@ import os
     var nickname: String = ""
     var portalId: String = ""
     var password: String = ""
-    
+
     var loading = false
     var showErrorMessage = false
     var showVerifyEmailView = false
@@ -22,11 +22,11 @@ import os
     var shouldPopView = false
     
     var signUpFieldsValid: Bool {
-        isNicknameValid() && isPortalIdValid() && isPasswordValid()
+        isNicknameValid(nickname) && isPortalIdValid(portalId) && isPasswordValid(password)
     }
     
     var nicknamePrompt: String {
-        if isNicknameValid() {
+        if isNicknameValid(nickname) {
             return ""
         } else {
             return "Your nickname must have at least 3 characters and can only have alphabetical letters"
@@ -34,7 +34,7 @@ import os
     }
     
     var portalIdPrompt: String {
-        if isPortalIdValid() {
+        if isPortalIdValid(portalId) {
             return ""
         } else {
             return "Make sure your portal ID format is correct"
@@ -42,27 +42,14 @@ import os
     }
     
     var passwordPrompt: String {
-        if isPasswordValid() {
+        if isPasswordValid(password) {
             return ""
         } else {
             return "Password doesn't fit required format"
         }
     }
     
-    func isNicknameValid() -> Bool {
-        nickname.count > 2 && nickname.isAlphabetical
-    }
-    
-    func isPortalIdValid() -> Bool {
-        (4...8).contains(portalId.count) && portalId.isAlphanumeric
-    }
-    
-    func isPasswordValid() -> Bool {
-        let passwordRegex = /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{10,18}$/
-        return password.wholeMatch(of: passwordRegex) != nil
-    }
-    
-    func signUpUser() async {
+    func signUpUser(with userManager: UserManager) async {
         defer {loading = false}
         loading = true
         shouldPopView = false
@@ -86,7 +73,7 @@ import os
         logger.info("verified can login to portal locally")
         do {
             logger.info("starting supabase signup")
-            let user = try await supabase.auth.signUp(
+            let user = try await userManager.supabase.auth.signUp(
                 email: "\(portalId)@connect.hku.hk",
                 password: password,
                 data: [

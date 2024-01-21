@@ -12,6 +12,7 @@ import os
 
 @Observable class ConfirmEmailViewModel {
     @ObservationIgnored private let loginDetails: PortalLoginDetails
+    
     init(loginDetails: PortalLoginDetails) {
         self.loginDetails = loginDetails
     }
@@ -23,11 +24,11 @@ import os
     var showVerifySuccessAlert = false
     
     
-    func resendCode() async {
+    func resendCode(with userManager: UserManager) async {
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: (String(describing: self)))
         do{
             print("resend code")
-            try await supabase.auth.resend(email: "\(loginDetails.portalId)@connect.hku.hk", type: .signup)
+            try await userManager.supabase.auth.resend(email: "\(loginDetails.portalId)@connect.hku.hk", type: .signup)
             goodToast.title = "Email has been resent"
             goodToast.subtitle = "Check your inbox"
             goodToast.show = true
@@ -39,16 +40,13 @@ import os
         }
     }
     
-    func submitCode() async {
+    func submitCode(with userManager: UserManager) async {
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: (String(describing: self)))
         do{
-            try await supabase.auth.verifyOTP(email: "\(loginDetails.portalId)@connect.hku.hk", token: otpCode, type: .signup)
-            let JWToken = try await supabase.auth.session.accessToken
-            print(JWToken)
-            KeychainManager.shared.saveStringSecurely(key: KeychainKeys.SupabaseJWT, value: JWToken)
-            KeychainManager.shared.saveStringSecurely(key: KeychainKeys.PortalId, value: loginDetails.portalId)
-            KeychainManager.shared.saveStringSecurely(key: KeychainKeys.PortalPassword, value: loginDetails.password)
-            print("saved KC")
+            try await userManager.supabase.auth.verifyOTP(email: "\(loginDetails.portalId)@connect.hku.hk", token: otpCode, type: .signup)
+            logger.info("otp correct")
+            KeychainManager.shared.secureSave(key: .PortalId, value: loginDetails.portalId)
+            KeychainManager.shared.secureSave(key: .PortalPassword, value: loginDetails.password)
             showVerifySuccessAlert = true
             try await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
             showSuccessPage = true

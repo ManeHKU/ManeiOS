@@ -38,7 +38,7 @@ struct AuthSetupView: View {
                         .tint(.blueishWhite)
                         
                         NavigationLink {
-                            // temp
+                            LoginView()
                         } label:{
                             Text("Login")
                                 .frame(maxWidth: .infinity)
