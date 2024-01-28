@@ -20,7 +20,7 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct GetInitialConfigRequest {
+public struct Init_GetInitialConfigRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -41,13 +41,13 @@ public struct GetInitialConfigRequest {
   fileprivate var _versionTimestamp: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-public struct GetInitialConfigResponse {
+public struct Init_GetInitialConfigResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var latestUrls: URLsList {
-    get {return _latestUrls ?? URLsList()}
+  public var latestUrls: Init_URLsList {
+    get {return _latestUrls ?? Init_URLsList()}
     set {_latestUrls = newValue}
   }
   /// Returns true if `latestUrls` has been explicitly set.
@@ -59,10 +59,10 @@ public struct GetInitialConfigResponse {
 
   public init() {}
 
-  fileprivate var _latestUrls: URLsList? = nil
+  fileprivate var _latestUrls: Init_URLsList? = nil
 }
 
-public struct URLsList {
+public struct Init_URLsList {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -88,15 +88,17 @@ public struct URLsList {
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
-extension GetInitialConfigRequest: @unchecked Sendable {}
-extension GetInitialConfigResponse: @unchecked Sendable {}
-extension URLsList: @unchecked Sendable {}
+extension Init_GetInitialConfigRequest: @unchecked Sendable {}
+extension Init_GetInitialConfigResponse: @unchecked Sendable {}
+extension Init_URLsList: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension GetInitialConfigRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "GetInitialConfigRequest"
+fileprivate let _protobuf_package = "init"
+
+extension Init_GetInitialConfigRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetInitialConfigRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "versionTimestamp"),
   ]
@@ -124,15 +126,15 @@ extension GetInitialConfigRequest: SwiftProtobuf.Message, SwiftProtobuf._Message
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetInitialConfigRequest, rhs: GetInitialConfigRequest) -> Bool {
+  public static func ==(lhs: Init_GetInitialConfigRequest, rhs: Init_GetInitialConfigRequest) -> Bool {
     if lhs._versionTimestamp != rhs._versionTimestamp {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension GetInitialConfigResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "GetInitialConfigResponse"
+extension Init_GetInitialConfigResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetInitialConfigResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "latestURLs"),
   ]
@@ -160,15 +162,15 @@ extension GetInitialConfigResponse: SwiftProtobuf.Message, SwiftProtobuf._Messag
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetInitialConfigResponse, rhs: GetInitialConfigResponse) -> Bool {
+  public static func ==(lhs: Init_GetInitialConfigResponse, rhs: Init_GetInitialConfigResponse) -> Bool {
     if lhs._latestUrls != rhs._latestUrls {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension URLsList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "URLsList"
+extension Init_URLsList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".URLsList"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "versionTimestamp"),
     2: .same(proto: "supabaseURL"),
@@ -206,7 +208,7 @@ extension URLsList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationB
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: URLsList, rhs: URLsList) -> Bool {
+  public static func ==(lhs: Init_URLsList, rhs: Init_URLsList) -> Bool {
     if lhs._versionTimestamp != rhs._versionTimestamp {return false}
     if lhs.supabaseURL != rhs.supabaseURL {return false}
     if lhs.supabaseKey != rhs.supabaseKey {return false}

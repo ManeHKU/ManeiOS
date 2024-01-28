@@ -20,7 +20,38 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
-public struct GetUpdatedURLsRequest {
+public struct Service_UpdateUserInfoRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var uid: UInt32 {
+    get {return _uid ?? 0}
+    set {_uid = newValue}
+  }
+  /// Returns true if `uid` has been explicitly set.
+  public var hasUid: Bool {return self._uid != nil}
+  /// Clears the value of `uid`. Subsequent reads from it will return its default value.
+  public mutating func clearUid() {self._uid = nil}
+
+  public var fullName: String {
+    get {return _fullName ?? String()}
+    set {_fullName = newValue}
+  }
+  /// Returns true if `fullName` has been explicitly set.
+  public var hasFullName: Bool {return self._fullName != nil}
+  /// Clears the value of `fullName`. Subsequent reads from it will return its default value.
+  public mutating func clearFullName() {self._fullName = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _uid: UInt32? = nil
+  fileprivate var _fullName: String? = nil
+}
+
+public struct Service_GetUpdatedURLsRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
@@ -41,13 +72,13 @@ public struct GetUpdatedURLsRequest {
   fileprivate var _versionTimestamp: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
-public struct GetUpdatedURLsResponse {
+public struct Service_GetUpdatedURLsResponse {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  public var latestUrls: GetUpdatedURLsResponse.URLsList {
-    get {return _latestUrls ?? GetUpdatedURLsResponse.URLsList()}
+  public var latestUrls: Service_GetUpdatedURLsResponse.URLsList {
+    get {return _latestUrls ?? Service_GetUpdatedURLsResponse.URLsList()}
     set {_latestUrls = newValue}
   }
   /// Returns true if `latestUrls` has been explicitly set.
@@ -82,19 +113,64 @@ public struct GetUpdatedURLsResponse {
 
   public init() {}
 
-  fileprivate var _latestUrls: GetUpdatedURLsResponse.URLsList? = nil
+  fileprivate var _latestUrls: Service_GetUpdatedURLsResponse.URLsList? = nil
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
-extension GetUpdatedURLsRequest: @unchecked Sendable {}
-extension GetUpdatedURLsResponse: @unchecked Sendable {}
-extension GetUpdatedURLsResponse.URLsList: @unchecked Sendable {}
+extension Service_UpdateUserInfoRequest: @unchecked Sendable {}
+extension Service_GetUpdatedURLsRequest: @unchecked Sendable {}
+extension Service_GetUpdatedURLsResponse: @unchecked Sendable {}
+extension Service_GetUpdatedURLsResponse.URLsList: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
-extension GetUpdatedURLsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "GetUpdatedURLsRequest"
+fileprivate let _protobuf_package = "service"
+
+extension Service_UpdateUserInfoRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UpdateUserInfoRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "uid"),
+    2: .same(proto: "fullName"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularUInt32Field(value: &self._uid) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._fullName) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._uid {
+      try visitor.visitSingularUInt32Field(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._fullName {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Service_UpdateUserInfoRequest, rhs: Service_UpdateUserInfoRequest) -> Bool {
+    if lhs._uid != rhs._uid {return false}
+    if lhs._fullName != rhs._fullName {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Service_GetUpdatedURLsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetUpdatedURLsRequest"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "versionTimestamp"),
   ]
@@ -122,15 +198,15 @@ extension GetUpdatedURLsRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetUpdatedURLsRequest, rhs: GetUpdatedURLsRequest) -> Bool {
+  public static func ==(lhs: Service_GetUpdatedURLsRequest, rhs: Service_GetUpdatedURLsRequest) -> Bool {
     if lhs._versionTimestamp != rhs._versionTimestamp {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension GetUpdatedURLsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = "GetUpdatedURLsResponse"
+extension Service_GetUpdatedURLsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetUpdatedURLsResponse"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "latestURLs"),
   ]
@@ -158,15 +234,15 @@ extension GetUpdatedURLsResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetUpdatedURLsResponse, rhs: GetUpdatedURLsResponse) -> Bool {
+  public static func ==(lhs: Service_GetUpdatedURLsResponse, rhs: Service_GetUpdatedURLsResponse) -> Bool {
     if lhs._latestUrls != rhs._latestUrls {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension GetUpdatedURLsResponse.URLsList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = GetUpdatedURLsResponse.protoMessageName + ".URLsList"
+extension Service_GetUpdatedURLsResponse.URLsList: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Service_GetUpdatedURLsResponse.protoMessageName + ".URLsList"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "versionTimestamp"),
     2: .same(proto: "URLs"),
@@ -199,7 +275,7 @@ extension GetUpdatedURLsResponse.URLsList: SwiftProtobuf.Message, SwiftProtobuf.
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: GetUpdatedURLsResponse.URLsList, rhs: GetUpdatedURLsResponse.URLsList) -> Bool {
+  public static func ==(lhs: Service_GetUpdatedURLsResponse.URLsList, rhs: Service_GetUpdatedURLsResponse.URLsList) -> Bool {
     if lhs._versionTimestamp != rhs._versionTimestamp {return false}
     if lhs.urls != rhs.urls {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}

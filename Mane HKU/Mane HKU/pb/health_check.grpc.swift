@@ -11,10 +11,10 @@ import NIOConcurrencyHelpers
 import SwiftProtobuf
 
 
-/// Usage: instantiate `Grpc_Health_V1_HealthClient`, then call methods of this protocol to make API calls.
-public protocol Grpc_Health_V1_HealthClientProtocol: GRPCClient {
+/// Usage: instantiate `Grpc_Health_V1_HealthCheckClient`, then call methods of this protocol to make API calls.
+public protocol Grpc_Health_V1_HealthCheckClientProtocol: GRPCClient {
   var serviceName: String { get }
-  var interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol? { get }
+  var interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol? { get }
 
   func check(
     _ request: Grpc_Health_V1_HealthCheckRequest,
@@ -28,9 +28,9 @@ public protocol Grpc_Health_V1_HealthClientProtocol: GRPCClient {
   ) -> ServerStreamingCall<Grpc_Health_V1_HealthCheckRequest, Grpc_Health_V1_HealthCheckResponse>
 }
 
-extension Grpc_Health_V1_HealthClientProtocol {
+extension Grpc_Health_V1_HealthCheckClientProtocol {
   public var serviceName: String {
-    return "grpc.health.v1.Health"
+    return "grpc.health.v1.HealthCheck"
   }
 
   /// Unary call to Check
@@ -44,7 +44,7 @@ extension Grpc_Health_V1_HealthClientProtocol {
     callOptions: CallOptions? = nil
   ) -> UnaryCall<Grpc_Health_V1_HealthCheckRequest, Grpc_Health_V1_HealthCheckResponse> {
     return self.makeUnaryCall(
-      path: Grpc_Health_V1_HealthClientMetadata.Methods.check.path,
+      path: Grpc_Health_V1_HealthCheckClientMetadata.Methods.check.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeCheckInterceptors() ?? []
@@ -64,7 +64,7 @@ extension Grpc_Health_V1_HealthClientProtocol {
     handler: @escaping (Grpc_Health_V1_HealthCheckResponse) -> Void
   ) -> ServerStreamingCall<Grpc_Health_V1_HealthCheckRequest, Grpc_Health_V1_HealthCheckResponse> {
     return self.makeServerStreamingCall(
-      path: Grpc_Health_V1_HealthClientMetadata.Methods.watch.path,
+      path: Grpc_Health_V1_HealthCheckClientMetadata.Methods.watch.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeWatchInterceptors() ?? [],
@@ -74,24 +74,24 @@ extension Grpc_Health_V1_HealthClientProtocol {
 }
 
 @available(*, deprecated)
-extension Grpc_Health_V1_HealthClient: @unchecked Sendable {}
+extension Grpc_Health_V1_HealthCheckClient: @unchecked Sendable {}
 
-@available(*, deprecated, renamed: "Grpc_Health_V1_HealthNIOClient")
-public final class Grpc_Health_V1_HealthClient: Grpc_Health_V1_HealthClientProtocol {
+@available(*, deprecated, renamed: "Grpc_Health_V1_HealthCheckNIOClient")
+public final class Grpc_Health_V1_HealthCheckClient: Grpc_Health_V1_HealthCheckClientProtocol {
   private let lock = Lock()
   private var _defaultCallOptions: CallOptions
-  private var _interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol?
+  private var _interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol?
   public let channel: GRPCChannel
   public var defaultCallOptions: CallOptions {
     get { self.lock.withLock { return self._defaultCallOptions } }
     set { self.lock.withLockVoid { self._defaultCallOptions = newValue } }
   }
-  public var interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol? {
+  public var interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol? {
     get { self.lock.withLock { return self._interceptors } }
     set { self.lock.withLockVoid { self._interceptors = newValue } }
   }
 
-  /// Creates a client for the grpc.health.v1.Health service.
+  /// Creates a client for the grpc.health.v1.HealthCheck service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
@@ -100,7 +100,7 @@ public final class Grpc_Health_V1_HealthClient: Grpc_Health_V1_HealthClientProto
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol? = nil
+    interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self._defaultCallOptions = defaultCallOptions
@@ -108,12 +108,12 @@ public final class Grpc_Health_V1_HealthClient: Grpc_Health_V1_HealthClientProto
   }
 }
 
-public struct Grpc_Health_V1_HealthNIOClient: Grpc_Health_V1_HealthClientProtocol {
+public struct Grpc_Health_V1_HealthCheckNIOClient: Grpc_Health_V1_HealthCheckClientProtocol {
   public var channel: GRPCChannel
   public var defaultCallOptions: CallOptions
-  public var interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol?
+  public var interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol?
 
-  /// Creates a client for the grpc.health.v1.Health service.
+  /// Creates a client for the grpc.health.v1.HealthCheck service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
@@ -122,7 +122,7 @@ public struct Grpc_Health_V1_HealthNIOClient: Grpc_Health_V1_HealthClientProtoco
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol? = nil
+    interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
@@ -131,9 +131,9 @@ public struct Grpc_Health_V1_HealthNIOClient: Grpc_Health_V1_HealthClientProtoco
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public protocol Grpc_Health_V1_HealthAsyncClientProtocol: GRPCClient {
+public protocol Grpc_Health_V1_HealthCheckAsyncClientProtocol: GRPCClient {
   static var serviceDescriptor: GRPCServiceDescriptor { get }
-  var interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol? { get }
+  var interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol? { get }
 
   func makeCheckCall(
     _ request: Grpc_Health_V1_HealthCheckRequest,
@@ -147,12 +147,12 @@ public protocol Grpc_Health_V1_HealthAsyncClientProtocol: GRPCClient {
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension Grpc_Health_V1_HealthAsyncClientProtocol {
+extension Grpc_Health_V1_HealthCheckAsyncClientProtocol {
   public static var serviceDescriptor: GRPCServiceDescriptor {
-    return Grpc_Health_V1_HealthClientMetadata.serviceDescriptor
+    return Grpc_Health_V1_HealthCheckClientMetadata.serviceDescriptor
   }
 
-  public var interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol? {
+  public var interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol? {
     return nil
   }
 
@@ -161,7 +161,7 @@ extension Grpc_Health_V1_HealthAsyncClientProtocol {
     callOptions: CallOptions? = nil
   ) -> GRPCAsyncUnaryCall<Grpc_Health_V1_HealthCheckRequest, Grpc_Health_V1_HealthCheckResponse> {
     return self.makeAsyncUnaryCall(
-      path: Grpc_Health_V1_HealthClientMetadata.Methods.check.path,
+      path: Grpc_Health_V1_HealthCheckClientMetadata.Methods.check.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeCheckInterceptors() ?? []
@@ -173,7 +173,7 @@ extension Grpc_Health_V1_HealthAsyncClientProtocol {
     callOptions: CallOptions? = nil
   ) -> GRPCAsyncServerStreamingCall<Grpc_Health_V1_HealthCheckRequest, Grpc_Health_V1_HealthCheckResponse> {
     return self.makeAsyncServerStreamingCall(
-      path: Grpc_Health_V1_HealthClientMetadata.Methods.watch.path,
+      path: Grpc_Health_V1_HealthCheckClientMetadata.Methods.watch.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeWatchInterceptors() ?? []
@@ -182,13 +182,13 @@ extension Grpc_Health_V1_HealthAsyncClientProtocol {
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension Grpc_Health_V1_HealthAsyncClientProtocol {
+extension Grpc_Health_V1_HealthCheckAsyncClientProtocol {
   public func check(
     _ request: Grpc_Health_V1_HealthCheckRequest,
     callOptions: CallOptions? = nil
   ) async throws -> Grpc_Health_V1_HealthCheckResponse {
     return try await self.performAsyncUnaryCall(
-      path: Grpc_Health_V1_HealthClientMetadata.Methods.check.path,
+      path: Grpc_Health_V1_HealthCheckClientMetadata.Methods.check.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeCheckInterceptors() ?? []
@@ -200,7 +200,7 @@ extension Grpc_Health_V1_HealthAsyncClientProtocol {
     callOptions: CallOptions? = nil
   ) -> GRPCAsyncResponseStream<Grpc_Health_V1_HealthCheckResponse> {
     return self.performAsyncServerStreamingCall(
-      path: Grpc_Health_V1_HealthClientMetadata.Methods.watch.path,
+      path: Grpc_Health_V1_HealthCheckClientMetadata.Methods.watch.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeWatchInterceptors() ?? []
@@ -209,15 +209,15 @@ extension Grpc_Health_V1_HealthAsyncClientProtocol {
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public struct Grpc_Health_V1_HealthAsyncClient: Grpc_Health_V1_HealthAsyncClientProtocol {
+public struct Grpc_Health_V1_HealthCheckAsyncClient: Grpc_Health_V1_HealthCheckAsyncClientProtocol {
   public var channel: GRPCChannel
   public var defaultCallOptions: CallOptions
-  public var interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol?
+  public var interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol?
 
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: Grpc_Health_V1_HealthClientInterceptorFactoryProtocol? = nil
+    interceptors: Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
@@ -225,7 +225,7 @@ public struct Grpc_Health_V1_HealthAsyncClient: Grpc_Health_V1_HealthAsyncClient
   }
 }
 
-public protocol Grpc_Health_V1_HealthClientInterceptorFactoryProtocol: Sendable {
+public protocol Grpc_Health_V1_HealthCheckClientInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when invoking 'check'.
   func makeCheckInterceptors() -> [ClientInterceptor<Grpc_Health_V1_HealthCheckRequest, Grpc_Health_V1_HealthCheckResponse>]
@@ -234,43 +234,43 @@ public protocol Grpc_Health_V1_HealthClientInterceptorFactoryProtocol: Sendable 
   func makeWatchInterceptors() -> [ClientInterceptor<Grpc_Health_V1_HealthCheckRequest, Grpc_Health_V1_HealthCheckResponse>]
 }
 
-public enum Grpc_Health_V1_HealthClientMetadata {
+public enum Grpc_Health_V1_HealthCheckClientMetadata {
   public static let serviceDescriptor = GRPCServiceDescriptor(
-    name: "Health",
-    fullName: "grpc.health.v1.Health",
+    name: "HealthCheck",
+    fullName: "grpc.health.v1.HealthCheck",
     methods: [
-      Grpc_Health_V1_HealthClientMetadata.Methods.check,
-      Grpc_Health_V1_HealthClientMetadata.Methods.watch,
+      Grpc_Health_V1_HealthCheckClientMetadata.Methods.check,
+      Grpc_Health_V1_HealthCheckClientMetadata.Methods.watch,
     ]
   )
 
   public enum Methods {
     public static let check = GRPCMethodDescriptor(
       name: "Check",
-      path: "/grpc.health.v1.Health/Check",
+      path: "/grpc.health.v1.HealthCheck/Check",
       type: GRPCCallType.unary
     )
 
     public static let watch = GRPCMethodDescriptor(
       name: "Watch",
-      path: "/grpc.health.v1.Health/Watch",
+      path: "/grpc.health.v1.HealthCheck/Watch",
       type: GRPCCallType.serverStreaming
     )
   }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-public protocol Grpc_Health_V1_HealthProvider: CallHandlerProvider {
-  var interceptors: Grpc_Health_V1_HealthServerInterceptorFactoryProtocol? { get }
+public protocol Grpc_Health_V1_HealthCheckProvider: CallHandlerProvider {
+  var interceptors: Grpc_Health_V1_HealthCheckServerInterceptorFactoryProtocol? { get }
 
   func check(request: Grpc_Health_V1_HealthCheckRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Grpc_Health_V1_HealthCheckResponse>
 
   func watch(request: Grpc_Health_V1_HealthCheckRequest, context: StreamingResponseCallContext<Grpc_Health_V1_HealthCheckResponse>) -> EventLoopFuture<GRPCStatus>
 }
 
-extension Grpc_Health_V1_HealthProvider {
+extension Grpc_Health_V1_HealthCheckProvider {
   public var serviceName: Substring {
-    return Grpc_Health_V1_HealthServerMetadata.serviceDescriptor.fullName[...]
+    return Grpc_Health_V1_HealthCheckServerMetadata.serviceDescriptor.fullName[...]
   }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -306,9 +306,9 @@ extension Grpc_Health_V1_HealthProvider {
 
 /// To implement a server, implement an object which conforms to this protocol.
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public protocol Grpc_Health_V1_HealthAsyncProvider: CallHandlerProvider, Sendable {
+public protocol Grpc_Health_V1_HealthCheckAsyncProvider: CallHandlerProvider, Sendable {
   static var serviceDescriptor: GRPCServiceDescriptor { get }
-  var interceptors: Grpc_Health_V1_HealthServerInterceptorFactoryProtocol? { get }
+  var interceptors: Grpc_Health_V1_HealthCheckServerInterceptorFactoryProtocol? { get }
 
   func check(
     request: Grpc_Health_V1_HealthCheckRequest,
@@ -323,16 +323,16 @@ public protocol Grpc_Health_V1_HealthAsyncProvider: CallHandlerProvider, Sendabl
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension Grpc_Health_V1_HealthAsyncProvider {
+extension Grpc_Health_V1_HealthCheckAsyncProvider {
   public static var serviceDescriptor: GRPCServiceDescriptor {
-    return Grpc_Health_V1_HealthServerMetadata.serviceDescriptor
+    return Grpc_Health_V1_HealthCheckServerMetadata.serviceDescriptor
   }
 
   public var serviceName: Substring {
-    return Grpc_Health_V1_HealthServerMetadata.serviceDescriptor.fullName[...]
+    return Grpc_Health_V1_HealthCheckServerMetadata.serviceDescriptor.fullName[...]
   }
 
-  public var interceptors: Grpc_Health_V1_HealthServerInterceptorFactoryProtocol? {
+  public var interceptors: Grpc_Health_V1_HealthCheckServerInterceptorFactoryProtocol? {
     return nil
   }
 
@@ -365,7 +365,7 @@ extension Grpc_Health_V1_HealthAsyncProvider {
   }
 }
 
-public protocol Grpc_Health_V1_HealthServerInterceptorFactoryProtocol: Sendable {
+public protocol Grpc_Health_V1_HealthCheckServerInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when handling 'check'.
   ///   Defaults to calling `self.makeInterceptors()`.
@@ -376,26 +376,26 @@ public protocol Grpc_Health_V1_HealthServerInterceptorFactoryProtocol: Sendable 
   func makeWatchInterceptors() -> [ServerInterceptor<Grpc_Health_V1_HealthCheckRequest, Grpc_Health_V1_HealthCheckResponse>]
 }
 
-public enum Grpc_Health_V1_HealthServerMetadata {
+public enum Grpc_Health_V1_HealthCheckServerMetadata {
   public static let serviceDescriptor = GRPCServiceDescriptor(
-    name: "Health",
-    fullName: "grpc.health.v1.Health",
+    name: "HealthCheck",
+    fullName: "grpc.health.v1.HealthCheck",
     methods: [
-      Grpc_Health_V1_HealthServerMetadata.Methods.check,
-      Grpc_Health_V1_HealthServerMetadata.Methods.watch,
+      Grpc_Health_V1_HealthCheckServerMetadata.Methods.check,
+      Grpc_Health_V1_HealthCheckServerMetadata.Methods.watch,
     ]
   )
 
   public enum Methods {
     public static let check = GRPCMethodDescriptor(
       name: "Check",
-      path: "/grpc.health.v1.Health/Check",
+      path: "/grpc.health.v1.HealthCheck/Check",
       type: GRPCCallType.unary
     )
 
     public static let watch = GRPCMethodDescriptor(
       name: "Watch",
-      path: "/grpc.health.v1.Health/Watch",
+      path: "/grpc.health.v1.HealthCheck/Watch",
       type: GRPCCallType.serverStreaming
     )
   }

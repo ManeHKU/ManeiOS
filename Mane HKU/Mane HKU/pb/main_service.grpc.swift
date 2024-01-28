@@ -11,20 +11,25 @@ import NIOConcurrencyHelpers
 import SwiftProtobuf
 
 
-/// Usage: instantiate `ServiceClient`, then call methods of this protocol to make API calls.
-public protocol ServiceClientProtocol: GRPCClient {
+/// Usage: instantiate `Service_MainServiceClient`, then call methods of this protocol to make API calls.
+public protocol Service_MainServiceClientProtocol: GRPCClient {
   var serviceName: String { get }
-  var interceptors: ServiceClientInterceptorFactoryProtocol? { get }
+  var interceptors: Service_MainServiceClientInterceptorFactoryProtocol? { get }
 
   func getUpdatedURLs(
-    _ request: GetUpdatedURLsRequest,
+    _ request: Service_GetUpdatedURLsRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<GetUpdatedURLsRequest, GetUpdatedURLsResponse>
+  ) -> UnaryCall<Service_GetUpdatedURLsRequest, Service_GetUpdatedURLsResponse>
+
+  func updateUserInfo(
+    _ request: Service_UpdateUserInfoRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty>
 }
 
-extension ServiceClientProtocol {
+extension Service_MainServiceClientProtocol {
   public var serviceName: String {
-    return "Service"
+    return "service.MainService"
   }
 
   /// Unary call to GetUpdatedURLs
@@ -34,37 +39,55 @@ extension ServiceClientProtocol {
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
   public func getUpdatedURLs(
-    _ request: GetUpdatedURLsRequest,
+    _ request: Service_GetUpdatedURLsRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<GetUpdatedURLsRequest, GetUpdatedURLsResponse> {
+  ) -> UnaryCall<Service_GetUpdatedURLsRequest, Service_GetUpdatedURLsResponse> {
     return self.makeUnaryCall(
-      path: ServiceClientMetadata.Methods.getUpdatedURLs.path,
+      path: Service_MainServiceClientMetadata.Methods.getUpdatedURLs.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeGetUpdatedURLsInterceptors() ?? []
     )
   }
+
+  /// Unary call to UpdateUserInfo
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UpdateUserInfo.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func updateUserInfo(
+    _ request: Service_UpdateUserInfoRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty> {
+    return self.makeUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.updateUserInfo.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpdateUserInfoInterceptors() ?? []
+    )
+  }
 }
 
 @available(*, deprecated)
-extension ServiceClient: @unchecked Sendable {}
+extension Service_MainServiceClient: @unchecked Sendable {}
 
-@available(*, deprecated, renamed: "ServiceNIOClient")
-public final class ServiceClient: ServiceClientProtocol {
+@available(*, deprecated, renamed: "Service_MainServiceNIOClient")
+public final class Service_MainServiceClient: Service_MainServiceClientProtocol {
   private let lock = Lock()
   private var _defaultCallOptions: CallOptions
-  private var _interceptors: ServiceClientInterceptorFactoryProtocol?
+  private var _interceptors: Service_MainServiceClientInterceptorFactoryProtocol?
   public let channel: GRPCChannel
   public var defaultCallOptions: CallOptions {
     get { self.lock.withLock { return self._defaultCallOptions } }
     set { self.lock.withLockVoid { self._defaultCallOptions = newValue } }
   }
-  public var interceptors: ServiceClientInterceptorFactoryProtocol? {
+  public var interceptors: Service_MainServiceClientInterceptorFactoryProtocol? {
     get { self.lock.withLock { return self._interceptors } }
     set { self.lock.withLockVoid { self._interceptors = newValue } }
   }
 
-  /// Creates a client for the Service service.
+  /// Creates a client for the service.MainService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
@@ -73,7 +96,7 @@ public final class ServiceClient: ServiceClientProtocol {
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: ServiceClientInterceptorFactoryProtocol? = nil
+    interceptors: Service_MainServiceClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self._defaultCallOptions = defaultCallOptions
@@ -81,12 +104,12 @@ public final class ServiceClient: ServiceClientProtocol {
   }
 }
 
-public struct ServiceNIOClient: ServiceClientProtocol {
+public struct Service_MainServiceNIOClient: Service_MainServiceClientProtocol {
   public var channel: GRPCChannel
   public var defaultCallOptions: CallOptions
-  public var interceptors: ServiceClientInterceptorFactoryProtocol?
+  public var interceptors: Service_MainServiceClientInterceptorFactoryProtocol?
 
-  /// Creates a client for the Service service.
+  /// Creates a client for the service.MainService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
@@ -95,7 +118,7 @@ public struct ServiceNIOClient: ServiceClientProtocol {
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: ServiceClientInterceptorFactoryProtocol? = nil
+    interceptors: Service_MainServiceClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
@@ -104,64 +127,93 @@ public struct ServiceNIOClient: ServiceClientProtocol {
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public protocol ServiceAsyncClientProtocol: GRPCClient {
+public protocol Service_MainServiceAsyncClientProtocol: GRPCClient {
   static var serviceDescriptor: GRPCServiceDescriptor { get }
-  var interceptors: ServiceClientInterceptorFactoryProtocol? { get }
+  var interceptors: Service_MainServiceClientInterceptorFactoryProtocol? { get }
 
   func makeGetUpdatedUrlsCall(
-    _ request: GetUpdatedURLsRequest,
+    _ request: Service_GetUpdatedURLsRequest,
     callOptions: CallOptions?
-  ) -> GRPCAsyncUnaryCall<GetUpdatedURLsRequest, GetUpdatedURLsResponse>
+  ) -> GRPCAsyncUnaryCall<Service_GetUpdatedURLsRequest, Service_GetUpdatedURLsResponse>
+
+  func makeUpdateUserInfoCall(
+    _ request: Service_UpdateUserInfoRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension ServiceAsyncClientProtocol {
+extension Service_MainServiceAsyncClientProtocol {
   public static var serviceDescriptor: GRPCServiceDescriptor {
-    return ServiceClientMetadata.serviceDescriptor
+    return Service_MainServiceClientMetadata.serviceDescriptor
   }
 
-  public var interceptors: ServiceClientInterceptorFactoryProtocol? {
+  public var interceptors: Service_MainServiceClientInterceptorFactoryProtocol? {
     return nil
   }
 
   public func makeGetUpdatedUrlsCall(
-    _ request: GetUpdatedURLsRequest,
+    _ request: Service_GetUpdatedURLsRequest,
     callOptions: CallOptions? = nil
-  ) -> GRPCAsyncUnaryCall<GetUpdatedURLsRequest, GetUpdatedURLsResponse> {
+  ) -> GRPCAsyncUnaryCall<Service_GetUpdatedURLsRequest, Service_GetUpdatedURLsResponse> {
     return self.makeAsyncUnaryCall(
-      path: ServiceClientMetadata.Methods.getUpdatedURLs.path,
+      path: Service_MainServiceClientMetadata.Methods.getUpdatedURLs.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeGetUpdatedURLsInterceptors() ?? []
     )
   }
-}
 
-@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension ServiceAsyncClientProtocol {
-  public func getUpdatedURLs(
-    _ request: GetUpdatedURLsRequest,
+  public func makeUpdateUserInfoCall(
+    _ request: Service_UpdateUserInfoRequest,
     callOptions: CallOptions? = nil
-  ) async throws -> GetUpdatedURLsResponse {
-    return try await self.performAsyncUnaryCall(
-      path: ServiceClientMetadata.Methods.getUpdatedURLs.path,
+  ) -> GRPCAsyncUnaryCall<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty> {
+    return self.makeAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.updateUserInfo.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
-      interceptors: self.interceptors?.makeGetUpdatedURLsInterceptors() ?? []
+      interceptors: self.interceptors?.makeUpdateUserInfoInterceptors() ?? []
     )
   }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public struct ServiceAsyncClient: ServiceAsyncClientProtocol {
+extension Service_MainServiceAsyncClientProtocol {
+  public func getUpdatedURLs(
+    _ request: Service_GetUpdatedURLsRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Service_GetUpdatedURLsResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.getUpdatedURLs.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetUpdatedURLsInterceptors() ?? []
+    )
+  }
+
+  public func updateUserInfo(
+    _ request: Service_UpdateUserInfoRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> SwiftProtobuf.Google_Protobuf_Empty {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.updateUserInfo.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpdateUserInfoInterceptors() ?? []
+    )
+  }
+}
+
+@available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
+public struct Service_MainServiceAsyncClient: Service_MainServiceAsyncClientProtocol {
   public var channel: GRPCChannel
   public var defaultCallOptions: CallOptions
-  public var interceptors: ServiceClientInterceptorFactoryProtocol?
+  public var interceptors: Service_MainServiceClientInterceptorFactoryProtocol?
 
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: ServiceClientInterceptorFactoryProtocol? = nil
+    interceptors: Service_MainServiceClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
@@ -169,40 +221,52 @@ public struct ServiceAsyncClient: ServiceAsyncClientProtocol {
   }
 }
 
-public protocol ServiceClientInterceptorFactoryProtocol: Sendable {
+public protocol Service_MainServiceClientInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when invoking 'getUpdatedURLs'.
-  func makeGetUpdatedURLsInterceptors() -> [ClientInterceptor<GetUpdatedURLsRequest, GetUpdatedURLsResponse>]
+  func makeGetUpdatedURLsInterceptors() -> [ClientInterceptor<Service_GetUpdatedURLsRequest, Service_GetUpdatedURLsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'updateUserInfo'.
+  func makeUpdateUserInfoInterceptors() -> [ClientInterceptor<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty>]
 }
 
-public enum ServiceClientMetadata {
+public enum Service_MainServiceClientMetadata {
   public static let serviceDescriptor = GRPCServiceDescriptor(
-    name: "Service",
-    fullName: "Service",
+    name: "MainService",
+    fullName: "service.MainService",
     methods: [
-      ServiceClientMetadata.Methods.getUpdatedURLs,
+      Service_MainServiceClientMetadata.Methods.getUpdatedURLs,
+      Service_MainServiceClientMetadata.Methods.updateUserInfo,
     ]
   )
 
   public enum Methods {
     public static let getUpdatedURLs = GRPCMethodDescriptor(
       name: "GetUpdatedURLs",
-      path: "/Service/GetUpdatedURLs",
+      path: "/service.MainService/GetUpdatedURLs",
+      type: GRPCCallType.unary
+    )
+
+    public static let updateUserInfo = GRPCMethodDescriptor(
+      name: "UpdateUserInfo",
+      path: "/service.MainService/UpdateUserInfo",
       type: GRPCCallType.unary
     )
   }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-public protocol ServiceProvider: CallHandlerProvider {
-  var interceptors: ServiceServerInterceptorFactoryProtocol? { get }
+public protocol Service_MainServiceProvider: CallHandlerProvider {
+  var interceptors: Service_MainServiceServerInterceptorFactoryProtocol? { get }
 
-  func getUpdatedURLs(request: GetUpdatedURLsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<GetUpdatedURLsResponse>
+  func getUpdatedURLs(request: Service_GetUpdatedURLsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Service_GetUpdatedURLsResponse>
+
+  func updateUserInfo(request: Service_UpdateUserInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
 }
 
-extension ServiceProvider {
+extension Service_MainServiceProvider {
   public var serviceName: Substring {
-    return ServiceServerMetadata.serviceDescriptor.fullName[...]
+    return Service_MainServiceServerMetadata.serviceDescriptor.fullName[...]
   }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -215,10 +279,19 @@ extension ServiceProvider {
     case "GetUpdatedURLs":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<GetUpdatedURLsRequest>(),
-        responseSerializer: ProtobufSerializer<GetUpdatedURLsResponse>(),
+        requestDeserializer: ProtobufDeserializer<Service_GetUpdatedURLsRequest>(),
+        responseSerializer: ProtobufSerializer<Service_GetUpdatedURLsResponse>(),
         interceptors: self.interceptors?.makeGetUpdatedURLsInterceptors() ?? [],
         userFunction: self.getUpdatedURLs(request:context:)
+      )
+
+    case "UpdateUserInfo":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Service_UpdateUserInfoRequest>(),
+        responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+        interceptors: self.interceptors?.makeUpdateUserInfoInterceptors() ?? [],
+        userFunction: self.updateUserInfo(request:context:)
       )
 
     default:
@@ -229,27 +302,32 @@ extension ServiceProvider {
 
 /// To implement a server, implement an object which conforms to this protocol.
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public protocol ServiceAsyncProvider: CallHandlerProvider, Sendable {
+public protocol Service_MainServiceAsyncProvider: CallHandlerProvider, Sendable {
   static var serviceDescriptor: GRPCServiceDescriptor { get }
-  var interceptors: ServiceServerInterceptorFactoryProtocol? { get }
+  var interceptors: Service_MainServiceServerInterceptorFactoryProtocol? { get }
 
   func getUpdatedURLs(
-    request: GetUpdatedURLsRequest,
+    request: Service_GetUpdatedURLsRequest,
     context: GRPCAsyncServerCallContext
-  ) async throws -> GetUpdatedURLsResponse
+  ) async throws -> Service_GetUpdatedURLsResponse
+
+  func updateUserInfo(
+    request: Service_UpdateUserInfoRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> SwiftProtobuf.Google_Protobuf_Empty
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension ServiceAsyncProvider {
+extension Service_MainServiceAsyncProvider {
   public static var serviceDescriptor: GRPCServiceDescriptor {
-    return ServiceServerMetadata.serviceDescriptor
+    return Service_MainServiceServerMetadata.serviceDescriptor
   }
 
   public var serviceName: Substring {
-    return ServiceServerMetadata.serviceDescriptor.fullName[...]
+    return Service_MainServiceServerMetadata.serviceDescriptor.fullName[...]
   }
 
-  public var interceptors: ServiceServerInterceptorFactoryProtocol? {
+  public var interceptors: Service_MainServiceServerInterceptorFactoryProtocol? {
     return nil
   }
 
@@ -261,10 +339,19 @@ extension ServiceAsyncProvider {
     case "GetUpdatedURLs":
       return GRPCAsyncServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<GetUpdatedURLsRequest>(),
-        responseSerializer: ProtobufSerializer<GetUpdatedURLsResponse>(),
+        requestDeserializer: ProtobufDeserializer<Service_GetUpdatedURLsRequest>(),
+        responseSerializer: ProtobufSerializer<Service_GetUpdatedURLsResponse>(),
         interceptors: self.interceptors?.makeGetUpdatedURLsInterceptors() ?? [],
         wrapping: { try await self.getUpdatedURLs(request: $0, context: $1) }
+      )
+
+    case "UpdateUserInfo":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Service_UpdateUserInfoRequest>(),
+        responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+        interceptors: self.interceptors?.makeUpdateUserInfoInterceptors() ?? [],
+        wrapping: { try await self.updateUserInfo(request: $0, context: $1) }
       )
 
     default:
@@ -273,26 +360,37 @@ extension ServiceAsyncProvider {
   }
 }
 
-public protocol ServiceServerInterceptorFactoryProtocol: Sendable {
+public protocol Service_MainServiceServerInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when handling 'getUpdatedURLs'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetUpdatedURLsInterceptors() -> [ServerInterceptor<GetUpdatedURLsRequest, GetUpdatedURLsResponse>]
+  func makeGetUpdatedURLsInterceptors() -> [ServerInterceptor<Service_GetUpdatedURLsRequest, Service_GetUpdatedURLsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'updateUserInfo'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUpdateUserInfoInterceptors() -> [ServerInterceptor<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty>]
 }
 
-public enum ServiceServerMetadata {
+public enum Service_MainServiceServerMetadata {
   public static let serviceDescriptor = GRPCServiceDescriptor(
-    name: "Service",
-    fullName: "Service",
+    name: "MainService",
+    fullName: "service.MainService",
     methods: [
-      ServiceServerMetadata.Methods.getUpdatedURLs,
+      Service_MainServiceServerMetadata.Methods.getUpdatedURLs,
+      Service_MainServiceServerMetadata.Methods.updateUserInfo,
     ]
   )
 
   public enum Methods {
     public static let getUpdatedURLs = GRPCMethodDescriptor(
       name: "GetUpdatedURLs",
-      path: "/Service/GetUpdatedURLs",
+      path: "/service.MainService/GetUpdatedURLs",
+      type: GRPCCallType.unary
+    )
+
+    public static let updateUserInfo = GRPCMethodDescriptor(
+      name: "UpdateUserInfo",
+      path: "/service.MainService/UpdateUserInfo",
       type: GRPCCallType.unary
     )
   }

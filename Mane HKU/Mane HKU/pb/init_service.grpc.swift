@@ -11,20 +11,20 @@ import NIOConcurrencyHelpers
 import SwiftProtobuf
 
 
-/// Usage: instantiate `ServiceClient`, then call methods of this protocol to make API calls.
-public protocol ServiceClientProtocol: GRPCClient {
+/// Usage: instantiate `Init_InitServiceClient`, then call methods of this protocol to make API calls.
+public protocol Init_InitServiceClientProtocol: GRPCClient {
   var serviceName: String { get }
-  var interceptors: ServiceClientInterceptorFactoryProtocol? { get }
+  var interceptors: Init_InitServiceClientInterceptorFactoryProtocol? { get }
 
   func getInitialConfig(
-    _ request: GetInitialConfigRequest,
+    _ request: Init_GetInitialConfigRequest,
     callOptions: CallOptions?
-  ) -> UnaryCall<GetInitialConfigRequest, GetInitialConfigResponse>
+  ) -> UnaryCall<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse>
 }
 
-extension ServiceClientProtocol {
+extension Init_InitServiceClientProtocol {
   public var serviceName: String {
-    return "Service"
+    return "init.InitService"
   }
 
   /// Unary call to GetInitialConfig
@@ -34,11 +34,11 @@ extension ServiceClientProtocol {
   ///   - callOptions: Call options.
   /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
   public func getInitialConfig(
-    _ request: GetInitialConfigRequest,
+    _ request: Init_GetInitialConfigRequest,
     callOptions: CallOptions? = nil
-  ) -> UnaryCall<GetInitialConfigRequest, GetInitialConfigResponse> {
+  ) -> UnaryCall<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse> {
     return self.makeUnaryCall(
-      path: ServiceClientMetadata.Methods.getInitialConfig.path,
+      path: Init_InitServiceClientMetadata.Methods.getInitialConfig.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeGetInitialConfigInterceptors() ?? []
@@ -47,24 +47,24 @@ extension ServiceClientProtocol {
 }
 
 @available(*, deprecated)
-extension ServiceClient: @unchecked Sendable {}
+extension Init_InitServiceClient: @unchecked Sendable {}
 
-@available(*, deprecated, renamed: "ServiceNIOClient")
-public final class ServiceClient: ServiceClientProtocol {
+@available(*, deprecated, renamed: "Init_InitServiceNIOClient")
+public final class Init_InitServiceClient: Init_InitServiceClientProtocol {
   private let lock = Lock()
   private var _defaultCallOptions: CallOptions
-  private var _interceptors: ServiceClientInterceptorFactoryProtocol?
+  private var _interceptors: Init_InitServiceClientInterceptorFactoryProtocol?
   public let channel: GRPCChannel
   public var defaultCallOptions: CallOptions {
     get { self.lock.withLock { return self._defaultCallOptions } }
     set { self.lock.withLockVoid { self._defaultCallOptions = newValue } }
   }
-  public var interceptors: ServiceClientInterceptorFactoryProtocol? {
+  public var interceptors: Init_InitServiceClientInterceptorFactoryProtocol? {
     get { self.lock.withLock { return self._interceptors } }
     set { self.lock.withLockVoid { self._interceptors = newValue } }
   }
 
-  /// Creates a client for the Service service.
+  /// Creates a client for the init.InitService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
@@ -73,7 +73,7 @@ public final class ServiceClient: ServiceClientProtocol {
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: ServiceClientInterceptorFactoryProtocol? = nil
+    interceptors: Init_InitServiceClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self._defaultCallOptions = defaultCallOptions
@@ -81,12 +81,12 @@ public final class ServiceClient: ServiceClientProtocol {
   }
 }
 
-public struct ServiceNIOClient: ServiceClientProtocol {
+public struct Init_InitServiceNIOClient: Init_InitServiceClientProtocol {
   public var channel: GRPCChannel
   public var defaultCallOptions: CallOptions
-  public var interceptors: ServiceClientInterceptorFactoryProtocol?
+  public var interceptors: Init_InitServiceClientInterceptorFactoryProtocol?
 
-  /// Creates a client for the Service service.
+  /// Creates a client for the init.InitService service.
   ///
   /// - Parameters:
   ///   - channel: `GRPCChannel` to the service host.
@@ -95,7 +95,7 @@ public struct ServiceNIOClient: ServiceClientProtocol {
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: ServiceClientInterceptorFactoryProtocol? = nil
+    interceptors: Init_InitServiceClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
@@ -104,32 +104,32 @@ public struct ServiceNIOClient: ServiceClientProtocol {
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public protocol ServiceAsyncClientProtocol: GRPCClient {
+public protocol Init_InitServiceAsyncClientProtocol: GRPCClient {
   static var serviceDescriptor: GRPCServiceDescriptor { get }
-  var interceptors: ServiceClientInterceptorFactoryProtocol? { get }
+  var interceptors: Init_InitServiceClientInterceptorFactoryProtocol? { get }
 
   func makeGetInitialConfigCall(
-    _ request: GetInitialConfigRequest,
+    _ request: Init_GetInitialConfigRequest,
     callOptions: CallOptions?
-  ) -> GRPCAsyncUnaryCall<GetInitialConfigRequest, GetInitialConfigResponse>
+  ) -> GRPCAsyncUnaryCall<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension ServiceAsyncClientProtocol {
+extension Init_InitServiceAsyncClientProtocol {
   public static var serviceDescriptor: GRPCServiceDescriptor {
-    return ServiceClientMetadata.serviceDescriptor
+    return Init_InitServiceClientMetadata.serviceDescriptor
   }
 
-  public var interceptors: ServiceClientInterceptorFactoryProtocol? {
+  public var interceptors: Init_InitServiceClientInterceptorFactoryProtocol? {
     return nil
   }
 
   public func makeGetInitialConfigCall(
-    _ request: GetInitialConfigRequest,
+    _ request: Init_GetInitialConfigRequest,
     callOptions: CallOptions? = nil
-  ) -> GRPCAsyncUnaryCall<GetInitialConfigRequest, GetInitialConfigResponse> {
+  ) -> GRPCAsyncUnaryCall<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse> {
     return self.makeAsyncUnaryCall(
-      path: ServiceClientMetadata.Methods.getInitialConfig.path,
+      path: Init_InitServiceClientMetadata.Methods.getInitialConfig.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeGetInitialConfigInterceptors() ?? []
@@ -138,13 +138,13 @@ extension ServiceAsyncClientProtocol {
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension ServiceAsyncClientProtocol {
+extension Init_InitServiceAsyncClientProtocol {
   public func getInitialConfig(
-    _ request: GetInitialConfigRequest,
+    _ request: Init_GetInitialConfigRequest,
     callOptions: CallOptions? = nil
-  ) async throws -> GetInitialConfigResponse {
+  ) async throws -> Init_GetInitialConfigResponse {
     return try await self.performAsyncUnaryCall(
-      path: ServiceClientMetadata.Methods.getInitialConfig.path,
+      path: Init_InitServiceClientMetadata.Methods.getInitialConfig.path,
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeGetInitialConfigInterceptors() ?? []
@@ -153,15 +153,15 @@ extension ServiceAsyncClientProtocol {
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public struct ServiceAsyncClient: ServiceAsyncClientProtocol {
+public struct Init_InitServiceAsyncClient: Init_InitServiceAsyncClientProtocol {
   public var channel: GRPCChannel
   public var defaultCallOptions: CallOptions
-  public var interceptors: ServiceClientInterceptorFactoryProtocol?
+  public var interceptors: Init_InitServiceClientInterceptorFactoryProtocol?
 
   public init(
     channel: GRPCChannel,
     defaultCallOptions: CallOptions = CallOptions(),
-    interceptors: ServiceClientInterceptorFactoryProtocol? = nil
+    interceptors: Init_InitServiceClientInterceptorFactoryProtocol? = nil
   ) {
     self.channel = channel
     self.defaultCallOptions = defaultCallOptions
@@ -169,40 +169,40 @@ public struct ServiceAsyncClient: ServiceAsyncClientProtocol {
   }
 }
 
-public protocol ServiceClientInterceptorFactoryProtocol: Sendable {
+public protocol Init_InitServiceClientInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when invoking 'getInitialConfig'.
-  func makeGetInitialConfigInterceptors() -> [ClientInterceptor<GetInitialConfigRequest, GetInitialConfigResponse>]
+  func makeGetInitialConfigInterceptors() -> [ClientInterceptor<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse>]
 }
 
-public enum ServiceClientMetadata {
+public enum Init_InitServiceClientMetadata {
   public static let serviceDescriptor = GRPCServiceDescriptor(
-    name: "Service",
-    fullName: "Service",
+    name: "InitService",
+    fullName: "init.InitService",
     methods: [
-      ServiceClientMetadata.Methods.getInitialConfig,
+      Init_InitServiceClientMetadata.Methods.getInitialConfig,
     ]
   )
 
   public enum Methods {
     public static let getInitialConfig = GRPCMethodDescriptor(
       name: "GetInitialConfig",
-      path: "/Service/GetInitialConfig",
+      path: "/init.InitService/GetInitialConfig",
       type: GRPCCallType.unary
     )
   }
 }
 
 /// To build a server, implement a class that conforms to this protocol.
-public protocol ServiceProvider: CallHandlerProvider {
-  var interceptors: ServiceServerInterceptorFactoryProtocol? { get }
+public protocol Init_InitServiceProvider: CallHandlerProvider {
+  var interceptors: Init_InitServiceServerInterceptorFactoryProtocol? { get }
 
-  func getInitialConfig(request: GetInitialConfigRequest, context: StatusOnlyCallContext) -> EventLoopFuture<GetInitialConfigResponse>
+  func getInitialConfig(request: Init_GetInitialConfigRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Init_GetInitialConfigResponse>
 }
 
-extension ServiceProvider {
+extension Init_InitServiceProvider {
   public var serviceName: Substring {
-    return ServiceServerMetadata.serviceDescriptor.fullName[...]
+    return Init_InitServiceServerMetadata.serviceDescriptor.fullName[...]
   }
 
   /// Determines, calls and returns the appropriate request handler, depending on the request's method.
@@ -215,8 +215,8 @@ extension ServiceProvider {
     case "GetInitialConfig":
       return UnaryServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<GetInitialConfigRequest>(),
-        responseSerializer: ProtobufSerializer<GetInitialConfigResponse>(),
+        requestDeserializer: ProtobufDeserializer<Init_GetInitialConfigRequest>(),
+        responseSerializer: ProtobufSerializer<Init_GetInitialConfigResponse>(),
         interceptors: self.interceptors?.makeGetInitialConfigInterceptors() ?? [],
         userFunction: self.getInitialConfig(request:context:)
       )
@@ -229,27 +229,27 @@ extension ServiceProvider {
 
 /// To implement a server, implement an object which conforms to this protocol.
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-public protocol ServiceAsyncProvider: CallHandlerProvider, Sendable {
+public protocol Init_InitServiceAsyncProvider: CallHandlerProvider, Sendable {
   static var serviceDescriptor: GRPCServiceDescriptor { get }
-  var interceptors: ServiceServerInterceptorFactoryProtocol? { get }
+  var interceptors: Init_InitServiceServerInterceptorFactoryProtocol? { get }
 
   func getInitialConfig(
-    request: GetInitialConfigRequest,
+    request: Init_GetInitialConfigRequest,
     context: GRPCAsyncServerCallContext
-  ) async throws -> GetInitialConfigResponse
+  ) async throws -> Init_GetInitialConfigResponse
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
-extension ServiceAsyncProvider {
+extension Init_InitServiceAsyncProvider {
   public static var serviceDescriptor: GRPCServiceDescriptor {
-    return ServiceServerMetadata.serviceDescriptor
+    return Init_InitServiceServerMetadata.serviceDescriptor
   }
 
   public var serviceName: Substring {
-    return ServiceServerMetadata.serviceDescriptor.fullName[...]
+    return Init_InitServiceServerMetadata.serviceDescriptor.fullName[...]
   }
 
-  public var interceptors: ServiceServerInterceptorFactoryProtocol? {
+  public var interceptors: Init_InitServiceServerInterceptorFactoryProtocol? {
     return nil
   }
 
@@ -261,8 +261,8 @@ extension ServiceAsyncProvider {
     case "GetInitialConfig":
       return GRPCAsyncServerHandler(
         context: context,
-        requestDeserializer: ProtobufDeserializer<GetInitialConfigRequest>(),
-        responseSerializer: ProtobufSerializer<GetInitialConfigResponse>(),
+        requestDeserializer: ProtobufDeserializer<Init_GetInitialConfigRequest>(),
+        responseSerializer: ProtobufSerializer<Init_GetInitialConfigResponse>(),
         interceptors: self.interceptors?.makeGetInitialConfigInterceptors() ?? [],
         wrapping: { try await self.getInitialConfig(request: $0, context: $1) }
       )
@@ -273,26 +273,26 @@ extension ServiceAsyncProvider {
   }
 }
 
-public protocol ServiceServerInterceptorFactoryProtocol: Sendable {
+public protocol Init_InitServiceServerInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when handling 'getInitialConfig'.
   ///   Defaults to calling `self.makeInterceptors()`.
-  func makeGetInitialConfigInterceptors() -> [ServerInterceptor<GetInitialConfigRequest, GetInitialConfigResponse>]
+  func makeGetInitialConfigInterceptors() -> [ServerInterceptor<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse>]
 }
 
-public enum ServiceServerMetadata {
+public enum Init_InitServiceServerMetadata {
   public static let serviceDescriptor = GRPCServiceDescriptor(
-    name: "Service",
-    fullName: "Service",
+    name: "InitService",
+    fullName: "init.InitService",
     methods: [
-      ServiceServerMetadata.Methods.getInitialConfig,
+      Init_InitServiceServerMetadata.Methods.getInitialConfig,
     ]
   )
 
   public enum Methods {
     public static let getInitialConfig = GRPCMethodDescriptor(
       name: "GetInitialConfig",
-      path: "/Service/GetInitialConfig",
+      path: "/init.InitService/GetInitialConfig",
       type: GRPCCallType.unary
     )
   }
