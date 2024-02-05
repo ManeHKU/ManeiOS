@@ -20,7 +20,7 @@ import os
     var loggedIn = false
     var loginErrorToast: ToastMessage = ToastMessage(show: false, title: "", subtitle: nil)
     
-    func loginUser(with userManager: UserManager) async {
+    func loginUser() async {
         defer {loading = false}
         loading = true
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: (String(describing: self)))
@@ -33,7 +33,7 @@ import os
         
         do {
             logger.info("starting supabase sign in")
-            try await userManager.supabase.auth.signIn(
+            try await UserManager.shared.supabase.auth.signIn(
                 email: "\(portalId)@connect.hku.hk",
                 password: password)
             logger.info("finished supabase sign in")

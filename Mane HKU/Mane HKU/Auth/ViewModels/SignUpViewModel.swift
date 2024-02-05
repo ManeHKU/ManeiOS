@@ -49,7 +49,7 @@ import os
         }
     }
     
-    func signUpUser(with userManager: UserManager) async {
+    func signUpUser() async {
         defer {loading = false}
         loading = true
         shouldPopView = false
@@ -61,7 +61,7 @@ import os
             return
         }
         
-        let (successfulSignIn, _)  = await portalScraper.signInToPortal(portalId: portalId, password: password)
+        let (successfulSignIn, _)  = await PortalScraper.shared.signInToPortal(portalId: portalId, password: password)
         
         if !successfulSignIn {
             logger.info("Failed to sign in, setting error message")
@@ -73,7 +73,7 @@ import os
         logger.info("verified can login to portal locally")
         do {
             logger.info("starting supabase signup")
-            let user = try await userManager.supabase.auth.signUp(
+            let user = try await UserManager.shared.supabase.auth.signUp(
                 email: "\(portalId)@connect.hku.hk",
                 password: password,
                 data: [

@@ -12,7 +12,6 @@ import AlertToast
 struct SignUpView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.presentationMode) private var presentationMode
-    @Environment(UserManager.self) private var userManager
     @Bindable private var signUpVM: SignUpViewModel = SignUpViewModel()
     
     @State private var showSecurityInfo = false
@@ -74,7 +73,7 @@ struct SignUpView: View {
         NavigationLink(value: "signUp", label: {
             Button {
                 Task {
-                    await signUpVM.signUpUser(with: userManager)
+                    await signUpVM.signUpUser()
                 }
             } label: {
                 HStack{

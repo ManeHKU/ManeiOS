@@ -9,7 +9,6 @@ import SwiftUI
 import AlertToast
 
 struct LoginView: View {
-    @Environment(UserManager.self) private var userManager
     @Bindable private var loginVM: LoginViewModel = LoginViewModel()
     
     var body: some View {
@@ -64,7 +63,7 @@ struct LoginView: View {
         NavigationLink(value: "login", label: {
             Button {
                 Task {
-                    await loginVM.loginUser(with: userManager)
+                    await loginVM.loginUser()
                 }
             } label: {
                 HStack{

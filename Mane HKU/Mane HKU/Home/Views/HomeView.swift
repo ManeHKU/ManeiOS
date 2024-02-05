@@ -6,31 +6,47 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct HomeView: View {
-    @Environment(UserManager.self) private var userManager
     @Bindable private var homeVM: HomeViewModel = HomeViewModel()
     
     var body: some View {
         VStack {
-            Text("Hello, Home!")
+            Text("Hello \(homeVM.nickname)")
             if homeVM.userInfo != nil {
                 Text("Your name: \(homeVM.userInfo?.fullName ?? "Empty")")
                 Text("Your UID: \(homeVM.userInfo?.uid ?? 0)")
             }
             
-            Button("Sign out") {
+            Button("Update info") {
                 Task {
-                    try! await userManager.supabase.auth.signOut()
+                    await homeVM.updateUserInfo()
                 }
             }
+            
+            Button("Sign out") {
+                Task {
+                    try! await UserManager.shared.supabase.auth.signOut()
+                }
+            }
+            .navigationTitle("Home")
             .navigationBarBackButtonHidden()
-        }.onAppear {
+        }
+        .toast(isPresenting: $homeVM.loading) {
+            AlertToast(displayMode: .alert, type: .loading)
+        }
+        .toast(isPresenting: $homeVM.updated) {
+            AlertToast(displayMode: .alert, type: .complete(.green), title: "Success", subTitle: "Updated User Info")
+        }
+        .toast(isPresenting: $homeVM.errorExists) {
+            AlertToast.createErrorToast(title: "Error", subtitle: homeVM.error)
+        }
+        .onAppear {
             Task {
-                await homeVM.initialLoginToSIS(using:userManager)
+                await homeVM.initialLoginToSIS()
             }
         }
-        
     }
 }
 

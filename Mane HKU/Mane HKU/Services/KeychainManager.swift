@@ -9,7 +9,7 @@ import Foundation
 import KeychainAccess
 import os
 
-class KeychainManager {
+final class KeychainManager {
     static let shared: Keychain = {
         let bundleId = Bundle.main.bundleIdentifier ?? "dev.yaucp.Mane-HKU"
         let instance = Keychain(service: bundleId)

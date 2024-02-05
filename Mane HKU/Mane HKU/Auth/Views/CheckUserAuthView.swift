@@ -13,7 +13,6 @@ struct CheckUserAuthView: View {
     @State private var isLoading = true
     @State private var showAuthSetup = false
     @State private var showHome = false
-    @State private var userManager: UserManager = UserManager()
     
     var body: some View {
         NavigationStack {
@@ -21,7 +20,7 @@ struct CheckUserAuthView: View {
                 BackgroundAuthView()
             }.onAppear {
                 Task {
-                    let isTokenValid = await userManager.checkLocalTokenValid()
+                    let isTokenValid = await UserManager.shared.checkLocalTokenValid()
                     isLoading = false
                     if isTokenValid {
                         showHome = true
@@ -37,7 +36,6 @@ struct CheckUserAuthView: View {
                 HomeView()
             }
         }
-        .environment(userManager)
         .toast(isPresenting: $isLoading) {
             AlertToast(displayMode: .alert, type: .loading)
         }

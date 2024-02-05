@@ -10,11 +10,14 @@ import Alamofire
 import os
 import SwiftSoup
 
-class PortalScraper {
+final class PortalScraper {
+    static let shared = PortalScraper()
     private var AF: Session
+    private var parser: Parser
     
     init() {
         self.AF = createNewSession()
+        self.parser = Parser()
     }
     
     func resetSession() {
@@ -41,7 +44,7 @@ class PortalScraper {
         
         let body = PortalLoginBody(keyId: keyId, username: portalId, password: password)
         logger.info("Verifying \(body.username)")
-        let (newSession, result) = await postPortalSignIn(using: AF, body)
+        let (_, result) = await postPortalSignIn(using: AF, body)
         switch result {
         case.success(let response):
             let statusCode = response.response?.statusCode
@@ -83,7 +86,7 @@ class PortalScraper {
             let link = try doc.select("a").first()!
             let linkHref = try link.attr("href")
             
-            let (newSession, result) = await getTicket(using: AF, ticketUrl: linkHref)
+            let (_, result) = await getTicket(using: AF, ticketUrl: linkHref)
             switch result {
             case.success(let response):
                 print("received good response, checking keywords")
@@ -179,14 +182,14 @@ class PortalScraper {
             print("ending get user info....")
         }
         print("starting to get user info")
-        let (session, infoResponse) = await getSISInfo(using: AF)
+        let (session, infoResponse) = await getSISPage(url: .info, using: AF)
         switch infoResponse{
         case .success(let response):
             guard let html = String(data: response.value!, encoding: .utf8) else {
                 return nil
             }
             print("success on getting user info html")
-            return parseInfo(html: html)
+            return parser.parseInfo(html: html)
         case .failure(PortalSignInError.expiredSession):
             print("Session expired. re-login needed")
         case .failure(let error):
@@ -194,31 +197,4 @@ class PortalScraper {
         }
         return nil
     }
-    
-    private func parseInfo(html: String) -> UserInfo? {
-        print("parsing info from html")
-        do {
-            let uid: UInt
-            let doc = try SwiftSoup.parse(html)
-            
-            let uidString = try doc.getElementById("Z_SS_STUD_SRCH_EMPLID")?.text(trimAndNormaliseWhitespace: true)
-            if let unwrappedUidString = uidString {
-                uid = UInt(unwrappedUidString) ?? 0
-            } else {
-                uid = 0
-            }
-            
-            let name = try doc.getElementById("PERSONAL_DATA_NAME")?.text(trimAndNormaliseWhitespace: true) ?? ""
-            
-            let userInfo = UserInfo(uid: uid, fullName: name)
-            print("parsed user info successfully")
-            return userInfo
-        } catch {
-            print(error)
-            print("aborting parse user info function")
-            return nil
-        }
-    }
 }
-
-let portalScraper = PortalScraper()

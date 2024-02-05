@@ -9,7 +9,6 @@ import SwiftUI
 import AlertToast
 
 struct ConfirmEmailView: View {
-    @Environment(UserManager.self) private var userManager
     @Bindable private var confirmEmailVM: ConfirmEmailViewModel
     init(loginDetails: PortalLoginDetails) {
         confirmEmailVM = ConfirmEmailViewModel(loginDetails: loginDetails)
@@ -51,7 +50,7 @@ struct ConfirmEmailView: View {
                                 print("submitting code")
                                 loading = true
                                 Task {
-                                    await confirmEmailVM.submitCode(with: userManager)
+                                    await confirmEmailVM.submitCode()
                                     loading = false
                                     if !confirmEmailVM.showSuccessPage {
                                         focusedField = true
@@ -70,7 +69,7 @@ struct ConfirmEmailView: View {
                                 Button(secondsRemaining == 0 ? "Resend code" : "Resend code after \(secondsRemaining) seconds") {
                                     if secondsRemaining == 0 {
                                         Task {
-                                            await confirmEmailVM.resendCode(with: userManager)
+                                            await confirmEmailVM.resendCode()
                                             secondsRemaining = 60
                                         }
                                     }

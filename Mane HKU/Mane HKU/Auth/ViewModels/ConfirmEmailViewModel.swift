@@ -24,11 +24,11 @@ import os
     var showVerifySuccessAlert = false
     
     
-    func resendCode(with userManager: UserManager) async {
+    func resendCode() async {
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: (String(describing: self)))
         do{
             print("resend code")
-            try await userManager.supabase.auth.resend(email: "\(loginDetails.portalId)@connect.hku.hk", type: .signup)
+            try await UserManager.shared.supabase.auth.resend(email: "\(loginDetails.portalId)@connect.hku.hk", type: .signup)
             goodToast.title = "Email has been resent"
             goodToast.subtitle = "Check your inbox"
             goodToast.show = true
@@ -40,10 +40,10 @@ import os
         }
     }
     
-    func submitCode(with userManager: UserManager) async {
+    func submitCode() async {
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: (String(describing: self)))
         do{
-            try await userManager.supabase.auth.verifyOTP(email: "\(loginDetails.portalId)@connect.hku.hk", token: otpCode, type: .signup)
+            try await UserManager.shared.supabase.auth.verifyOTP(email: "\(loginDetails.portalId)@connect.hku.hk", token: otpCode, type: .signup)
             logger.info("otp correct")
             KeychainManager.shared.secureSave(key: .PortalId, value: loginDetails.portalId)
             KeychainManager.shared.secureSave(key: .PortalPassword, value: loginDetails.password)
