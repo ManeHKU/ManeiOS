@@ -33,7 +33,7 @@ struct CheckUserAuthView: View {
                 AuthSetupView()
             }
             .navigationDestination(isPresented: $showHome) {
-                HomeView()
+                MainTabView()
             }
         }
         .toast(isPresenting: $isLoading) {

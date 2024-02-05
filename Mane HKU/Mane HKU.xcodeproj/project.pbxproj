@@ -31,6 +31,7 @@
 		B971B7532B66B05A00C4C72E /* main_service.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971B74D2B66B05A00C4C72E /* main_service.grpc.swift */; };
 		B971B7542B66B05A00C4C72E /* health_check.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971B74E2B66B05A00C4C72E /* health_check.pb.swift */; };
 		B98692162B3C8B1400F0D491 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = B98692152B3C8B1400F0D491 /* Auth */; };
+		B98DB9282B7149FA0053FEF7 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DB9272B7149FA0053FEF7 /* MainTabView.swift */; };
 		B99763B22B56F7A800A439F1 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99763B12B56F7A800A439F1 /* UserManager.swift */; };
 		B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABC2B2608B500B63C02 /* ManeApp.swift */; };
 		B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABE2B2608B500B63C02 /* ContentView.swift */; };
@@ -96,6 +97,7 @@
 		B971B74C2B66B05A00C4C72E /* init_service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = init_service.pb.swift; sourceTree = "<group>"; };
 		B971B74D2B66B05A00C4C72E /* main_service.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main_service.grpc.swift; sourceTree = "<group>"; };
 		B971B74E2B66B05A00C4C72E /* health_check.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = health_check.pb.swift; sourceTree = "<group>"; };
+		B98DB9272B7149FA0053FEF7 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		B99763B12B56F7A800A439F1 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		B9B0FAB92B2608B500B63C02 /* Mane HKU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mane HKU.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B0FABC2B2608B500B63C02 /* ManeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManeApp.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				B942D8042B50182800A26DAD /* HomeView.swift */,
+				B98DB9272B7149FA0053FEF7 /* MainTabView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -498,6 +501,7 @@
 				B9B375E42B5C4A9B00A594AA /* HomeViewModel.swift in Sources */,
 				B971B7542B66B05A00C4C72E /* health_check.pb.swift in Sources */,
 				B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */,
+				B98DB9282B7149FA0053FEF7 /* MainTabView.swift in Sources */,
 				B971B7502B66B05A00C4C72E /* health_check.grpc.swift in Sources */,
 				B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */,
 				B96591882B5547EA00FD1B91 /* CheckUserAuthView.swift in Sources */,

@@ -17,7 +17,7 @@ final class GRPCServiceManager {
     static let shared = GRPCServiceManager()
     var serviceClient: Service_MainServiceClientProtocol!
     private init() {
-        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 18952), eventLoopGroup: group))
+        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 14184), eventLoopGroup: group))
         serviceClient = Service_MainServiceNIOClient(channel: channel)
     }
     
