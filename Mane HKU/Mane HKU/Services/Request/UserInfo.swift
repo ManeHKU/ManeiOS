@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct UserInfo: Codable {
+struct UserInfo: Codable, Equatable {
     var uid: UInt
     var fullName: String
+    
+    static func == (lhs: UserInfo, rhs: UserInfo) -> Bool {
+        lhs.uid == rhs.uid && lhs.fullName == rhs.fullName
+    }
 }

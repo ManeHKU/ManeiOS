@@ -22,15 +22,17 @@ import SwiftProtobuf
         let defaults = UserDefaults.standard
         return defaults.string(forKey: UserDefaults.DefaultKey.nickname.rawValue) ?? ""
     }
-    var updated = false
-    var error = ""
-    var errorExists = false
+    var successMessage: ToastMessage = ToastMessage()
+    var errorMessage: ToastMessage = ToastMessage()
     
     init() {
         PortalScraper.shared.resetSession()
+        Task {
+            await self.initalise()
+        }
     }
     
-    func initialLoginToSIS() async {
+    private func initalise() async {
         defer {
             loading = false
         }
@@ -54,6 +56,7 @@ import SwiftProtobuf
         
         if await UserManager.shared.isAuthenticated && signedIn {
             self.userInfo = await PortalScraper.shared.getUserInfo()
+            await updateUserInfo()
         } else {
             try? await UserManager.shared.supabase.auth.signOut()
         }
@@ -74,13 +77,12 @@ import SwiftProtobuf
             print("recevied token")
             let unaryCall = GRPCServiceManager.shared.serviceClient.updateUserInfo(request, callOptions: callOptions)
             let statusCode = try await unaryCall.status.get()
-            let response = try await unaryCall.response.get()
+            _ = try await unaryCall.response.get()
             print("received results, with status \(statusCode)")
-            self.updated = true
+            self.successMessage.showMessage(title: "Success", subtitle: "Updated User Info")
         } catch {
-            print(error)
-            self.errorExists = true
-            self.error = error.localizedDescription
+            print(error.localizedDescription)
+            self.errorMessage.showMessage(title: "Error", subtitle: "Please try again later")
         }
     }
 }

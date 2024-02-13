@@ -14,9 +14,23 @@ enum ToastType {
 }
 
 struct ToastMessage {
-    var show: Bool
-    var title: String
-    var subtitle: String?
+    var show: Bool = false {
+        didSet {
+            // when the alert toast changes the show from true to false (i.e. it is shown)
+            if oldValue {
+                title = ""
+                subtitle = nil
+            }
+        }
+    }
+    var title: String = ""
+    var subtitle: String? = nil
+    
+    mutating func showMessage(title: String, subtitle: String) {
+        self.title = title
+        self.subtitle = subtitle
+        self.show = true
+    }
 }
 
 struct CreateToast: ViewModifier {
