@@ -25,9 +25,7 @@ import os
         loading = true
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: (String(describing: self)))
         if !loginFieldsValid {
-            loginErrorToast.title = "Unknown Error"
-            loginErrorToast.subtitle = "Try again"
-            loginErrorToast.show = true
+            loginErrorToast.showMessage(title: "Unknown Error", subtitle: "Please try again later.")
             return
         }
         
@@ -42,9 +40,7 @@ import os
             loggedIn = true
         } catch {
             logger.error("\(error.localizedDescription)")
-            loginErrorToast.title = error.localizedDescription
-            loginErrorToast.subtitle = nil
-            loginErrorToast.show = true
+            loginErrorToast.showMessage(title: "Error Logging In", subtitle: error.localizedDescription)
         }
     }
 }

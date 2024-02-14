@@ -17,6 +17,7 @@
 		B942D7FB2B4FDAF900A26DAD /* AlertToast.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7FA2B4FDAF900A26DAD /* AlertToast.swift */; };
 		B942D8012B4FE8A600A26DAD /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = B942D8002B4FE8A600A26DAD /* AlertToast */; };
 		B942D8052B50182800A26DAD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D8042B50182800A26DAD /* HomeView.swift */; };
+		B9442C432B7CE654004DCF7D /* AppRootManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C422B7CE654004DCF7D /* AppRootManager.swift */; };
 		B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F462B4BD453001A7070 /* KeychainManager.swift */; };
 		B95B5F4A2B4BD56B001A7070 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = B95B5F492B4BD56B001A7070 /* KeychainAccess */; };
 		B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */; };
@@ -86,6 +87,7 @@
 		B942D7F52B4EFFB900A26DAD /* ConfirmEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailViewModel.swift; sourceTree = "<group>"; };
 		B942D7FA2B4FDAF900A26DAD /* AlertToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
 		B942D8042B50182800A26DAD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		B9442C422B7CE654004DCF7D /* AppRootManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootManager.swift; sourceTree = "<group>"; };
 		B95B5F462B4BD453001A7070 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAuthView.swift; sourceTree = "<group>"; };
 		B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalScraper.swift; sourceTree = "<group>"; };
@@ -177,6 +179,22 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		B9442C442B7CE6EE004DCF7D /* Spalsh */ = {
+			isa = PBXGroup;
+			children = (
+				B9442C452B7CE6F7004DCF7D /* Views */,
+			);
+			path = Spalsh;
+			sourceTree = "<group>";
+		};
+		B9442C452B7CE6F7004DCF7D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B96591872B5547EA00FD1B91 /* CheckUserAuthView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B95B5F542B4C7B32001A7070 /* Services */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +253,7 @@
 		B9B0FABB2B2608B500B63C02 /* Mane HKU */ = {
 			isa = PBXGroup;
 			children = (
+				B9442C442B7CE6EE004DCF7D /* Spalsh */,
 				B971B7482B66B03A00C4C72E /* pb */,
 				B95B5F542B4C7B32001A7070 /* Services */,
 				B9B10E6A2B3DE14900A12CB6 /* Common */,
@@ -244,6 +263,7 @@
 				B9B0FABE2B2608B500B63C02 /* ContentView.swift */,
 				B9B0FAC02B2608B600B63C02 /* Assets.xcassets */,
 				B9B0FAC22B2608B600B63C02 /* Preview Content */,
+				B9442C422B7CE654004DCF7D /* AppRootManager.swift */,
 			);
 			path = "Mane HKU";
 			sourceTree = "<group>";
@@ -318,7 +338,6 @@
 				B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */,
 				B942D7F12B4E820D00A26DAD /* ConfirmEmailView.swift */,
 				B910B13A2B52772700A54EAB /* LoginView.swift */,
-				B96591872B5547EA00FD1B91 /* CheckUserAuthView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -527,6 +546,7 @@
 				B99763B22B56F7A800A439F1 /* UserManager.swift in Sources */,
 				B9DD4BD32B5BF636009D3FB0 /* AuthUtils.swift in Sources */,
 				B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */,
+				B9442C432B7CE654004DCF7D /* AppRootManager.swift in Sources */,
 				B971B74F2B66B05A00C4C72E /* main_service.pb.swift in Sources */,
 				B971B7532B66B05A00C4C72E /* main_service.grpc.swift in Sources */,
 			);

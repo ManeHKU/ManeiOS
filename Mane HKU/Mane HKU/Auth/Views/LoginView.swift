@@ -10,6 +10,7 @@ import AlertToast
 
 struct LoginView: View {
     @Bindable private var loginVM: LoginViewModel = LoginViewModel()
+    @EnvironmentObject private var appRootManager: AppRootManager
     
     var body: some View {
         NavigationStack {
@@ -33,9 +34,6 @@ struct LoginView: View {
                 .background(.thinMaterial)
             }
             .navigationTitle("Login")
-            .navigationDestination(isPresented: $loginVM.loggedIn) {
-                HomeView()
-            }
         }
         .errorToast(title: loginVM.loginErrorToast.title, subtitle: loginVM.loginErrorToast.subtitle, trigger: $loginVM.loginErrorToast.show)
         .toast(isPresenting: $loginVM.loading) {
@@ -64,6 +62,11 @@ struct LoginView: View {
             Button {
                 Task {
                     await loginVM.loginUser()
+                    if loginVM.loggedIn {
+                        withAnimation(.spring()) {
+                            appRootManager.currentRoot = .home
+                        }
+                    }
                 }
             } label: {
                 HStack{

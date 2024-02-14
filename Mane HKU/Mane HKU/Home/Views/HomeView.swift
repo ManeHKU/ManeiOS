@@ -22,10 +22,10 @@ struct HomeView: View {
     @Bindable private var homeVM: HomeViewModel = HomeViewModel()
     
     private var greetingMessage: String {
-      let hour = Calendar.current.component(.hour, from: Date())
-      if hour < 12 { return "Good morning" }
-      if hour < 18 { return "Good afternoon" }
-      return "Good evening"
+        let hour = Calendar.current.component(.hour, from: Date())
+        if hour < 12 { return "Good morning" }
+        if hour < 18 { return "Good afternoon" }
+        return "Good evening"
     }
     
     private let homeMenuItems: [HomeMenuItem] = [
@@ -33,7 +33,7 @@ struct HomeView: View {
     ]
     
     var body: some View {
-        NavigationStack {
+        NavigationStack{
             VStack(spacing: 10) {
                 HStack {
                     Text("\(greetingMessage), \(homeVM.nickname)!")
@@ -71,7 +71,7 @@ struct HomeView: View {
             }
             .padding(.all, 15)
             .navigationTitle("Home")
-            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.large)
         }
         .toast(isPresenting: $homeVM.loading) {
             AlertToast(displayMode: .alert, type: .loading)

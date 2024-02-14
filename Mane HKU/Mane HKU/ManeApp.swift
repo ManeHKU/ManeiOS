@@ -9,9 +9,22 @@ import SwiftUI
 
 @main
 struct ManeHKUApp: App {
+    @State private var appRootManager = AppRootManager()
     var body: some Scene {
         WindowGroup {
-            CheckUserAuthView()
+            Group {
+                switch appRootManager.currentRoot {
+                case .splash:
+                    SplashView()
+                    
+                case .authentication:
+                    AuthSetupView().transition(.slide)
+                    
+                case .home:
+                    MainTabView().transition(.slide)
+                }
+            }
+            .environmentObject(appRootManager)
         }
     }
 }
