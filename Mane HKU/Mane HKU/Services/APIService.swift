@@ -61,6 +61,10 @@ func postPortalSignIn(using session: Session,_ body: PortalLoginBody) async -> (
                             if location == PortalURLs.retry.rawValue {
                                 continuation.resume(returning: (session, Result.failure(PortalSignInError.wrongCredentials)))
                                 return
+                            } else if location.contains("z_signon.jsp") {
+                                logger.info("Recevied 302 but with correct redirect header")
+                                continuation.resume(returning: (session, Result.success(AFResponse)))
+                                return
                             }
                         }
                     }
@@ -137,6 +141,7 @@ func getSISPage(url: PortalURLs, using session: Session)  async -> (client: Sess
                     if !validateNotSignedOut(response: AFResponse) {
                         logger.info("Session failed. retried is needed")
                         continuation.resume(returning: (session, Result.failure(PortalSignInError.expiredSession)))
+                        return
                     }
                     logger.info("Recevied good status code + received user info")
                     continuation.resume(returning: (session, Result.success(AFResponse)))

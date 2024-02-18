@@ -26,7 +26,6 @@ import SwiftProtobuf
     var errorMessage: ToastMessage = ToastMessage()
     
     init() {
-        PortalScraper.shared.resetSession()
         Task {
             await self.initalise()
         }
@@ -37,12 +36,24 @@ import SwiftProtobuf
             loading = false
         }
         loading = true
+        await PortalScraper.shared.resetSession()
         let defaults = UserDefaults.standard
         if defaults.isKeyPresent(key: .userInfo) {
             print("user default present")
             if let data = defaults.data(forKey: UserDefaults.DefaultKey.userInfo.rawValue) {
                 print("Got the user default")
                 userInfo = try? JSONDecoder().decode(UserInfo.self, from: data)
+                Task {
+                    guard let portalId = KeychainManager.shared.secureGet(key: .PortalId),
+                          let password = KeychainManager.shared.secureGet(key: .PortalPassword) else {
+                        print("Portal id or password doesn't exist")
+                        return
+                    }
+                    let signedIn = await PortalScraper.shared.signInSIS(portalId: portalId, password: password)
+                    if !signedIn {
+                        self.errorMessage.showMessage(title: "Error", subtitle: "Please try again later")
+                    }
+                }
                 return
             }
         }

@@ -10,7 +10,7 @@ import Alamofire
 import os
 import SwiftSoup
 
-final class PortalScraper {
+final actor PortalScraper {
     static let shared = PortalScraper()
     private var AF: Session
     private var parser: Parser
@@ -48,10 +48,15 @@ final class PortalScraper {
         switch result {
         case.success(let response):
             let statusCode = response.response?.statusCode
-            if statusCode != 200 {
+            let location = response.response?.value(forHTTPHeaderField: "Location")
+            if statusCode == 302 && location != nil && location!.contains("z_signon.jsp"){
+                logger.info("\(body.username) signed in")
+                return (true, response)
+            } else if statusCode != 200 {
                 logger.error("recevied unknown status code of \(statusCode ?? 0)")
                 return (false, response: nil)
             }
+            // Old way of logging in
             logger.info("\(body.username) signed in")
             
             logger.info("Searching for the phrase confirming successful login")
@@ -71,37 +76,42 @@ final class PortalScraper {
     
     func accessTicket(signInResponse: AFDataResponse<Data>) async -> (gotTicket: Bool,  response: AFDataResponse<Data>?) {
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "verifyPortalSignIn")
+        let linkHref: String
         
-        logger.info("Extracting html to get ticket url")
-        if signInResponse.value == nil {
-            logger.info("cannot find html")
-            return (false, nil)
-        }
-        guard let html = String(data: signInResponse.value!, encoding: .utf8) else {
-            return (false, nil)
-        }
-        
-        do {
-            let doc = try SwiftSoup.parse(html)
-            let link = try doc.select("a").first()!
-            let linkHref = try link.attr("href")
-            
-            let (_, result) = await getTicket(using: AF, ticketUrl: linkHref)
-            switch result {
-            case.success(let response):
-                print("received good response, checking keywords")
-                guard let html = String(data: response.value!, encoding: .utf8) else {
-                    return (false, response)
+        logger.info("Extracting location header first")
+        if let location = signInResponse.response?.value(forHTTPHeaderField: "Location"), location.contains("z_signon.jsp") {
+            logger.info("Found url in location header")
+            linkHref = location
+        } else {
+            logger.info("Extracting html to get ticket url")
+            do {
+                if signInResponse.value == nil {
+                    logger.info("cannot find html")
+                    return (false, nil)
                 }
-                print(html)
-                return (html.contains("HKU CAS Signon Page"), response)
-            case .failure(let error):
-                logger.error("\(error.localizedDescription)")
+                guard let html = String(data: signInResponse.value!, encoding: .utf8) else {
+                    return (false, nil)
+                }
+                let doc = try SwiftSoup.parse(html)
+                let link = try doc.select("a").first()!
+                linkHref = try link.attr("href")
+            } catch {
+                logger.error("error when getting ticket: \(error, privacy: .private)")
                 return (false, response: nil)
             }
-            
-        } catch {
-            logger.error("error when getting ticket: \(error, privacy: .private)")
+        }
+        
+        let (_, result) = await getTicket(using: AF, ticketUrl: linkHref)
+        switch result {
+        case.success(let response):
+            print("received good response, checking keywords")
+            guard let html = String(data: response.value!, encoding: .utf8) else {
+                return (false, response)
+            }
+            print(html)
+            return (html.contains("HKU CAS Signon Page"), response)
+        case .failure(let error):
+            logger.error("\(error.localizedDescription)")
             return (false, response: nil)
         }
         
@@ -177,6 +187,16 @@ final class PortalScraper {
         return true
     }
     
+    func reloginToSIS() async -> Bool {
+        self.resetSession()
+        guard let portalId = KeychainManager.shared.secureGet(key: .PortalId),
+              let password = KeychainManager.shared.secureGet(key: .PortalPassword) else {
+            print("password doesn't exist. whoops")
+            return false
+        }
+        return await self.signInSIS(portalId: portalId, password: password)
+    }
+    
     func getUserInfo() async -> UserInfo? {
         defer {
             print("ending get user info....")
@@ -192,6 +212,31 @@ final class PortalScraper {
             return parser.parseInfo(html: html)
         case .failure(PortalSignInError.expiredSession):
             print("Session expired. re-login needed")
+        case .failure(let error):
+            print(error)
+        }
+        return nil
+    }
+    
+    func getTranscript() async -> Transcript? {
+        defer {
+            print("ending get transcript....")
+        }
+        print("starting to get transcript")
+        let (_, infoResponse) = await getSISPage(url: .transcript, using: AF)
+        switch infoResponse{
+        case .success(let response):
+            guard let html = String(data: response.value!, encoding: .utf8) else {
+                return nil
+            }
+            print("success on getting transcript html")
+            return parser.parseTranscript(html: html)
+        case .failure(PortalSignInError.expiredSession):
+            print("Session expired. re-login needed")
+//            if await reloginToSIS() {
+//                let (_, infoResponse) = await getSISPage(url: .transcript, using: AF)
+//                if infoResponse.self.
+//            }
         case .failure(let error):
             print(error)
         }

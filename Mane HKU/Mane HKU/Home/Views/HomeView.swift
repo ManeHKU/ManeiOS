@@ -14,8 +14,8 @@ struct HomeMenuItem: Identifiable {
     let subtitle: String?
 }
 
-enum HomeMenuType: String {
-    case test = "Hello On9"
+enum HomeMenuType {
+    case transcript
 }
 
 struct HomeView: View {
@@ -29,7 +29,7 @@ struct HomeView: View {
     }
     
     private let homeMenuItems: [HomeMenuItem] = [
-        HomeMenuItem(id: .test, title: "Hello On9", subtitle: "Enrol in Shithead lmao")
+        HomeMenuItem(id: .transcript, title: "Transcript", subtitle: "See your academic records")
     ]
     
     var body: some View {
@@ -64,8 +64,8 @@ struct HomeView: View {
                 .listStyle(.inset)
                 .navigationDestination(for: HomeMenuType.self) { type in
                     switch type {
-                    case .test:
-                        Text("on9 dou mou lun")
+                    case .transcript:
+                        TranscriptView()
                     }
                 }
             }

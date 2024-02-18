@@ -1,0 +1,114 @@
+//
+//  Transcript.swift
+//  Mane HKU
+//
+//  Created by Yau Chin Pang on 14/2/2024.
+//
+
+import Foundation
+
+struct Transcript: Codable {
+    let program: String
+//    let curriculum: [String]
+    let year: UInt8
+//    let majors: [String]?
+//    let minors: [String]?
+    
+    var courseLists: [String: [Semester: [Course]]]?
+    var ug5ePassed: Bool?
+    var latestGPA: Double?
+    var GPAs: [GPAHistory]?
+}
+
+enum Grade: String, Codable {
+    case APlus = "A+"
+    case A = "A"
+    case AMin = "A-"
+    case BPlus = "B+"
+    case B = "B"
+    case BMin = "B-"
+    case CPlus = "C+"
+    case C = "C"
+    case CMin = "C-"
+    case DPlus = "D+"
+    case D = "D"
+    case F = "F"
+    case EX = "EX"
+    case FL = "FL"
+    case N = "N"
+    case NC = "NC"
+    case NE = "NE"
+    case NS = "NS"
+    case NV = "NV"
+    case PE = "PE"
+    case SC = "SC"
+    case SE = "SE"
+    case WD = "WD"
+    case UNRELEASED = "**"
+    case ONGOING = "ONGOING"
+    case UNKNOWN = "UNKNOWN"
+    
+    var description : String {
+        switch self {
+        case .F:
+            "Fail"
+        case .EX:
+            "Exemption granted"
+        case .FL:
+            "Not examined (Failed)"
+        case .N:
+            "Absence from examination due to illness"
+        case .NC:
+            "Did not complete"
+        case .NE:
+            "Not examined (Failed)"
+        case .NS:
+            "Non-satisfactory completion"
+        case .NV:
+            "No evaluation"
+        case .PE:
+            "Results not yet available"
+        case .SC:
+            "Satisfactory completion"
+        case .SE:
+            "Continuous assessment, result incorporated in summative assessment/examination"
+        case .WD:
+            "Withdrew from course/ module"
+        case .ONGOING:
+            "Ongoing"
+        case .UNRELEASED:
+            "To be released"
+        default:
+            self.rawValue
+        }
+      }
+}
+
+enum CourseStatus: String, Codable {
+    case toBeReleased, taken, transferred, inProgress, unknown
+}
+
+struct Course: Codable, Equatable {
+    let code: String
+    let title: String
+    let term: String
+    let semester: Semester
+    let grade: Grade
+    let credit: Double?
+    let status: CourseStatus
+    
+    static func == (lCourse: Self, rCourse: Self) -> Bool {
+        lCourse.code == rCourse.code
+    }
+}
+
+enum Semester: Codable {
+    case SEM1, SEM2, SUMMER, UNKNOWN
+}
+
+struct GPAHistory: Codable {
+    let year: String
+    let semester: Semester
+    let sGPA: Double?
+    let cGPA: Double?
+}

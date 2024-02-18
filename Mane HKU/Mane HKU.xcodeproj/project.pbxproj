@@ -18,6 +18,9 @@
 		B942D8012B4FE8A600A26DAD /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = B942D8002B4FE8A600A26DAD /* AlertToast */; };
 		B942D8052B50182800A26DAD /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D8042B50182800A26DAD /* HomeView.swift */; };
 		B9442C432B7CE654004DCF7D /* AppRootManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C422B7CE654004DCF7D /* AppRootManager.swift */; };
+		B9442C472B7CF1C7004DCF7D /* TranscriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C462B7CF1C7004DCF7D /* TranscriptView.swift */; };
+		B9442C492B7CF1FF004DCF7D /* TranscriptViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C482B7CF1FF004DCF7D /* TranscriptViewModel.swift */; };
+		B9442C4B2B7CF72E004DCF7D /* Transcript.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9442C4A2B7CF72E004DCF7D /* Transcript.swift */; };
 		B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F462B4BD453001A7070 /* KeychainManager.swift */; };
 		B95B5F4A2B4BD56B001A7070 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = B95B5F492B4BD56B001A7070 /* KeychainAccess */; };
 		B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */; };
@@ -88,6 +91,9 @@
 		B942D7FA2B4FDAF900A26DAD /* AlertToast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToast.swift; sourceTree = "<group>"; };
 		B942D8042B50182800A26DAD /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		B9442C422B7CE654004DCF7D /* AppRootManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRootManager.swift; sourceTree = "<group>"; };
+		B9442C462B7CF1C7004DCF7D /* TranscriptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptView.swift; sourceTree = "<group>"; };
+		B9442C482B7CF1FF004DCF7D /* TranscriptViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranscriptViewModel.swift; sourceTree = "<group>"; };
+		B9442C4A2B7CF72E004DCF7D /* Transcript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transcript.swift; sourceTree = "<group>"; };
 		B95B5F462B4BD453001A7070 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundAuthView.swift; sourceTree = "<group>"; };
 		B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalScraper.swift; sourceTree = "<group>"; };
@@ -175,6 +181,7 @@
 			children = (
 				B942D8042B50182800A26DAD /* HomeView.swift */,
 				B98DB9272B7149FA0053FEF7 /* MainTabView.swift */,
+				B9442C462B7CF1C7004DCF7D /* TranscriptView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -198,7 +205,7 @@
 		B95B5F542B4C7B32001A7070 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B95B5F592B4C874A001A7070 /* Request */,
+				B95B5F592B4C874A001A7070 /* ParsedResponse */,
 				B95B5F462B4BD453001A7070 /* KeychainManager.swift */,
 				B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */,
 				B95B5F572B4C7CB0001A7070 /* APIService.swift */,
@@ -208,12 +215,13 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		B95B5F592B4C874A001A7070 /* Request */ = {
+		B95B5F592B4C874A001A7070 /* ParsedResponse */ = {
 			isa = PBXGroup;
 			children = (
 				B9B375E52B5CF74900A594AA /* UserInfo.swift */,
+				B9442C4A2B7CF72E004DCF7D /* Transcript.swift */,
 			);
-			path = Request;
+			path = ParsedResponse;
 			sourceTree = "<group>";
 		};
 		B971B7482B66B03A00C4C72E /* pb */ = {
@@ -326,6 +334,7 @@
 			isa = PBXGroup;
 			children = (
 				B9B375E32B5C4A9B00A594AA /* HomeViewModel.swift */,
+				B9442C482B7CF1FF004DCF7D /* TranscriptViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -535,6 +544,7 @@
 				B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */,
 				B95B5F582B4C7CB0001A7070 /* APIService.swift in Sources */,
 				B9E7E0C02B489F36006EE61B /* String.swift in Sources */,
+				B9442C4B2B7CF72E004DCF7D /* Transcript.swift in Sources */,
 				B910B13B2B52772700A54EAB /* LoginView.swift in Sources */,
 				B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */,
 				B91B986D2B62893000608766 /* UserDefault.swift in Sources */,
@@ -545,6 +555,8 @@
 				B91B986B2B6283DC00608766 /* Parser.swift in Sources */,
 				B99763B22B56F7A800A439F1 /* UserManager.swift in Sources */,
 				B9DD4BD32B5BF636009D3FB0 /* AuthUtils.swift in Sources */,
+				B9442C492B7CF1FF004DCF7D /* TranscriptViewModel.swift in Sources */,
+				B9442C472B7CF1C7004DCF7D /* TranscriptView.swift in Sources */,
 				B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */,
 				B9442C432B7CE654004DCF7D /* AppRootManager.swift in Sources */,
 				B971B74F2B66B05A00C4C72E /* main_service.pb.swift in Sources */,
