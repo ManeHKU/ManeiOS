@@ -94,6 +94,32 @@ struct Parser {
         return transcript
     }
     
+    func parseRawTermSemester(input rawTerm: String) -> (String, Semester)? {
+        let rawTermSplit = rawTerm.components(separatedBy: " ")
+        print("term: \(String(describing: rawTerm))")
+        if rawTermSplit.count != 3 {
+            print("unknown term detected")
+            return nil
+        }
+        let term = rawTermSplit[0]
+        let semester: Semester
+        switch rawTermSplit.last {
+        case "1":
+            semester = .SEM1
+        case "2":
+            semester = .SEM2
+        default:
+            if rawTermSplit[1] == "Sum" && rawTermSplit.last == "Sem" {
+                semester = .SUMMER
+            } else {
+                print("UNKNOWN: \(rawTermSplit[-1])")
+                semester = .UNKNOWN
+            }
+        }
+        
+        return (term, semester)
+    }
+    
     func parseTranscriptCourseRow(tr row: Element) -> Course? {
         let tdCount = try? row.select("td").count 
         if tdCount != 7 {
@@ -121,34 +147,18 @@ struct Parser {
         }
         print("raw term: \(rawTerm)")
         
-        let term: String
-        let semester: Semester
-        let rawTermSplit = rawTerm.components(separatedBy: " ")
-        print("term: \(String(describing: rawTerm))")
-        if rawTermSplit.count != 3 {
-            print("unknown term detected")
+        guard let parsedSemesterTerm = parseRawTermSemester(input: rawTerm) else {
+            print("cannot parse term/semester")
             return nil
         }
-        term = rawTermSplit[0]
-        switch rawTermSplit.last {
-        case "1":
-            semester = .SEM1
-        case "2":
-            semester = .SEM2
-        default:
-            if rawTermSplit[1] == "Sum" && rawTermSplit.last == "Sem" {
-                semester = .SUMMER
-            } else {
-                print("UNKNOWN: \(rawTermSplit[-1])")
-                semester = .UNKNOWN
-            }
-        }
+        
+        let term = parsedSemesterTerm.0, semester = parsedSemesterTerm.1
         
         let rawGrade = try? row.getElementsByAttributeValueStarting("id","CRSE_GRADE").first()?.text(trimAndNormaliseWhitespace: true)
         let grade: Grade
         if let unwrappedRawGrade = rawGrade {
             print("grade: \(unwrappedRawGrade)")
-            if unwrappedRawGrade == " " {
+            if unwrappedRawGrade.isEmpty || unwrappedRawGrade == " " {
                 grade = .ONGOING
             } else {
                 grade = Grade(rawValue: unwrappedRawGrade) ?? .UNKNOWN
