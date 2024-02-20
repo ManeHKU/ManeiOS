@@ -10,6 +10,7 @@
 		B910B13B2B52772700A54EAB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910B13A2B52772700A54EAB /* LoginView.swift */; };
 		B91B986B2B6283DC00608766 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B986A2B6283DC00608766 /* Parser.swift */; };
 		B91B986D2B62893000608766 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B986C2B62893000608766 /* UserDefault.swift */; };
+		B92A6DF92B84C46D00072C5E /* AMPopTip in Frameworks */ = {isa = PBXBuildFile; productRef = B92A6DF82B84C46D00072C5E /* AMPopTip */; };
 		B942D7F02B4E658F00A26DAD /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B942D7EF2B4E658F00A26DAD /* SwiftSoup */; };
 		B942D7F22B4E820D00A26DAD /* ConfirmEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7F12B4E820D00A26DAD /* ConfirmEmailView.swift */; };
 		B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7F32B4EE04900A26DAD /* PortalAuth.swift */; };
@@ -144,6 +145,7 @@
 				B95B5F532B4C795A001A7070 /* Alamofire in Frameworks */,
 				B9B0FAFA2B26296A00B63C02 /* Supabase in Frameworks */,
 				B9B0FAEC2B2626F300B63C02 /* _GRPCCore in Frameworks */,
+				B92A6DF92B84C46D00072C5E /* AMPopTip in Frameworks */,
 				B9B0FAEE2B2626F300B63C02 /* protoc-gen-grpc-swift in Frameworks */,
 				B98692162B3C8B1400F0D491 /* Auth in Frameworks */,
 				B9B0FAE82B2626F300B63C02 /* CGRPCZlib in Frameworks */,
@@ -400,6 +402,7 @@
 				B95B5F522B4C795A001A7070 /* Alamofire */,
 				B942D7EF2B4E658F00A26DAD /* SwiftSoup */,
 				B942D8002B4FE8A600A26DAD /* AlertToast */,
+				B92A6DF82B84C46D00072C5E /* AMPopTip */,
 			);
 			productName = "Mane HKU";
 			productReference = B9B0FAB92B2608B500B63C02 /* Mane HKU.app */;
@@ -481,6 +484,7 @@
 				B95B5F512B4C7959001A7070 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				B942D7FF2B4FE8A600A26DAD /* XCRemoteSwiftPackageReference "AlertToast" */,
+				B92A6DF72B84C46D00072C5E /* XCRemoteSwiftPackageReference "AMPopTip" */,
 			);
 			productRefGroup = B9B0FABA2B2608B500B63C02 /* Products */;
 			projectDirPath = "";
@@ -894,6 +898,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B92A6DF72B84C46D00072C5E /* XCRemoteSwiftPackageReference "AMPopTip" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/andreamazz/AMPopTip";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.12.0;
+			};
+		};
 		B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup";
@@ -953,6 +965,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B92A6DF82B84C46D00072C5E /* AMPopTip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B92A6DF72B84C46D00072C5E /* XCRemoteSwiftPackageReference "AMPopTip" */;
+			productName = AMPopTip;
+		};
 		B942D7EF2B4E658F00A26DAD /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */;

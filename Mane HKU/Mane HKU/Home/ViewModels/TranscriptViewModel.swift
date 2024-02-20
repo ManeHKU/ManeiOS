@@ -17,6 +17,18 @@ import Foundation
         }
     }
     
+    var courseSortedKeys: [String]? {
+        get {
+            if transcript == nil || transcript?.courseLists == nil {
+                return nil
+            } else {
+                return Array(transcript!.courseLists!.keys).sorted().reversed()
+            }
+        }
+    }
+    
+    let semesterOrder: [Semester] = [.SUMMER, .SEM2, .SEM1]
+    
     init() {
         Task {
             loading = true

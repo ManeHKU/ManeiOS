@@ -32,6 +32,7 @@ enum Grade: String, Codable {
     case CMin = "C-"
     case DPlus = "D+"
     case D = "D"
+    case P = "P"
     case F = "F"
     case EX = "EX"
     case FL = "FL"
@@ -61,11 +62,11 @@ enum Grade: String, Codable {
         case .NC:
             "Did not complete"
         case .NE:
-            "Not examined (Failed)"
+            "Not examined – NOT counted as Fail"
         case .NS:
             "Non-satisfactory completion"
         case .NV:
-            "No evaluation"
+            "No evaluation – course continues in the following semester/year"
         case .PE:
             "Results not yet available"
         case .SC:
@@ -78,6 +79,8 @@ enum Grade: String, Codable {
             "Ongoing"
         case .UNRELEASED:
             "To be released"
+        case .P:
+            "Passed"
         default:
             self.rawValue
         }
@@ -102,8 +105,25 @@ struct Course: Codable, Equatable {
     }
 }
 
-enum Semester: Codable {
+enum Semester: Codable, Identifiable {
+    var id: Self {
+            return self
+    }
+    
     case SEM1, SEM2, SUMMER, UNKNOWN
+    
+    var description : String {
+        switch self {
+        case .SEM1:
+            "Semester 1"
+        case .SEM2:
+            "Semester 2"
+        case .SUMMER:
+            "Summer Semester"
+        case .UNKNOWN:
+            "Unknown Semester"
+        }
+      }
 }
 
 struct GPAHistory: Codable {

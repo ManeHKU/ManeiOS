@@ -171,14 +171,14 @@ struct Parser {
                 let statusSrc = try? statusImgs.first()?.attr("src")
                 if statusSrc == nil {
                     status = .unknown
+                } else if grade == .UNRELEASED {
+                    status = .toBeReleased
                 } else if statusSrc!.contains("TAKEN") {
                     status = .taken
                 } else if statusSrc!.contains("ENROLLED") {
                     status = .inProgress
                 }
             }
-        } else {
-            status = .unknown
         }
         
         let course = Course(code: code, title: title, term: term, semester: semester, grade: grade, credit: credit, status: status)
