@@ -49,6 +49,7 @@ struct Parser {
         }
         var transcript: Transcript
         let courseRows: Elements
+        let gpaRows: Elements
         do {
             let program: String = try doc.getElementById("Z_HKU_ACAD_PROG_Z_ACAD_PROG_TITLE")?.text(trimAndNormaliseWhitespace: true) ?? ""
             
@@ -60,6 +61,7 @@ struct Parser {
             }
             transcript = Transcript(program: program, year: year)
             courseRows = try doc.select("table[id*='CRSE_HIST$scroll'] tbody tr")
+            gpaRows = try doc.select("tr[id*='trGRID_GPA']")
         } catch {
             print(error)
             print("cannot parse transcript basic info")
@@ -68,7 +70,7 @@ struct Parser {
         
         var courseLists = [String: [Semester: [Course]]]()
         if courseRows.count < 1 {
-            print("unknown count as it got only \(courseRows.count) table row, stop parsin g")
+            print("unknown count as it got only \(courseRows.count) table row, stop parsing course grade rows")
         } else {
             for courseRow in courseRows.dropFirst() {
                 let parsedCourse = parseTranscriptCourseRow(tr: courseRow)
@@ -85,6 +87,35 @@ struct Parser {
             transcript.courseLists = courseLists
         }
         
+        var gpaLists = [String: [Semester: GPAHistory]]()
+        if gpaRows.count < 1 {
+            print("unknown count as it got only \(courseRows.count) table row, stop parsing gpa rows")
+        } else {
+            for gpaRow in gpaRows {
+                // 2019-20: { Sem1: [course1, 2, ...] }
+                if let parsedGPARow = parseGPARow(tr: gpaRow) {
+                    if gpaLists[parsedGPARow.term] != nil  {
+                        gpaLists[parsedGPARow.term]![parsedGPARow.semester] = parsedGPARow
+                    } else {
+                        let currentTermSemester = [parsedGPARow.semester: parsedGPARow]
+                        gpaLists[parsedGPARow.term] = currentTermSemester
+                    }
+                }
+            }
+            transcript.GPAs = gpaLists
+            if let latestYear = gpaLists.keys.max() {
+                for semester in semesterOrder {
+                    if let semesterGPAs = gpaLists[latestYear]![semester] {
+                        print("Got latest gpa in \(latestYear) \(semester)")
+                        transcript.latestGPA = semesterGPAs.cGPA
+                        break
+                    }
+                }
+            } else {
+                print("no keys in gpa list, ignoring gpa for now")
+            }
+        }
+        
         if let nslCourseStatus = try? doc.getElementById("Z_TSC_CRDMD_WRK_DESCR254$0")?.text() {
             transcript.ug5ePassed = nslCourseStatus.contains("Passed")
         } else {
@@ -94,7 +125,45 @@ struct Parser {
         return transcript
     }
     
-    func parseRawTermSemester(input rawTerm: String) -> (String, Semester)? {
+    func parseGPARow(tr row: Element) -> GPAHistory? {
+        let tdCount = try? row.select("td").count
+        if tdCount != 5 {
+            print("This row only has \(String(describing: tdCount)) columns, returning nil")
+            return nil
+        }
+        
+        guard let rawSGPA = try? row.getElementsByAttributeValueStarting("id", "Z_TSC_CGPA_VW_Z_CUR_GPA_STR").first()?.text(trimAndNormaliseWhitespace: true)
+            .filter({ !$0.isWhitespace }) else {
+            print("Empty raw sGPA, returning nil")
+            return nil
+        }
+        
+        guard let rawCGPA = try? row.getElementsByAttributeValueStarting("id", "Z_TSC_CGPA_VW_Z_LS_GPA_STR").first()?.text(trimAndNormaliseWhitespace: true)
+            .filter({ !$0.isWhitespace }) else {
+            print("Empty raw cGPA, returning nil")
+            return nil
+        }
+        
+        guard let sGPA = Double(rawSGPA), let cGPA = Double(rawCGPA) else {
+            print("ignoring this row as one of the gpa are empty")
+            return nil
+        }
+        
+        guard let rawTerm = try? row.getElementsByAttributeValueStarting("id", "TERM_TBL_DESCR").first()?.text(trimAndNormaliseWhitespace: true) else {
+            print("Empty raw term, returning nil")
+            return nil
+        }
+        
+        guard let parsedSemesterTerm = parseRawTermSemester(input: rawTerm) else {
+            print("cannot parse term/semester")
+            return nil
+        }
+        print("parsed \(parsedSemesterTerm.0) \(parsedSemesterTerm.1)")
+        
+        return GPAHistory(term: parsedSemesterTerm.term, semester: parsedSemesterTerm.semester, sGPA: sGPA, cGPA: cGPA)
+    }
+    
+    func parseRawTermSemester(input rawTerm: String) -> (term: String, semester: Semester)? {
         let rawTermSplit = rawTerm.components(separatedBy: " ")
         print("term: \(String(describing: rawTerm))")
         if rawTermSplit.count != 3 {
@@ -152,8 +221,6 @@ struct Parser {
             return nil
         }
         
-        let term = parsedSemesterTerm.0, semester = parsedSemesterTerm.1
-        
         let rawGrade = try? row.getElementsByAttributeValueStarting("id","CRSE_GRADE").first()?.text(trimAndNormaliseWhitespace: true)
         let grade: Grade
         if let unwrappedRawGrade = rawGrade {
@@ -191,7 +258,7 @@ struct Parser {
             }
         }
         
-        let course = Course(code: code, title: title, term: term, semester: semester, grade: grade, credit: credit, status: status)
+        let course = Course(code: code, title: title, term: parsedSemesterTerm.term, semester: parsedSemesterTerm.semester, grade: grade, credit: credit, status: status)
         
         return course
     }

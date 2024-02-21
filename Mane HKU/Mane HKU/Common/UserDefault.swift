@@ -11,6 +11,7 @@ extension UserDefaults {
     enum DefaultKey: String {
         case userInfo = "user-info"
         case nickname = "nickname"
+        case transcript = "transcript"
     }
     
     func isKeyPresent(key: DefaultKey) -> Bool {

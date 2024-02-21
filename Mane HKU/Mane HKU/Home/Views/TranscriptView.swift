@@ -18,51 +18,52 @@ struct TranscriptView: View {
                     Text("Overall GPA")
                         .font(.title2)
                         .fontWeight(.bold)
-                        .padding(.vertical, 20)
                     Spacer()
                 }
-                if transcriptVM.transcript?.latestGPA != nil {
-                    Text(String(transcriptVM.transcript!.latestGPA!))
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
-                } else {
-                    Text("No GPA Available")
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .multilineTextAlignment(.center)
+                Group {
+                    if let latestcGPA = transcriptVM.transcript?.latestGPA {
+                        Text("\(latestcGPA, specifier: "%.2f")/4.3")
+                    } else {
+                        Text("No GPA Available")
+                    }
                 }
+                .padding(.vertical, 20)
+                .font(.title2)
+                .fontWeight(.bold)
+                .multilineTextAlignment(.center)
             }
             VStack {
-                if transcriptVM.loading {
-                    Text("Loading...")
+                if (transcriptVM.transcript?.courseLists == nil ||
+                    (transcriptVM.transcript?.courseLists != nil && transcriptVM.transcript!.courseLists!.isEmpty) ||
+                    transcriptVM.courseSortedKeys == nil) {
+                    Text("No course list available")
                 } else {
-                    if (transcriptVM.transcript?.courseLists == nil ||
-                        (transcriptVM.transcript?.courseLists != nil && transcriptVM.transcript!.courseLists!.isEmpty) ||
-                        transcriptVM.courseSortedKeys == nil) {
-                        Text("No course list available")
-                    } else {
-                        ScrollView{
-                            ForEach(transcriptVM.courseSortedKeys!, id: \.self) { currentYear in
-                                let currentCourses = transcriptVM.transcript!.courseLists![currentYear]
-                                ForEach(transcriptVM.semesterOrder) { currentSemeser in
-                                    Group {
-                                        if let lists = currentCourses![currentSemeser]{
-                                            VStack{
-                                                HStack {
-                                                    Text(currentYear)
-                                                        .font(.title3)
-                                                    Text(currentSemeser.description)
-                                                        .font(.title3)
-                                                    Spacer()
-                                                }
-                                                ForEach(lists, id: \.code) { course in
-                                                    CourseRow(course: course)
+                    ScrollView{
+                        ForEach(transcriptVM.courseSortedKeys!, id: \.self) { currentYear in
+                            let currentCourses = transcriptVM.transcript!.courseLists![currentYear]
+                            ForEach(semesterOrder) { currentSemeser in
+                                Group {
+                                    if let lists = currentCourses![currentSemeser]{
+                                        VStack{
+                                            HStack {
+                                                Text(currentYear)
+                                                    .font(.title3)
+                                                Text(currentSemeser.description)
+                                                    .font(.title3)
+                                                Spacer()
+                                                if let sGPA = transcriptVM.transcript?.GPAs?[currentYear]?[currentSemeser]?.sGPA, let cGPA = transcriptVM.transcript?.GPAs?[currentYear]?[currentSemeser]?.cGPA {
+                                                    VStack(alignment: .leading){
+                                                        Text("sGPA: \(sGPA, specifier: "%.2f")")
+                                                        Text("cGPA: \(cGPA, specifier: "%.2f")")
+                                                    }.font(.subheadline)
                                                 }
                                             }
-                                        } else {
-                                            EmptyView()
+                                            ForEach(lists, id: \.code) { course in
+                                                CourseRow(course: course)
+                                            }
                                         }
+                                    } else {
+                                        EmptyView()
                                     }
                                 }
                             }
@@ -73,10 +74,21 @@ struct TranscriptView: View {
             Spacer()
         }
         .padding(.all, 15)
+        .padding(.bottom, 0)
         .navigationTitle("Transcript")
         .navigationBarTitleDisplayMode(.large)
         .toast(isPresenting: $transcriptVM.loading) {
             AlertToast(displayMode: .alert, type: .loading)
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Refresh", systemImage: "arrow.clockwise") {
+                    Task {
+                        await transcriptVM.refreshTranscript()
+                    }
+                }.disabled(transcriptVM.loading)
+                
+            }
         }
     }
 }
@@ -164,7 +176,7 @@ struct GradeText: View {
                         .bold()
                     Image(systemName: "questionmark.circle")
                         .font(.system(size: 8.0))
-                            .baselineOffset(6.0)
+                        .baselineOffset(6.0)
                 }
             }
             .popover(isPresented: $isShowingFullDescription, arrowEdge: .top) {

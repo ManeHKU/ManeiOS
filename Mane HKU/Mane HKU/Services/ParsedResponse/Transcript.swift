@@ -7,6 +7,8 @@
 
 import Foundation
 
+let semesterOrder: [Semester] = [.SUMMER, .SEM2, .SEM1]
+
 struct Transcript: Codable {
     let program: String
 //    let curriculum: [String]
@@ -15,9 +17,25 @@ struct Transcript: Codable {
 //    let minors: [String]?
     
     var courseLists: [String: [Semester: [Course]]]?
+    var allCourses: [String] {
+        get {
+            var output: [String] = []
+            if let courseByYearly = courseLists?.values {
+                for yearCourses in courseByYearly {
+                    let courses = yearCourses.values.flatMap{
+                        $0
+                    } .map {
+                        $0.code
+                    }
+                    output.append(contentsOf: courses)
+                }
+            }
+            return output
+        }
+    }
     var ug5ePassed: Bool?
     var latestGPA: Double?
-    var GPAs: [GPAHistory]?
+    var GPAs: [String: [Semester: GPAHistory]]?
 }
 
 enum Grade: String, Codable {
@@ -127,8 +145,8 @@ enum Semester: Codable, Identifiable {
 }
 
 struct GPAHistory: Codable {
-    let year: String
+    let term: String
     let semester: Semester
-    let sGPA: Double?
-    let cGPA: Double?
+    let sGPA: Double
+    let cGPA: Double
 }

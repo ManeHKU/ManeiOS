@@ -35,42 +35,43 @@ import SwiftProtobuf
         defer {
             loading = false
         }
+        let loginResult = Task(priority: .userInitiated) { () -> Bool in
+            await PortalScraper.shared.resetSession()
+            guard let portalId = KeychainManager.shared.secureGet(key: .PortalId),
+                  let password = KeychainManager.shared.secureGet(key: .PortalPassword) else {
+                print("Portal id or password doesn't exist")
+                return false
+            }
+            let signedIn = await PortalScraper.shared.signInSIS(portalId: portalId, password: password)
+            if !signedIn {
+                self.errorMessage.showMessage(title: "Error", subtitle: "Please try again later")
+            }
+            return signedIn
+        }
         loading = true
-        await PortalScraper.shared.resetSession()
         let defaults = UserDefaults.standard
         if defaults.isKeyPresent(key: .userInfo) {
             print("user default present")
             if let data = defaults.data(forKey: UserDefaults.DefaultKey.userInfo.rawValue) {
                 print("Got the user default")
                 userInfo = try? JSONDecoder().decode(UserInfo.self, from: data)
-                Task {
-                    guard let portalId = KeychainManager.shared.secureGet(key: .PortalId),
-                          let password = KeychainManager.shared.secureGet(key: .PortalPassword) else {
-                        print("Portal id or password doesn't exist")
-                        return
-                    }
-                    let signedIn = await PortalScraper.shared.signInSIS(portalId: portalId, password: password)
-                    if !signedIn {
-                        self.errorMessage.showMessage(title: "Error", subtitle: "Please try again later")
-                    }
-                }
                 return
             }
         }
         print("user default not present")
-        guard let portalId = KeychainManager.shared.secureGet(key: .PortalId),
-              let password = KeychainManager.shared.secureGet(key: .PortalPassword) else {
-            print("Portal id or password doesn't exist")
-            return
+        do {
+            let result = try await loginResult.result.get()
+            let isAuth = await UserManager.shared.isAuthenticated
+            if result && isAuth {
+                self.userInfo = await PortalScraper.shared.getUserInfo()
+                await updateUserInfo()
+                return
+            }
+        } catch {
+            print("Unknown error.")
         }
-        let signedIn = await PortalScraper.shared.signInSIS(portalId: portalId, password: password)
-        
-        if await UserManager.shared.isAuthenticated && signedIn {
-            self.userInfo = await PortalScraper.shared.getUserInfo()
-            await updateUserInfo()
-        } else {
-            try? await UserManager.shared.supabase.auth.signOut()
-        }
+        print("signing out...")
+        try? await UserManager.shared.supabase.auth.signOut()
     }
     
     func updateUserInfo() async {

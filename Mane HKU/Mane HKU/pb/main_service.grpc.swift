@@ -25,6 +25,11 @@ public protocol Service_MainServiceClientProtocol: GRPCClient {
     _ request: Service_UpdateUserInfoRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty>
+
+  func upsertTakenCourses(
+    _ request: Service_UpsertTakenCoursesRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Service_UpsertTakenCoursesRequest, SwiftProtobuf.Google_Protobuf_Empty>
 }
 
 extension Service_MainServiceClientProtocol {
@@ -65,6 +70,24 @@ extension Service_MainServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeUpdateUserInfoInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to UpsertTakenCourses
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to UpsertTakenCourses.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func upsertTakenCourses(
+    _ request: Service_UpsertTakenCoursesRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Service_UpsertTakenCoursesRequest, SwiftProtobuf.Google_Protobuf_Empty> {
+    return self.makeUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.upsertTakenCourses.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpsertTakenCoursesInterceptors() ?? []
     )
   }
 }
@@ -140,6 +163,11 @@ public protocol Service_MainServiceAsyncClientProtocol: GRPCClient {
     _ request: Service_UpdateUserInfoRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty>
+
+  func makeUpsertTakenCoursesCall(
+    _ request: Service_UpsertTakenCoursesRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Service_UpsertTakenCoursesRequest, SwiftProtobuf.Google_Protobuf_Empty>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -175,6 +203,18 @@ extension Service_MainServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeUpdateUserInfoInterceptors() ?? []
     )
   }
+
+  public func makeUpsertTakenCoursesCall(
+    _ request: Service_UpsertTakenCoursesRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Service_UpsertTakenCoursesRequest, SwiftProtobuf.Google_Protobuf_Empty> {
+    return self.makeAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.upsertTakenCourses.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpsertTakenCoursesInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -200,6 +240,18 @@ extension Service_MainServiceAsyncClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeUpdateUserInfoInterceptors() ?? []
+    )
+  }
+
+  public func upsertTakenCourses(
+    _ request: Service_UpsertTakenCoursesRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> SwiftProtobuf.Google_Protobuf_Empty {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.upsertTakenCourses.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeUpsertTakenCoursesInterceptors() ?? []
     )
   }
 }
@@ -228,6 +280,9 @@ public protocol Service_MainServiceClientInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when invoking 'updateUserInfo'.
   func makeUpdateUserInfoInterceptors() -> [ClientInterceptor<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty>]
+
+  /// - Returns: Interceptors to use when invoking 'upsertTakenCourses'.
+  func makeUpsertTakenCoursesInterceptors() -> [ClientInterceptor<Service_UpsertTakenCoursesRequest, SwiftProtobuf.Google_Protobuf_Empty>]
 }
 
 public enum Service_MainServiceClientMetadata {
@@ -237,6 +292,7 @@ public enum Service_MainServiceClientMetadata {
     methods: [
       Service_MainServiceClientMetadata.Methods.getUpdatedURLs,
       Service_MainServiceClientMetadata.Methods.updateUserInfo,
+      Service_MainServiceClientMetadata.Methods.upsertTakenCourses,
     ]
   )
 
@@ -252,6 +308,12 @@ public enum Service_MainServiceClientMetadata {
       path: "/service.MainService/UpdateUserInfo",
       type: GRPCCallType.unary
     )
+
+    public static let upsertTakenCourses = GRPCMethodDescriptor(
+      name: "UpsertTakenCourses",
+      path: "/service.MainService/UpsertTakenCourses",
+      type: GRPCCallType.unary
+    )
   }
 }
 
@@ -262,6 +324,8 @@ public protocol Service_MainServiceProvider: CallHandlerProvider {
   func getUpdatedURLs(request: Service_GetUpdatedURLsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Service_GetUpdatedURLsResponse>
 
   func updateUserInfo(request: Service_UpdateUserInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
+
+  func upsertTakenCourses(request: Service_UpsertTakenCoursesRequest, context: StatusOnlyCallContext) -> EventLoopFuture<SwiftProtobuf.Google_Protobuf_Empty>
 }
 
 extension Service_MainServiceProvider {
@@ -294,6 +358,15 @@ extension Service_MainServiceProvider {
         userFunction: self.updateUserInfo(request:context:)
       )
 
+    case "UpsertTakenCourses":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Service_UpsertTakenCoursesRequest>(),
+        responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+        interceptors: self.interceptors?.makeUpsertTakenCoursesInterceptors() ?? [],
+        userFunction: self.upsertTakenCourses(request:context:)
+      )
+
     default:
       return nil
     }
@@ -313,6 +386,11 @@ public protocol Service_MainServiceAsyncProvider: CallHandlerProvider, Sendable 
 
   func updateUserInfo(
     request: Service_UpdateUserInfoRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> SwiftProtobuf.Google_Protobuf_Empty
+
+  func upsertTakenCourses(
+    request: Service_UpsertTakenCoursesRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> SwiftProtobuf.Google_Protobuf_Empty
 }
@@ -354,6 +432,15 @@ extension Service_MainServiceAsyncProvider {
         wrapping: { try await self.updateUserInfo(request: $0, context: $1) }
       )
 
+    case "UpsertTakenCourses":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Service_UpsertTakenCoursesRequest>(),
+        responseSerializer: ProtobufSerializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+        interceptors: self.interceptors?.makeUpsertTakenCoursesInterceptors() ?? [],
+        wrapping: { try await self.upsertTakenCourses(request: $0, context: $1) }
+      )
+
     default:
       return nil
     }
@@ -369,6 +456,10 @@ public protocol Service_MainServiceServerInterceptorFactoryProtocol: Sendable {
   /// - Returns: Interceptors to use when handling 'updateUserInfo'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeUpdateUserInfoInterceptors() -> [ServerInterceptor<Service_UpdateUserInfoRequest, SwiftProtobuf.Google_Protobuf_Empty>]
+
+  /// - Returns: Interceptors to use when handling 'upsertTakenCourses'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeUpsertTakenCoursesInterceptors() -> [ServerInterceptor<Service_UpsertTakenCoursesRequest, SwiftProtobuf.Google_Protobuf_Empty>]
 }
 
 public enum Service_MainServiceServerMetadata {
@@ -378,6 +469,7 @@ public enum Service_MainServiceServerMetadata {
     methods: [
       Service_MainServiceServerMetadata.Methods.getUpdatedURLs,
       Service_MainServiceServerMetadata.Methods.updateUserInfo,
+      Service_MainServiceServerMetadata.Methods.upsertTakenCourses,
     ]
   )
 
@@ -391,6 +483,12 @@ public enum Service_MainServiceServerMetadata {
     public static let updateUserInfo = GRPCMethodDescriptor(
       name: "UpdateUserInfo",
       path: "/service.MainService/UpdateUserInfo",
+      type: GRPCCallType.unary
+    )
+
+    public static let upsertTakenCourses = GRPCMethodDescriptor(
+      name: "UpsertTakenCourses",
+      path: "/service.MainService/UpsertTakenCourses",
       type: GRPCCallType.unary
     )
   }

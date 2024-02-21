@@ -37,7 +37,6 @@ final actor UserManager {
     
     func checkLocalTokenValid() async -> Bool{
         let jwtTokens = KeychainManager.shared.secureGet(key: .jwtToken, dataType: JWTToken.self)
-        print(jwtTokens)
         if let unwrappedTokens = jwtTokens {
             let validLocalToken = Task(priority: .high) { () -> Bool in
                 do{
