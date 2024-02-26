@@ -12,6 +12,7 @@ extension UserDefaults {
         case userInfo = "user-info"
         case nickname = "nickname"
         case transcript = "transcript"
+        case cookies = "cookies"
     }
     
     func isKeyPresent(key: DefaultKey) -> Bool {

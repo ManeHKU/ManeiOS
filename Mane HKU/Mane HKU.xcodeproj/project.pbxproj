@@ -38,6 +38,8 @@
 		B98692162B3C8B1400F0D491 /* Auth in Frameworks */ = {isa = PBXBuildFile; productRef = B98692152B3C8B1400F0D491 /* Auth */; };
 		B98DB9282B7149FA0053FEF7 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B98DB9272B7149FA0053FEF7 /* MainTabView.swift */; };
 		B99763B22B56F7A800A439F1 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99763B12B56F7A800A439F1 /* UserManager.swift */; };
+		B99F37C82B8CB3DE0060DE0C /* CookieHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F37C72B8CB3DE0060DE0C /* CookieHandler.swift */; };
+		B99F37CA2B8CC4370060DE0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F37C92B8CC4370060DE0C /* AppDelegate.swift */; };
 		B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABC2B2608B500B63C02 /* ManeApp.swift */; };
 		B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABE2B2608B500B63C02 /* ContentView.swift */; };
 		B9B0FAC12B2608B600B63C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B0FAC02B2608B600B63C02 /* Assets.xcassets */; };
@@ -108,6 +110,8 @@
 		B971B74E2B66B05A00C4C72E /* health_check.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = health_check.pb.swift; sourceTree = "<group>"; };
 		B98DB9272B7149FA0053FEF7 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
 		B99763B12B56F7A800A439F1 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
+		B99F37C72B8CB3DE0060DE0C /* CookieHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieHandler.swift; sourceTree = "<group>"; };
+		B99F37C92B8CC4370060DE0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B9B0FAB92B2608B500B63C02 /* Mane HKU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mane HKU.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B0FABC2B2608B500B63C02 /* ManeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManeApp.swift; sourceTree = "<group>"; };
 		B9B0FABE2B2608B500B63C02 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 				B95B5F572B4C7CB0001A7070 /* APIService.swift */,
 				B91B986A2B6283DC00608766 /* Parser.swift */,
 				B9DB4FC02B66625C0050CB9E /* GRPCServiceManager.swift */,
+				B99F37C72B8CB3DE0060DE0C /* CookieHandler.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -274,6 +279,7 @@
 				B9B0FAC02B2608B600B63C02 /* Assets.xcassets */,
 				B9B0FAC22B2608B600B63C02 /* Preview Content */,
 				B9442C422B7CE654004DCF7D /* AppRootManager.swift */,
+				B99F37C92B8CC4370060DE0C /* AppDelegate.swift */,
 			);
 			path = "Mane HKU";
 			sourceTree = "<group>";
@@ -534,6 +540,7 @@
 				B971B7542B66B05A00C4C72E /* health_check.pb.swift in Sources */,
 				B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */,
 				B98DB9282B7149FA0053FEF7 /* MainTabView.swift in Sources */,
+				B99F37C82B8CB3DE0060DE0C /* CookieHandler.swift in Sources */,
 				B971B7502B66B05A00C4C72E /* health_check.grpc.swift in Sources */,
 				B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */,
 				B96591882B5547EA00FD1B91 /* CheckUserAuthView.swift in Sources */,
@@ -548,6 +555,7 @@
 				B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */,
 				B95B5F582B4C7CB0001A7070 /* APIService.swift in Sources */,
 				B9E7E0C02B489F36006EE61B /* String.swift in Sources */,
+				B99F37CA2B8CC4370060DE0C /* AppDelegate.swift in Sources */,
 				B9442C4B2B7CF72E004DCF7D /* Transcript.swift in Sources */,
 				B910B13B2B52772700A54EAB /* LoginView.swift in Sources */,
 				B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */,

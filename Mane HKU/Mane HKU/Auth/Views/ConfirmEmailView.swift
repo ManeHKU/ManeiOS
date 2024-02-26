@@ -17,6 +17,7 @@ struct ConfirmEmailView: View {
     @State private var secondsRemaining = 60
     
     @State private var loading = false
+    @EnvironmentObject private var appRootManager: AppRootManager
     
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
@@ -62,6 +63,13 @@ struct ConfirmEmailView: View {
                                 confirmEmailVM.otpCode = oldValue
                             }
                         }
+                        .onChange(of: confirmEmailVM.showSuccessPage) {
+                            if confirmEmailVM.showSuccessPage {
+                                withAnimation(.spring()) {
+                                    appRootManager.currentRoot = .home
+                                }
+                            }
+                        }
                         .focused($focusedField)
                         .disabled(loading)
                         .toolbar {
@@ -101,9 +109,6 @@ struct ConfirmEmailView: View {
                 .padding(.horizontal, 25)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(.thinMaterial)
-                .navigationDestination(isPresented: $confirmEmailVM.showSuccessPage) {
-                    HomeView()
-                }
             }
             .navigationTitle("Confirm email")
             .navigationBarBackButtonHidden()

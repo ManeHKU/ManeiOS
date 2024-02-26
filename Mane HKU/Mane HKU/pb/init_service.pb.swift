@@ -62,6 +62,103 @@ public struct Init_GetInitialConfigResponse {
   fileprivate var _latestUrls: Init_URLsList? = nil
 }
 
+public struct Init_UserSignInRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var userID: String = String()
+
+  public var password: String = String()
+
+  public var cookies: [Init_Cookie] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Init_UserSignInResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var canLogInToSis: Bool = false
+
+  public var ticketURL: String {
+    get {return _ticketURL ?? String()}
+    set {_ticketURL = newValue}
+  }
+  /// Returns true if `ticketURL` has been explicitly set.
+  public var hasTicketURL: Bool {return self._ticketURL != nil}
+  /// Clears the value of `ticketURL`. Subsequent reads from it will return its default value.
+  public mutating func clearTicketURL() {self._ticketURL = nil}
+
+  public var cookies: [Init_Cookie] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _ticketURL: String? = nil
+}
+
+public struct Init_Cookie {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var name: String = String()
+
+  public var value: String = String()
+
+  public var domain: String = String()
+
+  public var path: String = String()
+
+  public var expires: Float = 0
+
+  ///  int32 size = 6;
+  public var httponly: Bool = false
+
+  public var secure: Bool = false
+
+  ///  bool session = 9;
+  public var sameSite: String {
+    get {return _sameSite ?? String()}
+    set {_sameSite = newValue}
+  }
+  /// Returns true if `sameSite` has been explicitly set.
+  public var hasSameSite: Bool {return self._sameSite != nil}
+  /// Clears the value of `sameSite`. Subsequent reads from it will return its default value.
+  public mutating func clearSameSite() {self._sameSite = nil}
+
+  public var priority: String = String()
+
+  public var sameParty: Bool = false
+
+  public var sourceScheme: String = String()
+
+  public var sourcePort: Int32 = 0
+
+  ///  optional bool partitionKeyOpaque = 16;
+  public var partitionKey: String {
+    get {return _partitionKey ?? String()}
+    set {_partitionKey = newValue}
+  }
+  /// Returns true if `partitionKey` has been explicitly set.
+  public var hasPartitionKey: Bool {return self._partitionKey != nil}
+  /// Clears the value of `partitionKey`. Subsequent reads from it will return its default value.
+  public mutating func clearPartitionKey() {self._partitionKey = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _sameSite: String? = nil
+  fileprivate var _partitionKey: String? = nil
+}
+
 public struct Init_URLsList {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -90,6 +187,9 @@ public struct Init_URLsList {
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Init_GetInitialConfigRequest: @unchecked Sendable {}
 extension Init_GetInitialConfigResponse: @unchecked Sendable {}
+extension Init_UserSignInRequest: @unchecked Sendable {}
+extension Init_UserSignInResponse: @unchecked Sendable {}
+extension Init_Cookie: @unchecked Sendable {}
 extension Init_URLsList: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
@@ -164,6 +264,206 @@ extension Init_GetInitialConfigResponse: SwiftProtobuf.Message, SwiftProtobuf._M
 
   public static func ==(lhs: Init_GetInitialConfigResponse, rhs: Init_GetInitialConfigResponse) -> Bool {
     if lhs._latestUrls != rhs._latestUrls {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Init_UserSignInRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UserSignInRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "userId"),
+    2: .same(proto: "password"),
+    3: .same(proto: "cookies"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.password) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.cookies) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.userID.isEmpty {
+      try visitor.visitSingularStringField(value: self.userID, fieldNumber: 1)
+    }
+    if !self.password.isEmpty {
+      try visitor.visitSingularStringField(value: self.password, fieldNumber: 2)
+    }
+    if !self.cookies.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.cookies, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Init_UserSignInRequest, rhs: Init_UserSignInRequest) -> Bool {
+    if lhs.userID != rhs.userID {return false}
+    if lhs.password != rhs.password {return false}
+    if lhs.cookies != rhs.cookies {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Init_UserSignInResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".UserSignInResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "canLogInToSIS"),
+    2: .same(proto: "ticketURL"),
+    3: .same(proto: "cookies"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.canLogInToSis) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._ticketURL) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.cookies) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.canLogInToSis != false {
+      try visitor.visitSingularBoolField(value: self.canLogInToSis, fieldNumber: 1)
+    }
+    try { if let v = self._ticketURL {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
+    if !self.cookies.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.cookies, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Init_UserSignInResponse, rhs: Init_UserSignInResponse) -> Bool {
+    if lhs.canLogInToSis != rhs.canLogInToSis {return false}
+    if lhs._ticketURL != rhs._ticketURL {return false}
+    if lhs.cookies != rhs.cookies {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Init_Cookie: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".Cookie"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "name"),
+    2: .same(proto: "value"),
+    3: .same(proto: "domain"),
+    4: .same(proto: "path"),
+    5: .same(proto: "expires"),
+    7: .unique(proto: "HTTPOnly", json: "httpOnly"),
+    8: .same(proto: "secure"),
+    10: .same(proto: "sameSite"),
+    11: .same(proto: "priority"),
+    12: .same(proto: "sameParty"),
+    13: .same(proto: "sourceScheme"),
+    14: .same(proto: "sourcePort"),
+    15: .same(proto: "partitionKey"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.name) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.domain) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.path) }()
+      case 5: try { try decoder.decodeSingularFloatField(value: &self.expires) }()
+      case 7: try { try decoder.decodeSingularBoolField(value: &self.httponly) }()
+      case 8: try { try decoder.decodeSingularBoolField(value: &self.secure) }()
+      case 10: try { try decoder.decodeSingularStringField(value: &self._sameSite) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.priority) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.sameParty) }()
+      case 13: try { try decoder.decodeSingularStringField(value: &self.sourceScheme) }()
+      case 14: try { try decoder.decodeSingularInt32Field(value: &self.sourcePort) }()
+      case 15: try { try decoder.decodeSingularStringField(value: &self._partitionKey) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.name.isEmpty {
+      try visitor.visitSingularStringField(value: self.name, fieldNumber: 1)
+    }
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 2)
+    }
+    if !self.domain.isEmpty {
+      try visitor.visitSingularStringField(value: self.domain, fieldNumber: 3)
+    }
+    if !self.path.isEmpty {
+      try visitor.visitSingularStringField(value: self.path, fieldNumber: 4)
+    }
+    if self.expires != 0 {
+      try visitor.visitSingularFloatField(value: self.expires, fieldNumber: 5)
+    }
+    if self.httponly != false {
+      try visitor.visitSingularBoolField(value: self.httponly, fieldNumber: 7)
+    }
+    if self.secure != false {
+      try visitor.visitSingularBoolField(value: self.secure, fieldNumber: 8)
+    }
+    try { if let v = self._sameSite {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 10)
+    } }()
+    if !self.priority.isEmpty {
+      try visitor.visitSingularStringField(value: self.priority, fieldNumber: 11)
+    }
+    if self.sameParty != false {
+      try visitor.visitSingularBoolField(value: self.sameParty, fieldNumber: 12)
+    }
+    if !self.sourceScheme.isEmpty {
+      try visitor.visitSingularStringField(value: self.sourceScheme, fieldNumber: 13)
+    }
+    if self.sourcePort != 0 {
+      try visitor.visitSingularInt32Field(value: self.sourcePort, fieldNumber: 14)
+    }
+    try { if let v = self._partitionKey {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 15)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Init_Cookie, rhs: Init_Cookie) -> Bool {
+    if lhs.name != rhs.name {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.domain != rhs.domain {return false}
+    if lhs.path != rhs.path {return false}
+    if lhs.expires != rhs.expires {return false}
+    if lhs.httponly != rhs.httponly {return false}
+    if lhs.secure != rhs.secure {return false}
+    if lhs._sameSite != rhs._sameSite {return false}
+    if lhs.priority != rhs.priority {return false}
+    if lhs.sameParty != rhs.sameParty {return false}
+    if lhs.sourceScheme != rhs.sourceScheme {return false}
+    if lhs.sourcePort != rhs.sourcePort {return false}
+    if lhs._partitionKey != rhs._partitionKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

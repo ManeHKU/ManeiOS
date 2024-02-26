@@ -20,6 +20,11 @@ public protocol Init_InitServiceClientProtocol: GRPCClient {
     _ request: Init_GetInitialConfigRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse>
+
+  func getSISTicket(
+    _ request: Init_UserSignInRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Init_UserSignInRequest, Init_UserSignInResponse>
 }
 
 extension Init_InitServiceClientProtocol {
@@ -42,6 +47,24 @@ extension Init_InitServiceClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeGetInitialConfigInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetSISTicket
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetSISTicket.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func getSISTicket(
+    _ request: Init_UserSignInRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Init_UserSignInRequest, Init_UserSignInResponse> {
+    return self.makeUnaryCall(
+      path: Init_InitServiceClientMetadata.Methods.getSISTicket.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetSISTicketInterceptors() ?? []
     )
   }
 }
@@ -112,6 +135,11 @@ public protocol Init_InitServiceAsyncClientProtocol: GRPCClient {
     _ request: Init_GetInitialConfigRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse>
+
+  func makeGetSisticketCall(
+    _ request: Init_UserSignInRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Init_UserSignInRequest, Init_UserSignInResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -135,6 +163,18 @@ extension Init_InitServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeGetInitialConfigInterceptors() ?? []
     )
   }
+
+  public func makeGetSisticketCall(
+    _ request: Init_UserSignInRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Init_UserSignInRequest, Init_UserSignInResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Init_InitServiceClientMetadata.Methods.getSISTicket.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetSISTicketInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -148,6 +188,18 @@ extension Init_InitServiceAsyncClientProtocol {
       request: request,
       callOptions: callOptions ?? self.defaultCallOptions,
       interceptors: self.interceptors?.makeGetInitialConfigInterceptors() ?? []
+    )
+  }
+
+  public func getSISTicket(
+    _ request: Init_UserSignInRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Init_UserSignInResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Init_InitServiceClientMetadata.Methods.getSISTicket.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetSISTicketInterceptors() ?? []
     )
   }
 }
@@ -173,6 +225,9 @@ public protocol Init_InitServiceClientInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when invoking 'getInitialConfig'.
   func makeGetInitialConfigInterceptors() -> [ClientInterceptor<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getSISTicket'.
+  func makeGetSISTicketInterceptors() -> [ClientInterceptor<Init_UserSignInRequest, Init_UserSignInResponse>]
 }
 
 public enum Init_InitServiceClientMetadata {
@@ -181,6 +236,7 @@ public enum Init_InitServiceClientMetadata {
     fullName: "init.InitService",
     methods: [
       Init_InitServiceClientMetadata.Methods.getInitialConfig,
+      Init_InitServiceClientMetadata.Methods.getSISTicket,
     ]
   )
 
@@ -188,6 +244,12 @@ public enum Init_InitServiceClientMetadata {
     public static let getInitialConfig = GRPCMethodDescriptor(
       name: "GetInitialConfig",
       path: "/init.InitService/GetInitialConfig",
+      type: GRPCCallType.unary
+    )
+
+    public static let getSISTicket = GRPCMethodDescriptor(
+      name: "GetSISTicket",
+      path: "/init.InitService/GetSISTicket",
       type: GRPCCallType.unary
     )
   }
@@ -198,6 +260,8 @@ public protocol Init_InitServiceProvider: CallHandlerProvider {
   var interceptors: Init_InitServiceServerInterceptorFactoryProtocol? { get }
 
   func getInitialConfig(request: Init_GetInitialConfigRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Init_GetInitialConfigResponse>
+
+  func getSISTicket(request: Init_UserSignInRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Init_UserSignInResponse>
 }
 
 extension Init_InitServiceProvider {
@@ -221,6 +285,15 @@ extension Init_InitServiceProvider {
         userFunction: self.getInitialConfig(request:context:)
       )
 
+    case "GetSISTicket":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Init_UserSignInRequest>(),
+        responseSerializer: ProtobufSerializer<Init_UserSignInResponse>(),
+        interceptors: self.interceptors?.makeGetSISTicketInterceptors() ?? [],
+        userFunction: self.getSISTicket(request:context:)
+      )
+
     default:
       return nil
     }
@@ -237,6 +310,11 @@ public protocol Init_InitServiceAsyncProvider: CallHandlerProvider, Sendable {
     request: Init_GetInitialConfigRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> Init_GetInitialConfigResponse
+
+  func getSISTicket(
+    request: Init_UserSignInRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Init_UserSignInResponse
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -267,6 +345,15 @@ extension Init_InitServiceAsyncProvider {
         wrapping: { try await self.getInitialConfig(request: $0, context: $1) }
       )
 
+    case "GetSISTicket":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Init_UserSignInRequest>(),
+        responseSerializer: ProtobufSerializer<Init_UserSignInResponse>(),
+        interceptors: self.interceptors?.makeGetSISTicketInterceptors() ?? [],
+        wrapping: { try await self.getSISTicket(request: $0, context: $1) }
+      )
+
     default:
       return nil
     }
@@ -278,6 +365,10 @@ public protocol Init_InitServiceServerInterceptorFactoryProtocol: Sendable {
   /// - Returns: Interceptors to use when handling 'getInitialConfig'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeGetInitialConfigInterceptors() -> [ServerInterceptor<Init_GetInitialConfigRequest, Init_GetInitialConfigResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getSISTicket'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetSISTicketInterceptors() -> [ServerInterceptor<Init_UserSignInRequest, Init_UserSignInResponse>]
 }
 
 public enum Init_InitServiceServerMetadata {
@@ -286,6 +377,7 @@ public enum Init_InitServiceServerMetadata {
     fullName: "init.InitService",
     methods: [
       Init_InitServiceServerMetadata.Methods.getInitialConfig,
+      Init_InitServiceServerMetadata.Methods.getSISTicket,
     ]
   )
 
@@ -293,6 +385,12 @@ public enum Init_InitServiceServerMetadata {
     public static let getInitialConfig = GRPCMethodDescriptor(
       name: "GetInitialConfig",
       path: "/init.InitService/GetInitialConfig",
+      type: GRPCCallType.unary
+    )
+
+    public static let getSISTicket = GRPCMethodDescriptor(
+      name: "GetSISTicket",
+      path: "/init.InitService/GetSISTicket",
       type: GRPCCallType.unary
     )
   }

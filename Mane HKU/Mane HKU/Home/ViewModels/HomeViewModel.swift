@@ -37,12 +37,11 @@ import SwiftProtobuf
         }
         let loginResult = Task(priority: .userInitiated) { () -> Bool in
             await PortalScraper.shared.resetSession()
-            guard let portalId = KeychainManager.shared.secureGet(key: .PortalId),
-                  let password = KeychainManager.shared.secureGet(key: .PortalPassword) else {
-                print("Portal id or password doesn't exist")
+            guard let portalId = KeychainManager.shared.secureGet(key: .PortalId) else {
+                print("Portal id doesn't exist")
                 return false
             }
-            let signedIn = await PortalScraper.shared.signInSIS(portalId: portalId, password: password)
+            let signedIn = await PortalScraper.shared.fastSISLogin(portalId: portalId, relogin: true)
             if !signedIn {
                 self.errorMessage.showMessage(title: "Error", subtitle: "Please try again later")
             }

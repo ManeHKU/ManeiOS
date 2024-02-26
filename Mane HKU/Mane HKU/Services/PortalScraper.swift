@@ -24,7 +24,7 @@ final actor PortalScraper {
         AF = createNewSession()
     }
     
-    
+    @available(*, deprecated, message: "Use gRPC method of getting ticket url to login instead")
     func signInToPortal(portalId: String, password: String) async -> (successSignIn: Bool, response: AFDataResponse<Data>?) {
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "verifyPortalSignIn")
         
@@ -74,8 +74,49 @@ final actor PortalScraper {
         }
     }
     
+    func accessTicket(ticketURL: String, cookies: [Init_Cookie]) async -> (gotTicket: Bool,  response: AFDataResponse<Data>?) {
+        let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "accessTicket")
+        
+        self.resetSession()
+        if !cookies.isEmpty {
+            CookieHandler.shared.setCookies(with: cookies)
+        }
+        let (_, result) = await getTicket(using: AF, ticketUrl: ticketURL)
+        switch result {
+        case.success(let response):
+            print("received good response, checking keywords")
+            guard let html = String(data: response.value!, encoding: .utf8) else {
+                return (false, response)
+            }
+            print(html)
+            return (html.contains("HKU CAS Signon Page"), response)
+        case .failure(let error):
+            logger.error("\(error.localizedDescription)")
+            return (false, response: nil)
+        }
+    }
+    
+    func accessTicket(ticketURL: String) async -> (gotTicket: Bool,  response: AFDataResponse<Data>?) {
+        let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "accessTicket")
+        
+        let (_, result) = await getTicket(using: AF, ticketUrl: ticketURL)
+        switch result {
+        case.success(let response):
+            print("received good response, checking keywords")
+            guard let html = String(data: response.value!, encoding: .utf8) else {
+                return (false, response)
+            }
+            print(html)
+            return (html.contains("HKU CAS Signon Page"), response)
+        case .failure(let error):
+            logger.error("\(error.localizedDescription)")
+            return (false, response: nil)
+        }
+    }
+    
+    @available(*, deprecated, renamed: "accessTicket", message: "Use the new access ticket function")
     func accessTicket(signInResponse: AFDataResponse<Data>) async -> (gotTicket: Bool,  response: AFDataResponse<Data>?) {
-        let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "verifyPortalSignIn")
+        let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "accessTicket")
         let linkHref: String
         
         logger.info("Extracting location header first")
@@ -161,18 +202,64 @@ final actor PortalScraper {
         }
     }
     
+    func fastSISLogin(portalId: String, relogin: Bool = false) async -> Bool{
+        let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "fastLogin")
+        CookieHandler.shared.restoreCookies()
+        let (newSession, sisLoginResult) = await getFastLogin(using: AF)
+        var ticketURL: String
+        switch sisLoginResult {
+        case.success(let location):
+            logger.info("received ticket url")
+            ticketURL = location
+        case .failure(let error):
+            logger.error("\(error.localizedDescription)")
+            if relogin {
+                return await reloginToSIS()
+            }
+            return false
+        }
+        
+        let (ticketAccessed, ticketResponse) = await self.accessTicket(ticketURL: ticketURL)
+        if !ticketAccessed || ticketResponse == nil {
+            print("failed to access ticket")
+            return false
+        }
+        
+        let (sisLoggedIn, sisResponse) = await self.sisLogin(ticketResponse: ticketResponse!)
+        if !sisLoggedIn {
+            print("cannot access home page")
+            return false
+        }
+        print("wohoooo fast logged in happy!!!!!")
+        return true
+    }
+    
     func signInSIS(portalId: String, password: String) async -> Bool {
         defer {
             print("ending sign in to sis....")
         }
-        let (portalSignIn, portalResponse) = await self.signInToPortal(portalId: portalId, password: password)
-        if !portalSignIn || portalResponse == nil {
-            print("failed to sign in to portal")
+        var request = Init_UserSignInRequest()
+        request.userID = portalId
+        request.password = password
+        let response: Init_UserSignInResponse
+        do {
+            let unaryCall = GRPCServiceManager.shared.initClient.getSISTicket(request)
+            let statusCode = try await unaryCall.status.get()
+            response = try await unaryCall.response.get()
+            print("received results, with status \(statusCode)")
+            
+        } catch {
+            print(error.localizedDescription)
             return false
         }
-        print("signed in to portal")
+//        let (portalSignIn, portalResponse) = await self.signInToPortal(portalId: portalId, password: password)
+        print("received response from init service")
+        if !response.hasTicketURL {
+            print("failed to get ticket url")
+            return false
+        }
         
-        let (ticketAccessed, ticketResponse) = await self.accessTicket(signInResponse: portalResponse!)
+        let (ticketAccessed, ticketResponse) = await self.accessTicket(ticketURL: response.ticketURL, cookies: response.cookies)
         if !ticketAccessed || ticketResponse == nil {
             print("failed to access ticket")
             return false
@@ -191,7 +278,7 @@ final actor PortalScraper {
         self.resetSession()
         guard let portalId = KeychainManager.shared.secureGet(key: .PortalId),
               let password = KeychainManager.shared.secureGet(key: .PortalPassword) else {
-            print("password doesn't exist. whoops")
+            print("portal id or password doesn't exist. whoops")
             return false
         }
         return await self.signInSIS(portalId: portalId, password: password)

@@ -47,6 +47,7 @@ import os
             logger.info("otp correct")
             KeychainManager.shared.secureSave(key: .PortalId, value: loginDetails.portalId)
             KeychainManager.shared.secureSave(key: .PortalPassword, value: loginDetails.password)
+            CookieHandler.shared.backupAllCookies()
             showVerifySuccessAlert = true
             try await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
             showSuccessPage = true

@@ -16,9 +16,11 @@ final class GRPCServiceManager {
     private let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
     static let shared = GRPCServiceManager()
     var serviceClient: Service_MainServiceClientProtocol!
+    var initClient: Init_InitServiceClientProtocol!
     private init() {
-        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 10764), eventLoopGroup: group))
+        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 18823), eventLoopGroup: group))
         serviceClient = Service_MainServiceNIOClient(channel: channel)
+        initClient = Init_InitServiceNIOClient(channel: channel)
     }
     
     deinit {
@@ -63,5 +65,21 @@ extension GRPCClient {
                     retries: retries - 1
                 )
             }
+    }
+}
+
+extension Init_Cookie {
+    var dictionary: [HTTPCookiePropertyKey: Any] {
+        return [
+            .name: self.name,
+            .value: self.value,
+            .domain: self.domain,
+            .path: self.path,
+            .expires: NSDate(timeIntervalSinceReferenceDate: TimeInterval(self.expires)),
+            .secure: self.secure,
+            .init(rawValue: "HttpOnly"): self.httponly,
+            .sameSitePolicy: self.sameSite,
+            .port: self.sourcePort
+        ]
     }
 }

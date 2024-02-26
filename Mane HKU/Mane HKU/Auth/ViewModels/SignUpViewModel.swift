@@ -61,9 +61,26 @@ import os
             return
         }
         
-        let (successfulSignIn, _)  = await PortalScraper.shared.signInToPortal(portalId: portalId, password: password)
+        var request = Init_UserSignInRequest()
+        request.userID = portalId
+        request.password = password
+        let response: Init_UserSignInResponse
+        do {
+            let unaryCall = GRPCServiceManager.shared.initClient.getSISTicket(request)
+            let statusCode = try await unaryCall.status.get()
+            response = try await unaryCall.response.get()
+            print("received results, with status \(statusCode)")
+        } catch {
+            logger.info("Failed to sign in, setting error message")
+            signUpErrorToast.title = "Invalid Credentials"
+            signUpErrorToast.subtitle = "Try again"
+            signUpErrorToast.show = true
+            return
+        }
+//        let (portalSignIn, portalResponse) = await self.signInToPortal(portalId: portalId, password: password)
+        print("received response")
         
-        if !successfulSignIn {
+        if !response.canLogInToSis || !response.hasTicketURL {
             logger.info("Failed to sign in, setting error message")
             signUpErrorToast.title = "Invalid Credentials"
             signUpErrorToast.subtitle = "Try again"

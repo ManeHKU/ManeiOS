@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct ManeHKUApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     @State private var appRootManager = AppRootManager()
     var body: some Scene {
         WindowGroup {
