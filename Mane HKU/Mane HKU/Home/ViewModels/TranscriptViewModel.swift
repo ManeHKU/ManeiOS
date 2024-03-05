@@ -7,9 +7,11 @@
 
 import Foundation
 
-@Observable class TranscriptViewModel {
+@Observable final class TranscriptViewModel {
+    @ObservationIgnored private var defaults = UserDefaults.standard
     var successMessage: ToastMessage = ToastMessage()
     var errorMessage: ToastMessage = ToastMessage()
+    var normalMessage: ToastMessage = ToastMessage()
     var loading = false
     var transcript: Transcript? {
         didSet {
@@ -29,7 +31,6 @@ import Foundation
     
     init() {
         loading = true
-        let defaults = UserDefaults.standard
         if let defaultTranscript = defaults.data(forKey: UserDefaults.DefaultKey.transcript.rawValue) {
             do {
                 self.transcript = try JSONDecoder().decode(Transcript.self, from: defaultTranscript)
@@ -41,26 +42,23 @@ import Foundation
         }
         print("retrieving new transcript....")
         Task {
-            transcript = await PortalScraper.shared.getTranscript()
-            if transcript == nil {
-                loading = false
-                errorMessage.showMessage(title: "Error Loading Transcript", subtitle: "Try again later")
-                return
-            }
-            loading = false
-            if let encoded = try? JSONEncoder().encode(transcript) {
-                defaults.setValue(encoded, forKey: UserDefaults.DefaultKey.transcript.rawValue)
-                print("saved")
-            }
-            await upsertCourseCodes(with: transcript?.allCourses)
+            await refreshTranscript()
         }
     }
     
     func refreshTranscript() async {
-        print("refreshing...")
+        if !PortalScraper.shared.isSignedIn {
+            normalMessage.showMessage(title: "Still logging in....", subtitle: "Refresh later!")
+            return
+        }
+        print("Start refreshing")
         loading = true
         transcript = await PortalScraper.shared.getTranscript()
         loading = false
+        if let encoded = try? JSONEncoder().encode(transcript) {
+            defaults.setValue(encoded, forKey: UserDefaults.DefaultKey.transcript.rawValue)
+            print("saved")
+        }
         Task {
             await upsertCourseCodes(with: transcript?.allCourses)
         }

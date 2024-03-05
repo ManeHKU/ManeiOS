@@ -18,7 +18,8 @@ final class GRPCServiceManager {
     var serviceClient: Service_MainServiceClientProtocol!
     var initClient: Init_InitServiceClientProtocol!
     private init() {
-        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 18823), eventLoopGroup: group))
+        // ConnectionTarget.hostAndPort("mane-service-uknkqgo4rq-df.a.run.app", 8080)
+        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 19794) , eventLoopGroup: group))
         serviceClient = Service_MainServiceNIOClient(channel: channel)
         initClient = Init_InitServiceNIOClient(channel: channel)
     }
@@ -75,11 +76,11 @@ extension Init_Cookie {
             .value: self.value,
             .domain: self.domain,
             .path: self.path,
-            .expires: NSDate(timeIntervalSinceReferenceDate: TimeInterval(self.expires)),
+            .expires: self.expires == -1 ? "" : NSDate(timeIntervalSinceReferenceDate: TimeInterval(self.expires)) as Any,
             .secure: self.secure,
             .init(rawValue: "HttpOnly"): self.httponly,
             .sameSitePolicy: self.sameSite,
-            .port: self.sourcePort
+            .port: self.sourcePort,
         ]
     }
 }

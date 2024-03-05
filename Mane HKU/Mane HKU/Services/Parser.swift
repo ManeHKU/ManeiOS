@@ -68,7 +68,7 @@ struct Parser {
             return nil
         }
         
-        var courseLists = [String: [Semester: [Course]]]()
+        var courseLists = YearSemesterDictArray<Course>()
         if courseRows.count < 1 {
             print("unknown count as it got only \(courseRows.count) table row, stop parsing course grade rows")
         } else {
@@ -87,7 +87,7 @@ struct Parser {
             transcript.courseLists = courseLists
         }
         
-        var gpaLists = [String: [Semester: GPAHistory]]()
+        var gpaLists = YearSemesterDict<GPAHistory>()
         if gpaRows.count < 1 {
             print("unknown count as it got only \(courseRows.count) table row, stop parsing gpa rows")
         } else {
@@ -125,7 +125,7 @@ struct Parser {
         return transcript
     }
     
-    func parseGPARow(tr row: Element) -> GPAHistory? {
+    private func parseGPARow(tr row: Element) -> GPAHistory? {
         let tdCount = try? row.select("td").count
         if tdCount != 5 {
             print("This row only has \(String(describing: tdCount)) columns, returning nil")
@@ -163,7 +163,7 @@ struct Parser {
         return GPAHistory(term: parsedSemesterTerm.term, semester: parsedSemesterTerm.semester, sGPA: sGPA, cGPA: cGPA)
     }
     
-    func parseRawTermSemester(input rawTerm: String) -> (term: String, semester: Semester)? {
+    private func parseRawTermSemester(input rawTerm: String) -> (term: String, semester: Semester)? {
         let rawTermSplit = rawTerm.components(separatedBy: " ")
         print("term: \(String(describing: rawTerm))")
         if rawTermSplit.count != 3 {
@@ -189,8 +189,8 @@ struct Parser {
         return (term, semester)
     }
     
-    func parseTranscriptCourseRow(tr row: Element) -> Course? {
-        let tdCount = try? row.select("td").count 
+    private func parseTranscriptCourseRow(tr row: Element) -> Course? {
+        let tdCount = try? row.select("td").count
         if tdCount != 7 {
             print("This row only has \(String(describing: tdCount)) columns, returning nil")
             return nil
@@ -261,5 +261,108 @@ struct Parser {
         let course = Course(code: code, title: title, term: parsedSemesterTerm.term, semester: parsedSemesterTerm.semester, grade: grade, credit: credit, status: status)
         
         return course
+    }
+    
+    func parseEnrollmentStatus(html: String) -> SemesterDictArray<CourseInEnrollmentStatus>? {
+        defer {
+            print("ended parsing enrollment status")
+        }
+        print("parsing enrollment status from html")
+        let doc: Document
+        do {
+            doc = try SwiftSoup.parse(html)
+        } catch {
+            print(error)
+            print("cannot parse html file")
+            return nil
+        }
+        var outputDict = SemesterDictArray<CourseInEnrollmentStatus>()
+        var years: Set<String> = []
+        let enrollmentStatusRows: Elements
+        do {
+            enrollmentStatusRows = try doc.select("tr[id*='trZ_CRSE_APR_VW']")
+            for row in enrollmentStatusRows {
+                if let parsedCourseEnrollStatus = parseCourseInEnrollmentStatus(tr: row) {
+                    if years.isEmpty {
+                        years.insert(parsedCourseEnrollStatus.term)
+                    } else if !years.contains(parsedCourseEnrollStatus.term) {
+                        print("unknown term. there should be only 1 term!!")
+                        return nil
+                    }
+                    outputDict[parsedCourseEnrollStatus.semester, default: []].append(parsedCourseEnrollStatus)
+                }
+            }
+        } catch {
+            print(error)
+            print("cannot parse enrollment status table")
+            return nil
+        }
+        
+        return outputDict
+    }
+    
+    private func parseCourseInEnrollmentStatus(tr row: Element) -> CourseInEnrollmentStatus? {
+        let tdCount = try? row.select("td").count
+        if tdCount != 6 {
+            print("This row only has \(String(describing: tdCount)) columns, returning nil")
+            return nil
+        }
+        
+        guard let rawTerm = try? row.getElementsByAttributeValueStarting("id", "TERM_TBL_DESCR").first()?.text(trimAndNormaliseWhitespace: true) else {
+            print("Empty raw term, returning nil")
+            return nil
+        }
+        
+        guard let parsedSemesterTerm = parseRawTermSemester(input: rawTerm) else {
+            print("cannot parse term/semester")
+            return nil
+        }
+        print("parsed \(parsedSemesterTerm.term) \(parsedSemesterTerm.semester)")
+        
+        guard let rawCourseDescription = try? row.getElementsByAttributeValueStarting("id", "Z_CRSE_APR_VW_DESCR254").first()?.text(trimAndNormaliseWhitespace: true) else {
+            print("Empty raw course description, returning nil")
+            return nil
+        }
+        
+        guard let courseCodeRegex = try? NSRegularExpression(pattern: "(?<rawCode>[A-Z]{4} \\d{4}(?:FY)?)-(?<subclass>[1-3SF]A)") else {
+            print("cannot compile regex, should not happen")
+            return nil
+        }
+        
+        var code: String? = nil
+        var subclass: String? = nil
+        guard let matches = courseCodeRegex
+            .matches(in: rawCourseDescription, range: NSRange(rawCourseDescription.startIndex..., in: rawCourseDescription)).first else {
+                print("cannot retrieve code with regex, returning nil")
+                return nil
+            }
+        
+        let codeMatchRange = matches.range(withName: "rawCode"), subclassMatchRange = matches.range(withName: "subclass")
+        // Extract the substring matching the named capture group
+        if let codeRange = Range(codeMatchRange, in: rawCourseDescription), let subclassRange = Range(subclassMatchRange, in: rawCourseDescription) {
+            let codeCapture = String(rawCourseDescription[codeRange]), subclassCapture = String(rawCourseDescription[subclassRange])
+            code = codeCapture.filter {
+                !$0.isWhitespace
+            }
+            subclass = subclassCapture
+        }
+        if code == nil || subclass == nil {
+            print("failed to extract code or subclass", code, subclass)
+            return nil
+        }
+        print(code, subclass)
+        
+        guard let rawStatus = try? row.getElementsByAttributeValueStarting("id", "Z_CRSE_APR_VW_Z_ACTION").first()?.text(trimAndNormaliseWhitespace: true) else {
+            print("Empty raw status, returning nil")
+            return nil
+        }
+        let enrollmentStatus = CourseEnrollmentStatus(rawValue: rawStatus) ?? .unknown
+        
+        guard let schedule = try? row.getElementsByAttributeValueStarting("id", "Z_CRSE_APR_VW_DESCR200").first()?.text(trimAndNormaliseWhitespace: false) else {
+            print("Empty raw schedule, returning nil")
+            return nil
+        }
+        
+        return CourseInEnrollmentStatus(term: parsedSemesterTerm.term, semester: parsedSemesterTerm.semester, code: code!, subclass: subclass!, status: enrollmentStatus, schedule: schedule)
     }
 }

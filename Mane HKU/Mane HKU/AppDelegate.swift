@@ -10,6 +10,7 @@ import UIKit
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
+        print("saving cookies")
         CookieHandler.shared.backupAllCookies()
     }
 }

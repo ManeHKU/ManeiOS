@@ -11,27 +11,32 @@ import AlertToast
 struct TranscriptView: View {
     @Bindable private var transcriptVM: TranscriptViewModel = TranscriptViewModel()
     
+    var titleSection: some View {
+        VStack {
+            HStack{
+                Text("Overall GPA")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                Spacer()
+            }
+            Group {
+                if let latestcGPA = transcriptVM.transcript?.latestGPA {
+                    Text("\(latestcGPA, specifier: "%.2f")/4.3")
+                } else {
+                    Text("No GPA Available")
+                }
+            }
+            .padding(.vertical, 20)
+            .font(.title2)
+            .fontWeight(.bold)
+            .multilineTextAlignment(.center)
+        }
+    }
+    
     var body: some View {
         VStack(spacing: 10){
-            VStack() {
-                HStack{
-                    Text("Overall GPA")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    Spacer()
-                }
-                Group {
-                    if let latestcGPA = transcriptVM.transcript?.latestGPA {
-                        Text("\(latestcGPA, specifier: "%.2f")/4.3")
-                    } else {
-                        Text("No GPA Available")
-                    }
-                }
-                .padding(.vertical, 20)
-                .font(.title2)
-                .fontWeight(.bold)
-                .multilineTextAlignment(.center)
-            }
+            titleSection
+            
             VStack {
                 if (transcriptVM.transcript?.courseLists == nil ||
                     (transcriptVM.transcript?.courseLists != nil && transcriptVM.transcript!.courseLists!.isEmpty) ||
@@ -80,14 +85,16 @@ struct TranscriptView: View {
         .toast(isPresenting: $transcriptVM.loading) {
             AlertToast(displayMode: .alert, type: .loading)
         }
+        .toast(isPresenting: $transcriptVM.normalMessage.show) {
+            AlertToast(displayMode: .banner(.slide), type: .error(.red), title: transcriptVM.normalMessage.title, subTitle: transcriptVM.normalMessage.subtitle)
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Refresh", systemImage: "arrow.clockwise") {
                     Task {
                         await transcriptVM.refreshTranscript()
                     }
-                }.disabled(transcriptVM.loading)
-                
+                }.disabled(transcriptVM.loading || !PortalScraper.shared.isSignedIn)
             }
         }
     }

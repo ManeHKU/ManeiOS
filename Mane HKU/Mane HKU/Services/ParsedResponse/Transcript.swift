@@ -16,7 +16,7 @@ struct Transcript: Codable {
 //    let majors: [String]?
 //    let minors: [String]?
     
-    var courseLists: [String: [Semester: [Course]]]?
+    var courseLists: YearSemesterDictArray<Course>?
     var allCourses: [String] {
         get {
             var output: [String] = []
@@ -35,7 +35,7 @@ struct Transcript: Codable {
     }
     var ug5ePassed: Bool?
     var latestGPA: Double?
-    var GPAs: [String: [Semester: GPAHistory]]?
+    var GPAs: YearSemesterDict<GPAHistory>?
 }
 
 enum Grade: String, Codable {

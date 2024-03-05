@@ -32,7 +32,10 @@ final class CookieHandler {
         
         for cookie in self.getCookies() {
             cookieDict[cookie.name] = cookie.properties as AnyObject?
+            print("saving \(cookie.name) in \(cookie.domain)")
         }
+        
+        print("\(self.getCookie(forURL: "hkuportal.hku.hk"))")
         
         defaults.set(cookieDict, forKey: UserDefaults.DefaultKey.cookies.rawValue)
     }
@@ -51,7 +54,10 @@ final class CookieHandler {
         for remoteCookie in remoteCookies {
             if let cookie = HTTPCookie(properties: remoteCookie.dictionary) {
                 cookieStorage.setCookie(cookie)
-                print("success set cookie \(cookie.name)")
+                print("success set cookie \(cookie.name) from \(cookie.domain)")
+                if cookie.name == "JSESSIONID" {
+                    print(cookie)
+                }
             } else {
                 print("failed to init \(remoteCookie.name)")
             }

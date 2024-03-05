@@ -17,6 +17,7 @@ protocol ScraperResponse {
 enum PortalURLs: String {
     case login = "https://hkuportal.hku.hk/cas/servlet/edu.yale.its.tp.cas.servlet.Login"
     case fastLogin = "https://hkuportal.hku.hk/cas/login?service=HKUPORTAL"
+    case aadLogin = "https://hkuportal.hku.hk/cas/aad"
     case retry = "https://hkuportal.hku.hk/retry.html"
     case logout = "https://hkuportal.hku.hk/cas/logout/l.html"
     case info = "https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_MR_ADDRESS_C1.GBL?FolderPath=PORTAL_ROOT_OBJECT.Z_SIS_MENU.Z_STDNT_SELF_SERVICES.Z_MR_ADDRESS_C1_GBL&IsFolder=false&IgnoreParamTempl=FolderPath,IsFolder&PortalActualURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_MR_ADDRESS_C1.GBL&PortalContentURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_MR_ADDRESS_C1.GBL&PortalContentProvider=PSFT_CS&PortalCRefLabel=View & Change Personal Info&PortalRegistryName=EMPLOYEE&PortalServletURI=https://sis-eportal.hku.hk/psp/ptlprod/&PortalURI=https://sis-eportal.hku.hk/psc/ptlprod/&PortalHostNode=EMPL&NoCrumbs=yes&PortalKeyStruct=yes"
@@ -30,12 +31,13 @@ func createOrGetSession(check session: Session?) -> Session {
     if let unwrapped = session  {
         return unwrapped
     }
-   return createNewSession()
+    return createNewSession()
 }
 
 func createNewSession() -> Session {
     let configuration = URLSessionConfiguration.af.default
     configuration.httpCookieAcceptPolicy = .always
+    configuration.httpCookieStorage = HTTPCookieStorage.shared
     configuration.httpAdditionalHeaders?.updateValue("Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:120.0) Gecko/20100101 Firefox/120.0", forKey: "User-Agent")
     let newSession = Session(configuration: configuration)
     return newSession
@@ -76,31 +78,76 @@ func postPortalSignIn(using session: Session,_ body: PortalLoginBody) async -> (
     }
 }
 
-func getFastLogin(using session: Session) async -> (client: Session, result: Result<String, Error>){
+func getFastLogin(using session: Session, portalId: String) async -> (client: Session, result: Result<String, Error>){
     let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "fastLogin")
     return await withCheckedContinuation { continuation in
         session
             .request(PortalURLs.fastLogin.rawValue, method: .get)
+//            .redirect(using: doNotFollowRedirector)
+            .responseData { AFResponse in
+                let urlResponse = AFResponse.response
+                switch AFResponse.result {
+                case .success:
+                    let finalURL = AFResponse.response?.url?.absoluteString ?? "unknown"
+                    logger.debug("url received:  \(finalURL)")
+                    if finalURL.contains("z_signon.jsp") && finalURL.contains("ticket") {
+                        logger.info("URL: \(finalURL)")
+                        logger.info("Received final url for ticket in 200 code")
+                        continuation.resume(returning: (session, Result.success(finalURL)))
+                        return
+                    }
+                    logger.error("Should not receive 200 status code")
+                    continuation.resume(returning:  (session, Result.failure(PortalSignInError.unkown)))
+                    return
+                case .failure(let error):
+                    logger.info("Receivd non-200 code in fast login (with \(urlResponse?.statusCode ?? 0) code), error: \(error.localizedDescription)")
+                    if urlResponse?.statusCode == 302 {
+                        if let location = urlResponse?.value(forHTTPHeaderField: "Location"){
+                            logger.info("Received 302 with location: \(location)")
+                            continuation.resume(returning: (session, Result.success(location)))
+                            return
+                        }
+                    }
+                    continuation.resume(returning:  (session, Result.failure(PortalSignInError.unkown)))
+                }
+            }
+    }
+}
+
+func postAADLogin(using session: Session, portalId: String) async -> (client: Session, result: Result<String, Error>){
+    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "postAADLogin")
+    let body = [
+        "email": "\(portalId)@connect.hku.hk"
+    ]
+    return await withCheckedContinuation { continuation in
+        session
+            .request(PortalURLs.aadLogin.rawValue, method: .post, parameters: body)
             .redirect(using: doNotFollowRedirector)
             .responseData { AFResponse in
                 let urlResponse = AFResponse.response
                 switch AFResponse.result {
                 case .success:
-                    logger.info("Should not receive 200 status code")
+                    logger.error("Should not receive 200 status code")
                     continuation.resume(returning:  (session, Result.failure(PortalSignInError.unkown)))
                     
                 case .failure(let error):
-                    logger.error("Failed to login (with \(urlResponse?.statusCode ?? 0) code, error: \(error.localizedDescription)")
+                    logger.info("AAD: Receivd non-200 code in fast login (with \(urlResponse?.statusCode ?? 0) code), error: \(error.localizedDescription)")
                     if urlResponse?.statusCode == 302 {
                         if let location = urlResponse?.value(forHTTPHeaderField: "Location"){
+                            logger.info("AAD: Received location: \(location)")
                             if location.contains("z_signon.jsp") {
-                                logger.info("Recevied 302 but with correct redirect header")
+                                logger.info("AAD: Recevied 302 but with correct redirect header")
                                 continuation.resume(returning: (session, Result.success(location)))
+                                return
+                            } else {
+                                logger.info("Cannot receive tickets, need to relogin")
+                                continuation.resume(returning:  (session, Result.failure(PortalSignInError.reloginNeeded)))
                                 return
                             }
                         }
                     }
                     continuation.resume(returning:  (session, Result.failure(PortalSignInError.unkown)))
+                    return
                 }
             }
     }
@@ -133,7 +180,7 @@ func postSISLogin(using session: Session,_ body: [String:String], url: String) a
     return await withCheckedContinuation { continuation in
         session
             .request(url, method: .post, parameters: body)
-//            .redirect(using: doNotFollowRedirector) redirect is allowed
+        //            .redirect(using: doNotFollowRedirector) redirect is allowed
             .validate()
             .responseData { AFResponse in
                 let urlResponse = AFResponse.response

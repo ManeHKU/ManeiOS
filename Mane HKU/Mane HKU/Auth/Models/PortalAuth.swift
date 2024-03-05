@@ -8,7 +8,7 @@
 import Foundation
 
 enum PortalSignInError: Error {
-    case wrongCredentials, expiredSession, retryAgain, unkown, logoutRequested
+    case wrongCredentials, expiredSession, retryAgain, unkown, logoutRequested, reloginNeeded
 }
 
 extension PortalSignInError: LocalizedError {

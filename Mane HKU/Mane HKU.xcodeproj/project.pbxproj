@@ -29,6 +29,7 @@
 		B95B5F562B4C7B6C001A7070 /* PortalScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */; };
 		B95B5F582B4C7CB0001A7070 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F572B4C7CB0001A7070 /* APIService.swift */; };
 		B96591882B5547EA00FD1B91 /* CheckUserAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96591872B5547EA00FD1B91 /* CheckUserAuthView.swift */; };
+		B96F74EA2B9752F5002CAF5E /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96F74E92B9752F5002CAF5E /* Generics.swift */; };
 		B971B74F2B66B05A00C4C72E /* main_service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971B7492B66B05A00C4C72E /* main_service.pb.swift */; };
 		B971B7502B66B05A00C4C72E /* health_check.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971B74A2B66B05A00C4C72E /* health_check.grpc.swift */; };
 		B971B7512B66B05A00C4C72E /* init_service.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971B74B2B66B05A00C4C72E /* init_service.grpc.swift */; };
@@ -40,6 +41,9 @@
 		B99763B22B56F7A800A439F1 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99763B12B56F7A800A439F1 /* UserManager.swift */; };
 		B99F37C82B8CB3DE0060DE0C /* CookieHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F37C72B8CB3DE0060DE0C /* CookieHandler.swift */; };
 		B99F37CA2B8CC4370060DE0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F37C92B8CC4370060DE0C /* AppDelegate.swift */; };
+		B99F37CE2B8E408D0060DE0C /* EnrollmentStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F37CD2B8E408D0060DE0C /* EnrollmentStatusView.swift */; };
+		B99F37D02B8E40A80060DE0C /* EnrollmentStatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F37CF2B8E40A80060DE0C /* EnrollmentStatusViewModel.swift */; };
+		B99F37D22B8E415B0060DE0C /* EnrollmentStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B99F37D12B8E415B0060DE0C /* EnrollmentStatus.swift */; };
 		B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABC2B2608B500B63C02 /* ManeApp.swift */; };
 		B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B0FABE2B2608B500B63C02 /* ContentView.swift */; };
 		B9B0FAC12B2608B600B63C02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B0FAC02B2608B600B63C02 /* Assets.xcassets */; };
@@ -102,6 +106,7 @@
 		B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalScraper.swift; sourceTree = "<group>"; };
 		B95B5F572B4C7CB0001A7070 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B96591872B5547EA00FD1B91 /* CheckUserAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserAuthView.swift; sourceTree = "<group>"; };
+		B96F74E92B9752F5002CAF5E /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
 		B971B7492B66B05A00C4C72E /* main_service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main_service.pb.swift; sourceTree = "<group>"; };
 		B971B74A2B66B05A00C4C72E /* health_check.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = health_check.grpc.swift; sourceTree = "<group>"; };
 		B971B74B2B66B05A00C4C72E /* init_service.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = init_service.grpc.swift; sourceTree = "<group>"; };
@@ -112,6 +117,9 @@
 		B99763B12B56F7A800A439F1 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		B99F37C72B8CB3DE0060DE0C /* CookieHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CookieHandler.swift; sourceTree = "<group>"; };
 		B99F37C92B8CC4370060DE0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B99F37CD2B8E408D0060DE0C /* EnrollmentStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentStatusView.swift; sourceTree = "<group>"; };
+		B99F37CF2B8E40A80060DE0C /* EnrollmentStatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentStatusViewModel.swift; sourceTree = "<group>"; };
+		B99F37D12B8E415B0060DE0C /* EnrollmentStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnrollmentStatus.swift; sourceTree = "<group>"; };
 		B9B0FAB92B2608B500B63C02 /* Mane HKU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mane HKU.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B0FABC2B2608B500B63C02 /* ManeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManeApp.swift; sourceTree = "<group>"; };
 		B9B0FABE2B2608B500B63C02 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -188,6 +196,7 @@
 				B942D8042B50182800A26DAD /* HomeView.swift */,
 				B98DB9272B7149FA0053FEF7 /* MainTabView.swift */,
 				B9442C462B7CF1C7004DCF7D /* TranscriptView.swift */,
+				B99F37CD2B8E408D0060DE0C /* EnrollmentStatusView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -227,6 +236,7 @@
 			children = (
 				B9B375E52B5CF74900A594AA /* UserInfo.swift */,
 				B9442C4A2B7CF72E004DCF7D /* Transcript.swift */,
+				B99F37D12B8E415B0060DE0C /* EnrollmentStatus.swift */,
 			);
 			path = ParsedResponse;
 			sourceTree = "<group>";
@@ -324,6 +334,7 @@
 				B942D7FA2B4FDAF900A26DAD /* AlertToast.swift */,
 				B99763B12B56F7A800A439F1 /* UserManager.swift */,
 				B91B986C2B62893000608766 /* UserDefault.swift */,
+				B96F74E92B9752F5002CAF5E /* Generics.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -343,6 +354,7 @@
 			children = (
 				B9B375E32B5C4A9B00A594AA /* HomeViewModel.swift */,
 				B9442C482B7CF1FF004DCF7D /* TranscriptViewModel.swift */,
+				B99F37CF2B8E40A80060DE0C /* EnrollmentStatusViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -538,14 +550,18 @@
 				B95B5F562B4C7B6C001A7070 /* PortalScraper.swift in Sources */,
 				B9B375E42B5C4A9B00A594AA /* HomeViewModel.swift in Sources */,
 				B971B7542B66B05A00C4C72E /* health_check.pb.swift in Sources */,
+				B96F74EA2B9752F5002CAF5E /* Generics.swift in Sources */,
 				B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */,
 				B98DB9282B7149FA0053FEF7 /* MainTabView.swift in Sources */,
 				B99F37C82B8CB3DE0060DE0C /* CookieHandler.swift in Sources */,
+				B99F37D22B8E415B0060DE0C /* EnrollmentStatus.swift in Sources */,
 				B971B7502B66B05A00C4C72E /* health_check.grpc.swift in Sources */,
 				B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */,
 				B96591882B5547EA00FD1B91 /* CheckUserAuthView.swift in Sources */,
 				B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */,
 				B971B7512B66B05A00C4C72E /* init_service.grpc.swift in Sources */,
+				B99F37CE2B8E408D0060DE0C /* EnrollmentStatusView.swift in Sources */,
+				B99F37D02B8E40A80060DE0C /* EnrollmentStatusViewModel.swift in Sources */,
 				B9B375E62B5CF74900A594AA /* UserInfo.swift in Sources */,
 				B9E7E0BA2B482831006EE61B /* Color.swift in Sources */,
 				B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */,

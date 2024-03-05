@@ -16,6 +16,7 @@ struct HomeMenuItem: Identifiable {
 
 enum HomeMenuType {
     case transcript
+    case enrollmentStatus
 }
 
 struct HomeView: View {
@@ -29,7 +30,8 @@ struct HomeView: View {
     }
     
     private let homeMenuItems: [HomeMenuItem] = [
-        HomeMenuItem(id: .transcript, title: "Transcript", subtitle: "See your academic records")
+        HomeMenuItem(id: .transcript, title: "Transcript", subtitle: "See your academic records"),
+        HomeMenuItem(id: .enrollmentStatus, title: "Enrollment Status", subtitle: "See your enrolled course status")
     ]
     
     var body: some View {
@@ -66,6 +68,8 @@ struct HomeView: View {
                     switch type {
                     case .transcript:
                         TranscriptView()
+                    case .enrollmentStatus:
+                        EnrollmentStatusView()
                     }
                 }
             }

@@ -10,10 +10,15 @@ import Alamofire
 import os
 import SwiftSoup
 
-final actor PortalScraper {
+@Observable final class PortalScraper {
     static let shared = PortalScraper()
     private var AF: Session
     private var parser: Parser
+    private var isLoggingIn = false
+    private var isLocalAuthenticated = false
+    var isSignedIn: Bool {
+        return isLoggingIn ? false : isLocalAuthenticated
+    }
     
     init() {
         self.AF = createNewSession()
@@ -204,19 +209,37 @@ final actor PortalScraper {
     
     func fastSISLogin(portalId: String, relogin: Bool = false) async -> Bool{
         let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "fastLogin")
+        isLoggingIn = true
         CookieHandler.shared.restoreCookies()
-        let (newSession, sisLoginResult) = await getFastLogin(using: AF)
+        let (_, sisLoginResult) = await getFastLogin(using: AF, portalId: portalId)
         var ticketURL: String
-        switch sisLoginResult {
-        case.success(let location):
-            logger.info("received ticket url")
-            ticketURL = location
-        case .failure(let error):
-            logger.error("\(error.localizedDescription)")
+        func failureAction() async -> Bool {
             if relogin {
                 return await reloginToSIS()
             }
             return false
+        }
+        switch sisLoginResult {
+        case.success(let location):
+            if location.contains("z_signon.jsp") {
+                logger.info("Recevied ticketurl")
+                ticketURL = location
+            } else if location.contains("cas/aad")  {
+                logger.info("Need to send POST request again")
+                let (_, aadResult) = await postAADLogin(using: AF, portalId: portalId)
+                switch aadResult {
+                case .success(let location):
+                    ticketURL = location
+                case .failure(let error):
+                    logger.error("\(error.localizedDescription)")
+                    return await failureAction()
+                }
+            } else {
+                return await failureAction()
+            }
+        case .failure(let error):
+            logger.error("\(error.localizedDescription)")
+            return await failureAction()
         }
         
         let (ticketAccessed, ticketResponse) = await self.accessTicket(ticketURL: ticketURL)
@@ -225,12 +248,14 @@ final actor PortalScraper {
             return false
         }
         
-        let (sisLoggedIn, sisResponse) = await self.sisLogin(ticketResponse: ticketResponse!)
+        let (sisLoggedIn, _) = await self.sisLogin(ticketResponse: ticketResponse!)
         if !sisLoggedIn {
             print("cannot access home page")
             return false
         }
         print("wohoooo fast logged in happy!!!!!")
+        isLoggingIn = false
+        isLocalAuthenticated = true
         return true
     }
     
@@ -238,6 +263,7 @@ final actor PortalScraper {
         defer {
             print("ending sign in to sis....")
         }
+        isLoggingIn = true
         var request = Init_UserSignInRequest()
         request.userID = portalId
         request.password = password
@@ -252,7 +278,7 @@ final actor PortalScraper {
             print(error.localizedDescription)
             return false
         }
-//        let (portalSignIn, portalResponse) = await self.signInToPortal(portalId: portalId, password: password)
+        //        let (portalSignIn, portalResponse) = await self.signInToPortal(portalId: portalId, password: password)
         print("received response from init service")
         if !response.hasTicketURL {
             print("failed to get ticket url")
@@ -265,12 +291,14 @@ final actor PortalScraper {
             return false
         }
         
-        let (sisLoggedIn, sisResponse) = await self.sisLogin(ticketResponse: ticketResponse!)
+        let (sisLoggedIn, _) = await self.sisLogin(ticketResponse: ticketResponse!)
         if !sisLoggedIn {
             print("cannot access home page")
             return false
         }
         print("wohoooo logged in happy!!!!!")
+        isLoggingIn = false
+        isLocalAuthenticated = true
         return true
     }
     
@@ -320,10 +348,35 @@ final actor PortalScraper {
             return parser.parseTranscript(html: html)
         case .failure(PortalSignInError.expiredSession):
             print("Session expired. re-login needed")
-//            if await reloginToSIS() {
-//                let (_, infoResponse) = await getSISPage(url: .transcript, using: AF)
-//                if infoResponse.self.
-//            }
+            //            if await reloginToSIS() {
+            //                let (_, infoResponse) = await getSISPage(url: .transcript, using: AF)
+            //                if infoResponse.self.
+            //            }
+        case .failure(let error):
+            print(error)
+        }
+        return nil
+    }
+    
+    func getCourseEnrollmentStatus() async -> SemesterDictArray<CourseInEnrollmentStatus>?{
+        defer {
+            print("ending getCourseEnrollmentStatuses....")
+        }
+        print("starting to getCourseEnrollmentStatuses")
+        let (_, infoResponse) = await getSISPage(url: .enrollmentStatus, using: AF)
+        switch infoResponse{
+        case .success(let response):
+            guard let html = String(data: response.value!, encoding: .utf8) else {
+                return nil
+            }
+            print("success on getting transcript html")
+            return parser.parseEnrollmentStatus(html: html)
+        case .failure(PortalSignInError.expiredSession):
+            print("Session expired. re-login needed")
+            //            if await reloginToSIS() {
+            //                let (_, infoResponse) = await getSISPage(url: .transcript, using: AF)
+            //                if infoResponse.self.
+            //            }
         case .failure(let error):
             print(error)
         }
