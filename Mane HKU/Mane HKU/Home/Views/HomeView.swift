@@ -17,10 +17,12 @@ struct HomeMenuItem: Identifiable {
 enum HomeMenuType {
     case transcript
     case enrollmentStatus
+    case calendar
 }
 
 struct HomeView: View {
     @Bindable private var homeVM: HomeViewModel = HomeViewModel()
+    @State private var showSettingSheet = false
     
     private var greetingMessage: String {
         let hour = Calendar.current.component(.hour, from: Date())
@@ -31,7 +33,8 @@ struct HomeView: View {
     
     private let homeMenuItems: [HomeMenuItem] = [
         HomeMenuItem(id: .transcript, title: "Transcript", subtitle: "See your academic records"),
-        HomeMenuItem(id: .enrollmentStatus, title: "Enrollment Status", subtitle: "See your enrolled course status")
+        HomeMenuItem(id: .enrollmentStatus, title: "Enrollment Status", subtitle: "See your enrolled course status"),
+        HomeMenuItem(id: .calendar, title: "Timetable", subtitle: "See your personal timetable")
     ]
     
     var body: some View {
@@ -43,7 +46,7 @@ struct HomeView: View {
                         .bold()
                     Spacer()
                     Button {
-                        Text("On9")
+                        showSettingSheet.toggle()
                     } label: {
                         Image(systemName: "gear")
                     }
@@ -70,12 +73,18 @@ struct HomeView: View {
                         TranscriptView()
                     case .enrollmentStatus:
                         EnrollmentStatusView()
+                    case .calendar:
+                        TimetableView()
                     }
                 }
             }
             .padding(.all, 15)
             .navigationTitle("Home")
             .navigationBarTitleDisplayMode(.large)
+        }
+        .sheet(isPresented: $showSettingSheet) {
+            SettingsView()
+                .presentationDetents([.medium, .large])
         }
         .toast(isPresenting: $homeVM.loading) {
             AlertToast(displayMode: .alert, type: .loading)

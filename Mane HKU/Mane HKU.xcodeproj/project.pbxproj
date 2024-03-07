@@ -30,6 +30,8 @@
 		B95B5F582B4C7CB0001A7070 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B95B5F572B4C7CB0001A7070 /* APIService.swift */; };
 		B96591882B5547EA00FD1B91 /* CheckUserAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96591872B5547EA00FD1B91 /* CheckUserAuthView.swift */; };
 		B96F74EA2B9752F5002CAF5E /* Generics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96F74E92B9752F5002CAF5E /* Generics.swift */; };
+		B96F74EC2B97B22D002CAF5E /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96F74EB2B97B22D002CAF5E /* SettingsView.swift */; };
+		B96F74EE2B98E3E5002CAF5E /* TimetableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B96F74ED2B98E3E5002CAF5E /* TimetableView.swift */; };
 		B971B74F2B66B05A00C4C72E /* main_service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971B7492B66B05A00C4C72E /* main_service.pb.swift */; };
 		B971B7502B66B05A00C4C72E /* health_check.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971B74A2B66B05A00C4C72E /* health_check.grpc.swift */; };
 		B971B7512B66B05A00C4C72E /* init_service.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = B971B74B2B66B05A00C4C72E /* init_service.grpc.swift */; };
@@ -69,6 +71,8 @@
 		B9E7E0BE2B489301006EE61B /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0BD2B489301006EE61B /* SignUpViewModel.swift */; };
 		B9E7E0C02B489F36006EE61B /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E7E0BF2B489F36006EE61B /* String.swift */; };
 		B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8861D2B46E242005ADADA /* SignUpView.swift */; };
+		B9F3DE002B9A2C8400A21178 /* TimetableEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DDFF2B9A2C8400A21178 /* TimetableEvent.swift */; };
+		B9F3DE022B9A4F7700A21178 /* TimetableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE012B9A4F7700A21178 /* TimetableViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +111,8 @@
 		B95B5F572B4C7CB0001A7070 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B96591872B5547EA00FD1B91 /* CheckUserAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserAuthView.swift; sourceTree = "<group>"; };
 		B96F74E92B9752F5002CAF5E /* Generics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Generics.swift; sourceTree = "<group>"; };
+		B96F74EB2B97B22D002CAF5E /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		B96F74ED2B98E3E5002CAF5E /* TimetableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableView.swift; sourceTree = "<group>"; };
 		B971B7492B66B05A00C4C72E /* main_service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main_service.pb.swift; sourceTree = "<group>"; };
 		B971B74A2B66B05A00C4C72E /* health_check.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = health_check.grpc.swift; sourceTree = "<group>"; };
 		B971B74B2B66B05A00C4C72E /* init_service.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = init_service.grpc.swift; sourceTree = "<group>"; };
@@ -140,6 +146,8 @@
 		B9E7E0BD2B489301006EE61B /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 		B9E7E0BF2B489F36006EE61B /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		B9E8861D2B46E242005ADADA /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		B9F3DDFF2B9A2C8400A21178 /* TimetableEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableEvent.swift; sourceTree = "<group>"; };
+		B9F3DE012B9A4F7700A21178 /* TimetableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +205,8 @@
 				B98DB9272B7149FA0053FEF7 /* MainTabView.swift */,
 				B9442C462B7CF1C7004DCF7D /* TranscriptView.swift */,
 				B99F37CD2B8E408D0060DE0C /* EnrollmentStatusView.swift */,
+				B96F74EB2B97B22D002CAF5E /* SettingsView.swift */,
+				B96F74ED2B98E3E5002CAF5E /* TimetableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -220,6 +230,7 @@
 		B95B5F542B4C7B32001A7070 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B9F3DDFE2B9A2C6A00A21178 /* APIResponse */,
 				B95B5F592B4C874A001A7070 /* ParsedResponse */,
 				B95B5F462B4BD453001A7070 /* KeychainManager.swift */,
 				B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */,
@@ -355,6 +366,7 @@
 				B9B375E32B5C4A9B00A594AA /* HomeViewModel.swift */,
 				B9442C482B7CF1FF004DCF7D /* TranscriptViewModel.swift */,
 				B99F37CF2B8E40A80060DE0C /* EnrollmentStatusViewModel.swift */,
+				B9F3DE012B9A4F7700A21178 /* TimetableViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -362,11 +374,11 @@
 		B9E8861A2B46E187005ADADA /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B910B13A2B52772700A54EAB /* LoginView.swift */,
 				B9E8861D2B46E242005ADADA /* SignUpView.swift */,
 				B9E7E0B72B48183B006EE61B /* AuthSetupView.swift */,
 				B95B5F4F2B4C5EC9001A7070 /* BackgroundAuthView.swift */,
 				B942D7F12B4E820D00A26DAD /* ConfirmEmailView.swift */,
-				B910B13A2B52772700A54EAB /* LoginView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -388,6 +400,14 @@
 				B9DD4BD22B5BF635009D3FB0 /* AuthUtils.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		B9F3DDFE2B9A2C6A00A21178 /* APIResponse */ = {
+			isa = PBXGroup;
+			children = (
+				B9F3DDFF2B9A2C8400A21178 /* TimetableEvent.swift */,
+			);
+			path = APIResponse;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -564,9 +584,12 @@
 				B99F37D02B8E40A80060DE0C /* EnrollmentStatusViewModel.swift in Sources */,
 				B9B375E62B5CF74900A594AA /* UserInfo.swift in Sources */,
 				B9E7E0BA2B482831006EE61B /* Color.swift in Sources */,
+				B9F3DE022B9A4F7700A21178 /* TimetableViewModel.swift in Sources */,
 				B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */,
 				B942D7F62B4EFFB900A26DAD /* ConfirmEmailViewModel.swift in Sources */,
 				B9DD4BD12B5BF5F3009D3FB0 /* LoginViewModel.swift in Sources */,
+				B96F74EC2B97B22D002CAF5E /* SettingsView.swift in Sources */,
+				B9F3DE002B9A2C8400A21178 /* TimetableEvent.swift in Sources */,
 				B942D8052B50182800A26DAD /* HomeView.swift in Sources */,
 				B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */,
 				B95B5F582B4C7CB0001A7070 /* APIService.swift in Sources */,
@@ -585,6 +608,7 @@
 				B9DD4BD32B5BF636009D3FB0 /* AuthUtils.swift in Sources */,
 				B9442C492B7CF1FF004DCF7D /* TranscriptViewModel.swift in Sources */,
 				B9442C472B7CF1C7004DCF7D /* TranscriptView.swift in Sources */,
+				B96F74EE2B98E3E5002CAF5E /* TimetableView.swift in Sources */,
 				B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */,
 				B9442C432B7CE654004DCF7D /* AppRootManager.swift in Sources */,
 				B971B74F2B66B05A00C4C72E /* main_service.pb.swift in Sources */,

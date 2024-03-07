@@ -382,4 +382,41 @@ import SwiftSoup
         }
         return nil
     }
+    
+    func getEventList() async -> TimetableEvents {
+        defer {
+            print("ending getEventList....")
+        }
+        print("starting to getEventList")
+        if !isSignedIn {
+            print("Not signed in locally, cannot start getting event list")
+            return []
+        }
+        let (_, signInResult) = await signinToEmailCalendar(using: AF)
+        let token: String
+        switch signInResult {
+        case .success(let receivedToken):
+            print("received token: \(receivedToken)")
+            token = receivedToken
+        case .failure(let calendarError):
+            print("error logging into event: \(calendarError.localizedDescription), returning nil")
+            return []
+        }
+        let (_, postResult) = await postCalendarEventList(using: AF, token: token)
+        print("received post eventList result, eventList is nil: \(postResult == nil)")
+        
+        // Get the date which is this week's monday
+        let cal = Calendar.current
+        var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: Date.now)
+        comps.weekday = 2 // Monday
+        let mondayInWeek = cal.date(from: comps)!
+        
+        if let response = postResult, !response.eventList.isEmpty {
+            print("received message: \(response.massage)")
+            return response.eventList.filter { event in
+                ((event.typeDesc == .personalWorkEvents && (event.categoryDesc == .lectureTimetable || event.categoryDesc == .tutorialTimetable)) || (event.typeDesc == .universityWideEvents && event.categoryDesc == .universityHoliday)) && event.eventStartDate > mondayInWeek
+            }
+        }
+        return []
+    }
 }

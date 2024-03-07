@@ -23,6 +23,9 @@ enum PortalURLs: String {
     case info = "https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_MR_ADDRESS_C1.GBL?FolderPath=PORTAL_ROOT_OBJECT.Z_SIS_MENU.Z_STDNT_SELF_SERVICES.Z_MR_ADDRESS_C1_GBL&IsFolder=false&IgnoreParamTempl=FolderPath,IsFolder&PortalActualURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_MR_ADDRESS_C1.GBL&PortalContentURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_MR_ADDRESS_C1.GBL&PortalContentProvider=PSFT_CS&PortalCRefLabel=View & Change Personal Info&PortalRegistryName=EMPLOYEE&PortalServletURI=https://sis-eportal.hku.hk/psp/ptlprod/&PortalURI=https://sis-eportal.hku.hk/psc/ptlprod/&PortalHostNode=EMPL&NoCrumbs=yes&PortalKeyStruct=yes"
     case transcript = "https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_TSRPT_WEB_STDT.GBL?FolderPath=PORTAL_ROOT_OBJECT.Z_SIS_MENU.Z_ACADEMIC_RECORDS.Z_TSRPT_WEB_STDT_GBL&IsFolder=false&IgnoreParamTempl=FolderPath,IsFolder&PortalActualURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_TSRPT_WEB_STDT.GBL&PortalContentURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_TSRPT_WEB_STDT.GBL&PortalContentProvider=PSFT_CS&PortalCRefLabel=Transcript (Student Copy)&PortalRegistryName=EMPLOYEE&PortalServletURI=https://sis-eportal.hku.hk/psp/ptlprod/&PortalURI=https://sis-eportal.hku.hk/psc/ptlprod/&PortalHostNode=EMPL&NoCrumbs=yes&PortalKeyStruct=yes"
     case enrollmentStatus = "https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL?pslnkid=Z_ENROLLMENT_STATUS_LNK&FolderPath=PORTAL_ROOT_OBJECT.Z_SIS_MENU.Z_ENROLLMENT.Z_ENROLLMENT_STATUS_LNK&IsFolder=false&IgnoreParamTempl=FolderPath,IsFolder&PortalActualURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL?pslnkid=Z_ENROLLMENT_STATUS_LNK&PortalContentURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL?pslnkid=Z_ENROLLMENT_STATUS_LNK&PortalContentProvider=PSFT_CS&PortalCRefLabel=Enrollment Status&PortalRegistryName=EMPLOYEE&PortalServletURI=https://sis-eportal.hku.hk/psp/ptlprod/&PortalURI=https://sis-eportal.hku.hk/psc/ptlprod/&PortalHostNode=EMPL&NoCrumbs=yes&PortalKeyStruct=yes"
+    case calendarLogin = "https://hkuesd.hku.hk/eventcalendar/servlet/EventCalendarLogin"
+    case calendarToken = "https://nhkuesd.hku.hk/eventcalendar/app/www/index.html?token="
+    case calendarEventList = "https://nhkuesd.hku.hk/eventcalendar/servlet/EventList"
 }
 
 let doNotFollowRedirector = Redirector(behavior: .doNotFollow)
@@ -241,4 +244,80 @@ func validateNotSignedOut(response: AFDataResponse<Data>) -> Bool {
         return false
     }
     return true
+}
+
+enum CalendarError: Error {
+    case noFinalURL, noToken, unableToSignIn
+}
+
+func signinToEmailCalendar(using session: Session) async -> (client: Session, result: Result<String, CalendarError>) {
+    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "signinToEmailCalendar")
+    return await withCheckedContinuation { continuation in
+        session
+            .request(PortalURLs.calendarLogin.rawValue, method: .get)
+            .validate()
+            .responseData { AFResponse in
+                let urlResponse = AFResponse.response
+                switch AFResponse.result {
+                case .success:
+                    logger.info("Recevied good status code for logging into calendar site")
+                    
+                    guard let finalURL = AFResponse.response?.url?.absoluteString else {
+                        logger.error("cannot find final location or url, impossible!")
+                        continuation.resume(returning:  (session, Result.failure(.noFinalURL)))
+                        return
+                    }
+                    
+                    if finalURL.starts(with: "https://nhkuesd.hku.hk/eventcalendar/app/www/index.html?token") {
+                        logger.info("Found url with token")
+                        guard let tokenAfterIndex = finalURL.range(of: "?token=")?.upperBound else {
+                            logger.error("cannot find token param")
+                            continuation.resume(returning:  (session, Result.failure(.noToken)))
+                            return
+                        }
+                        let token = finalURL[tokenAfterIndex..<finalURL.endIndex]
+                        logger.info("full url: \(finalURL) token: \(token)")
+                        continuation.resume(returning: (session, Result.success(String(token))))
+                        return
+                    }
+                    continuation.resume(returning: (session, Result.failure(.noToken)))
+                    return
+                case .failure(let error):
+                    logger.error("Failed to login to SIS (with \(urlResponse?.statusCode ?? 0) code, error: \(error.localizedDescription)")
+                    continuation.resume(returning:  (session, Result.failure(.unableToSignIn)))
+                    return
+                }
+            }
+    }
+}
+
+func postCalendarEventList(using session: Session, token: String) async -> (client: Session, result: EventListResponse?) {
+    let logger = Logger(subsystem: Bundle.main.bundleIdentifier!, category: "postCalendarEventList")
+    let body = [
+        "token": token
+    ]
+    return await withCheckedContinuation { continuation in
+        session
+            .request(PortalURLs.calendarEventList.rawValue, method: .post, parameters: body, encoding: JSONEncoding.default)
+            .responseData{ response in
+                switch response.result {
+                case .success(let data):
+                    let decoder = JSONDecoder.eventListDateJSONDecoder
+                    do {
+                        let eventListResponse = try decoder.decode(EventListResponse.self, from: data)
+                        logger.info("Marshalled JSON response")
+                        continuation.resume(returning: (session, eventListResponse))
+                        return
+                    } catch {
+                        logger.error("failed to unmarshal json, error: \(error)")
+                        continuation.resume(returning:  (session, nil))
+                        return
+                    }
+                case .failure(let error):
+                    logger.error("Failed to retrieve EventList with \(response.response?.statusCode ?? -1), error: \(error.localizedDescription)")
+                    continuation.resume(returning:  (session, nil))
+                    return
+                }
+            }
+    }
 }

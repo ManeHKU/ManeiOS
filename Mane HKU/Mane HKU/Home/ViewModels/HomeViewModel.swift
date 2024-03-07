@@ -11,7 +11,7 @@ import SwiftProtobuf
 @Observable class HomeViewModel {
     var userInfo: UserInfo? {
         didSet {
-            if oldValue != nil, let encoded = try? JSONEncoder().encode(userInfo) {
+            if let encoded = try? JSONEncoder().encode(userInfo) {
                 print("updating local userinfo default")
                 UserDefaults.standard.setValue(encoded, forKey: UserDefaults.DefaultKey.userInfo.rawValue)
             }
