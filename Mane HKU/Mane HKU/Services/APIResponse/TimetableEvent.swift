@@ -19,7 +19,7 @@ struct EventListResponse: Codable {
 typealias TimetableEvents = [TimetableEvent]
 
 // MARK: - EventList
-struct TimetableEvent: Codable {
+struct TimetableEvent: Codable, Equatable {
     let userID: UserID
     let eventID, eventTypeID, eventCategoryID, eventTitle: String
     let eventDetails: String?
@@ -51,6 +51,30 @@ enum CategoryDesc: String, Codable {
     case registeredHKUEMSEvents = "Registered HKUEMS Events"
     case tutorialTimetable = "Tutorial Timetable"
     case universityHoliday = "University Holiday"
+    case examinationTimetable = "Examination Timetable"
+    case unknown
+    
+    public init(from decoder: Decoder) throws {
+        guard let rawValue = try? decoder.singleValueContainer().decode(String.self) else {
+            self = .unknown
+            return
+        }
+        self = CategoryDesc(rawValue: rawValue) ?? .unknown
+    }
+    
+    public func isCourseEvent(withExams examIncluded: Bool = false) -> Bool {
+        switch self {
+        case .examinationTimetable:
+            if examIncluded {
+                return true
+            }
+            return false
+        case .lectureTimetable, .tutorialTimetable:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 enum TypeDesc: String, Codable {
@@ -90,5 +114,15 @@ extension JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .eventDate
         return decoder
+    }
+}
+
+extension Date {
+    static var mondayInWeek: Date {
+        // Get the date which is this week's monday
+        let cal = Calendar.current
+        var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: Date.now)
+        comps.weekday = 2 // Monday
+        return cal.date(from: comps)!
     }
 }

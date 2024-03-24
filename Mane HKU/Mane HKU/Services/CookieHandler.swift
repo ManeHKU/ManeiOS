@@ -27,6 +27,10 @@ final class CookieHandler {
         return cookies
     }
     
+    func removeAllCookies() {
+        self.getCookies().forEach(cookieStorage.deleteCookie)
+    }
+    
     func backupAllCookies() -> Void {
         var cookieDict = [String : AnyObject]()
         

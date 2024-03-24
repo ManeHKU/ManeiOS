@@ -10,7 +10,6 @@
 		B910B13B2B52772700A54EAB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910B13A2B52772700A54EAB /* LoginView.swift */; };
 		B91B986B2B6283DC00608766 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B986A2B6283DC00608766 /* Parser.swift */; };
 		B91B986D2B62893000608766 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B986C2B62893000608766 /* UserDefault.swift */; };
-		B92A6DF92B84C46D00072C5E /* AMPopTip in Frameworks */ = {isa = PBXBuildFile; productRef = B92A6DF82B84C46D00072C5E /* AMPopTip */; };
 		B942D7F02B4E658F00A26DAD /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B942D7EF2B4E658F00A26DAD /* SwiftSoup */; };
 		B942D7F22B4E820D00A26DAD /* ConfirmEmailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7F12B4E820D00A26DAD /* ConfirmEmailView.swift */; };
 		B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B942D7F32B4EE04900A26DAD /* PortalAuth.swift */; };
@@ -73,6 +72,13 @@
 		B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9E8861D2B46E242005ADADA /* SignUpView.swift */; };
 		B9F3DE002B9A2C8400A21178 /* TimetableEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DDFF2B9A2C8400A21178 /* TimetableEvent.swift */; };
 		B9F3DE022B9A4F7700A21178 /* TimetableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE012B9A4F7700A21178 /* TimetableViewModel.swift */; };
+		B9F3DE292BAA18FD00A21178 /* MijickCalendarView in Frameworks */ = {isa = PBXBuildFile; productRef = B9F3DE282BAA18FD00A21178 /* MijickCalendarView */; };
+		B9F3DE2B2BAA1EB900A21178 /* DayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE2A2BAA1EB900A21178 /* DayView.swift */; };
+		B9F3DE2E2BAB0D7300A21178 /* EventsDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE2D2BAB0D7300A21178 /* EventsDayView.swift */; };
+		B9F3DE302BAB5F0B00A21178 /* CourseNotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE2F2BAB5F0B00A21178 /* CourseNotificationsView.swift */; };
+		B9F3DE322BAB5F9700A21178 /* CourseNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE312BAB5F9700A21178 /* CourseNotificationManager.swift */; };
+		B9F3DE352BAEFEEA00A21178 /* CourseEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE342BAEFEEA00A21178 /* CourseEventProvider.swift */; };
+		B9F3DE372BAF448700A21178 /* CourseNotificationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +154,12 @@
 		B9E8861D2B46E242005ADADA /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		B9F3DDFF2B9A2C8400A21178 /* TimetableEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableEvent.swift; sourceTree = "<group>"; };
 		B9F3DE012B9A4F7700A21178 /* TimetableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimetableViewModel.swift; sourceTree = "<group>"; };
+		B9F3DE2A2BAA1EB900A21178 /* DayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayView.swift; sourceTree = "<group>"; };
+		B9F3DE2D2BAB0D7300A21178 /* EventsDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsDayView.swift; sourceTree = "<group>"; };
+		B9F3DE2F2BAB5F0B00A21178 /* CourseNotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNotificationsView.swift; sourceTree = "<group>"; };
+		B9F3DE312BAB5F9700A21178 /* CourseNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNotificationManager.swift; sourceTree = "<group>"; };
+		B9F3DE342BAEFEEA00A21178 /* CourseEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseEventProvider.swift; sourceTree = "<group>"; };
+		B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNotificationSetting.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +167,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9F3DE292BAA18FD00A21178 /* MijickCalendarView in Frameworks */,
 				B9B0FAF52B26275B00B63C02 /* Realtime in Frameworks */,
 				B9B0FAF32B26275B00B63C02 /* PostgREST in Frameworks */,
 				B9B0FAEA2B2626F300B63C02 /* GRPC in Frameworks */,
@@ -165,7 +178,6 @@
 				B95B5F532B4C795A001A7070 /* Alamofire in Frameworks */,
 				B9B0FAFA2B26296A00B63C02 /* Supabase in Frameworks */,
 				B9B0FAEC2B2626F300B63C02 /* _GRPCCore in Frameworks */,
-				B92A6DF92B84C46D00072C5E /* AMPopTip in Frameworks */,
 				B9B0FAEE2B2626F300B63C02 /* protoc-gen-grpc-swift in Frameworks */,
 				B98692162B3C8B1400F0D491 /* Auth in Frameworks */,
 				B9B0FAE82B2626F300B63C02 /* CGRPCZlib in Frameworks */,
@@ -201,22 +213,22 @@
 		B942D8032B50181400A26DAD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B9F3DE2C2BAB0D5900A21178 /* CalendarViews */,
 				B942D8042B50182800A26DAD /* HomeView.swift */,
 				B98DB9272B7149FA0053FEF7 /* MainTabView.swift */,
 				B9442C462B7CF1C7004DCF7D /* TranscriptView.swift */,
 				B99F37CD2B8E408D0060DE0C /* EnrollmentStatusView.swift */,
 				B96F74EB2B97B22D002CAF5E /* SettingsView.swift */,
-				B96F74ED2B98E3E5002CAF5E /* TimetableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B9442C442B7CE6EE004DCF7D /* Spalsh */ = {
+		B9442C442B7CE6EE004DCF7D /* Splash */ = {
 			isa = PBXGroup;
 			children = (
 				B9442C452B7CE6F7004DCF7D /* Views */,
 			);
-			path = Spalsh;
+			path = Splash;
 			sourceTree = "<group>";
 		};
 		B9442C452B7CE6F7004DCF7D /* Views */ = {
@@ -231,25 +243,27 @@
 			isa = PBXGroup;
 			children = (
 				B9F3DDFE2B9A2C6A00A21178 /* APIResponse */,
-				B95B5F592B4C874A001A7070 /* ParsedResponse */,
+				B95B5F592B4C874A001A7070 /* Types */,
 				B95B5F462B4BD453001A7070 /* KeychainManager.swift */,
 				B95B5F552B4C7B6C001A7070 /* PortalScraper.swift */,
 				B95B5F572B4C7CB0001A7070 /* APIService.swift */,
 				B91B986A2B6283DC00608766 /* Parser.swift */,
 				B9DB4FC02B66625C0050CB9E /* GRPCServiceManager.swift */,
 				B99F37C72B8CB3DE0060DE0C /* CookieHandler.swift */,
+				B9F3DE342BAEFEEA00A21178 /* CourseEventProvider.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
 		};
-		B95B5F592B4C874A001A7070 /* ParsedResponse */ = {
+		B95B5F592B4C874A001A7070 /* Types */ = {
 			isa = PBXGroup;
 			children = (
 				B9B375E52B5CF74900A594AA /* UserInfo.swift */,
 				B9442C4A2B7CF72E004DCF7D /* Transcript.swift */,
 				B99F37D12B8E415B0060DE0C /* EnrollmentStatus.swift */,
+				B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */,
 			);
-			path = ParsedResponse;
+			path = Types;
 			sourceTree = "<group>";
 		};
 		B971B7482B66B03A00C4C72E /* pb */ = {
@@ -289,7 +303,7 @@
 		B9B0FABB2B2608B500B63C02 /* Mane HKU */ = {
 			isa = PBXGroup;
 			children = (
-				B9442C442B7CE6EE004DCF7D /* Spalsh */,
+				B9442C442B7CE6EE004DCF7D /* Splash */,
 				B971B7482B66B03A00C4C72E /* pb */,
 				B95B5F542B4C7B32001A7070 /* Services */,
 				B9B10E6A2B3DE14900A12CB6 /* Common */,
@@ -367,6 +381,7 @@
 				B9442C482B7CF1FF004DCF7D /* TranscriptViewModel.swift */,
 				B99F37CF2B8E40A80060DE0C /* EnrollmentStatusViewModel.swift */,
 				B9F3DE012B9A4F7700A21178 /* TimetableViewModel.swift */,
+				B9F3DE312BAB5F9700A21178 /* CourseNotificationManager.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -410,6 +425,17 @@
 			path = APIResponse;
 			sourceTree = "<group>";
 		};
+		B9F3DE2C2BAB0D5900A21178 /* CalendarViews */ = {
+			isa = PBXGroup;
+			children = (
+				B96F74ED2B98E3E5002CAF5E /* TimetableView.swift */,
+				B9F3DE2A2BAA1EB900A21178 /* DayView.swift */,
+				B9F3DE2D2BAB0D7300A21178 /* EventsDayView.swift */,
+				B9F3DE2F2BAB5F0B00A21178 /* CourseNotificationsView.swift */,
+			);
+			path = CalendarViews;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -440,7 +466,7 @@
 				B95B5F522B4C795A001A7070 /* Alamofire */,
 				B942D7EF2B4E658F00A26DAD /* SwiftSoup */,
 				B942D8002B4FE8A600A26DAD /* AlertToast */,
-				B92A6DF82B84C46D00072C5E /* AMPopTip */,
+				B9F3DE282BAA18FD00A21178 /* MijickCalendarView */,
 			);
 			productName = "Mane HKU";
 			productReference = B9B0FAB92B2608B500B63C02 /* Mane HKU.app */;
@@ -522,7 +548,7 @@
 				B95B5F512B4C7959001A7070 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				B942D7FF2B4FE8A600A26DAD /* XCRemoteSwiftPackageReference "AlertToast" */,
-				B92A6DF72B84C46D00072C5E /* XCRemoteSwiftPackageReference "AMPopTip" */,
+				B9F3DE272BAA18FD00A21178 /* XCRemoteSwiftPackageReference "CalendarView" */,
 			);
 			productRefGroup = B9B0FABA2B2608B500B63C02 /* Products */;
 			projectDirPath = "";
@@ -567,6 +593,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B971B7522B66B05A00C4C72E /* init_service.pb.swift in Sources */,
+				B9F3DE2B2BAA1EB900A21178 /* DayView.swift in Sources */,
 				B95B5F562B4C7B6C001A7070 /* PortalScraper.swift in Sources */,
 				B9B375E42B5C4A9B00A594AA /* HomeViewModel.swift in Sources */,
 				B971B7542B66B05A00C4C72E /* health_check.pb.swift in Sources */,
@@ -578,6 +605,7 @@
 				B971B7502B66B05A00C4C72E /* health_check.grpc.swift in Sources */,
 				B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */,
 				B96591882B5547EA00FD1B91 /* CheckUserAuthView.swift in Sources */,
+				B9F3DE372BAF448700A21178 /* CourseNotificationSetting.swift in Sources */,
 				B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */,
 				B971B7512B66B05A00C4C72E /* init_service.grpc.swift in Sources */,
 				B99F37CE2B8E408D0060DE0C /* EnrollmentStatusView.swift in Sources */,
@@ -597,15 +625,18 @@
 				B99F37CA2B8CC4370060DE0C /* AppDelegate.swift in Sources */,
 				B9442C4B2B7CF72E004DCF7D /* Transcript.swift in Sources */,
 				B910B13B2B52772700A54EAB /* LoginView.swift in Sources */,
+				B9F3DE302BAB5F0B00A21178 /* CourseNotificationsView.swift in Sources */,
 				B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */,
 				B91B986D2B62893000608766 /* UserDefault.swift in Sources */,
 				B9E7E0BE2B489301006EE61B /* SignUpViewModel.swift in Sources */,
 				B9DB4FC12B66625C0050CB9E /* GRPCServiceManager.swift in Sources */,
 				B942D7F22B4E820D00A26DAD /* ConfirmEmailView.swift in Sources */,
 				B942D7FB2B4FDAF900A26DAD /* AlertToast.swift in Sources */,
+				B9F3DE2E2BAB0D7300A21178 /* EventsDayView.swift in Sources */,
 				B91B986B2B6283DC00608766 /* Parser.swift in Sources */,
 				B99763B22B56F7A800A439F1 /* UserManager.swift in Sources */,
 				B9DD4BD32B5BF636009D3FB0 /* AuthUtils.swift in Sources */,
+				B9F3DE322BAB5F9700A21178 /* CourseNotificationManager.swift in Sources */,
 				B9442C492B7CF1FF004DCF7D /* TranscriptViewModel.swift in Sources */,
 				B9442C472B7CF1C7004DCF7D /* TranscriptView.swift in Sources */,
 				B96F74EE2B98E3E5002CAF5E /* TimetableView.swift in Sources */,
@@ -613,6 +644,7 @@
 				B9442C432B7CE654004DCF7D /* AppRootManager.swift in Sources */,
 				B971B74F2B66B05A00C4C72E /* main_service.pb.swift in Sources */,
 				B971B7532B66B05A00C4C72E /* main_service.grpc.swift in Sources */,
+				B9F3DE352BAEFEEA00A21178 /* CourseEventProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -946,14 +978,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B92A6DF72B84C46D00072C5E /* XCRemoteSwiftPackageReference "AMPopTip" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/andreamazz/AMPopTip";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 4.12.0;
-			};
-		};
 		B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup";
@@ -1002,6 +1026,14 @@
 				minimumVersion = 2.1.0;
 			};
 		};
+		B9F3DE272BAA18FD00A21178 /* XCRemoteSwiftPackageReference "CalendarView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Mijick/CalendarView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		B9FF5DE42B3DDC9800A6B17C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint.git";
@@ -1013,11 +1045,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B92A6DF82B84C46D00072C5E /* AMPopTip */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B92A6DF72B84C46D00072C5E /* XCRemoteSwiftPackageReference "AMPopTip" */;
-			productName = AMPopTip;
-		};
 		B942D7EF2B4E658F00A26DAD /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */;
@@ -1082,6 +1109,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B9B0FAEF2B26275B00B63C02 /* XCRemoteSwiftPackageReference "supabase-swift" */;
 			productName = Supabase;
+		};
+		B9F3DE282BAA18FD00A21178 /* MijickCalendarView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9F3DE272BAA18FD00A21178 /* XCRemoteSwiftPackageReference "CalendarView" */;
+			productName = MijickCalendarView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

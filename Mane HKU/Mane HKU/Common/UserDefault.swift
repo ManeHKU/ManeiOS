@@ -15,6 +15,7 @@ extension UserDefaults {
         case cookies = "cookies"
         case enrollmentStatus = "enrollment-status"
         case timetable = "timetable-events"
+        case courseNotification = "course-notification"
     }
     
     func isKeyPresent(key: DefaultKey) -> Bool {

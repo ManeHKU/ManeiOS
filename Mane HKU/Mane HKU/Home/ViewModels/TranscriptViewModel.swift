@@ -60,7 +60,7 @@ import Foundation
             print("saved")
         }
         Task {
-            await upsertCourseCodes(with: transcript?.allCourses)
+            await upsertCourseCodes(with: transcript?.takenOrPassedCourses)
         }
     }
     

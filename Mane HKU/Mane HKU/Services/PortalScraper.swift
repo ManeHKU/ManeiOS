@@ -406,15 +406,13 @@ import SwiftSoup
         print("received post eventList result, eventList is nil: \(postResult == nil)")
         
         // Get the date which is this week's monday
-        let cal = Calendar.current
-        var comps = cal.dateComponents([.weekOfYear, .yearForWeekOfYear], from: Date.now)
-        comps.weekday = 2 // Monday
-        let mondayInWeek = cal.date(from: comps)!
+//        let mondayInWeek = Date.mondayInWeek
+        let startOfMonth = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Date.now))!
         
         if let response = postResult, !response.eventList.isEmpty {
             print("received message: \(response.massage)")
             return response.eventList.filter { event in
-                ((event.typeDesc == .personalWorkEvents && (event.categoryDesc == .lectureTimetable || event.categoryDesc == .tutorialTimetable)) || (event.typeDesc == .universityWideEvents && event.categoryDesc == .universityHoliday)) && event.eventStartDate > mondayInWeek
+                ((event.typeDesc == .personalWorkEvents && (event.categoryDesc == .lectureTimetable || event.categoryDesc == .tutorialTimetable || event.categoryDesc == .examinationTimetable)) || (event.typeDesc == .universityWideEvents && event.categoryDesc == .universityHoliday)) && event.eventStartDate >= startOfMonth
             }
         }
         return []

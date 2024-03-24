@@ -33,6 +33,25 @@ struct Transcript: Codable {
             return output
         }
     }
+    var takenOrPassedCourses: [String] {
+        get {
+            var output: [String] = []
+            if let courseByYearly = courseLists?.values {
+                for yearCourses in courseByYearly {
+                    let courses: [String] = yearCourses.values.flatMap {$0}.reduce([]) { res, course in
+                        if course.status == .taken || course.status == .toBeReleased {
+                            var newRes = res
+                            newRes.append(course.code)
+                            return newRes
+                        }
+                        return res
+                    }
+                    output.append(contentsOf: courses)
+                }
+            }
+            return output
+        }
+    }
     var ug5ePassed: Bool?
     var latestGPA: Double?
     var GPAs: YearSemesterDict<GPAHistory>?

@@ -83,6 +83,7 @@ final actor UserManager {
                     try KeychainManager.shared.removeAll()
                     let domain = Bundle.main.bundleIdentifier!
                     UserDefaults.standard.removePersistentDomain(forName: domain)
+                    CookieHandler.shared.removeAllCookies()
                 } catch let error {
                     print("cannot remove all data: \(error)")
                 }

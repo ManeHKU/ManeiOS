@@ -9,47 +9,65 @@ import Foundation
 
 @Observable final class TimetableViewModel {
     @ObservationIgnored let defaults = UserDefaults.standard
+    @ObservationIgnored let courseEventProvider = CourseEventProvider.shared
     var successMessage: ToastMessage = ToastMessage()
     var errorMessage: ToastMessage = ToastMessage()
     var normalMessage: ToastMessage = ToastMessage()
     var loading = false
-    var timetableEvents: TimetableEvents = []
+    var events: [DateComponents: TimetableEvents]?
     
     init() {
         loading = true
-        if let defaultTimetable = defaults.data(forKey: UserDefaults.DefaultKey.timetable.rawValue) {
-            do {
-                self.timetableEvents = try JSONDecoder().decode(TimetableEvents.self, from: defaultTimetable)
-                loading = false
-                return
-            } catch {
-                print("Unable to decode user default timetable, need to retrieve new data again")
-            }
-        }
-        print("retrieving new timetable....")
         Task(priority: .userInitiated) {
-            await retrieveNewTimetable()
+            defer {
+                loading = false
+            }
+            do {
+                events = try await courseEventProvider.getEvents()
+            } catch CourseTimetableError.FailToRetrieve {
+                events = nil
+                errorMessage.showMessage(title: "Error Loading Timetable", subtitle: "Try again later")
+                return
+            } catch CourseTimetableError.PortalNotSignedIn {
+                PortalScraper.shared.resetSession()
+                guard let portalId = KeychainManager.shared.secureGet(key: .PortalId) else {
+                    print("Portal id doesn't exist")
+                    errorMessage.showMessage(title: "Error Loading Timetable", subtitle: "Try again later")
+                    return
+                }
+                let signedIn = await PortalScraper.shared.fastSISLogin(portalId: portalId, relogin: true)
+                if signedIn {
+                    events = try? await courseEventProvider.getEvents()
+                    return
+                } else {
+                    print("relogin needed....")
+                    errorMessage.showMessage(title: "Error Logging In", subtitle: "Please restart the app")
+                    return
+                }
+            }
         }
     }
     
-    func retrieveNewTimetable() async {
+    func updateEvents() async {
         defer {
             loading = false
         }
-        if !PortalScraper.shared.isSignedIn {
-            normalMessage.showMessage(title: "Still logging in....", subtitle: "Refresh later!")
-            return
-        }
         loading = true
-        timetableEvents = await PortalScraper.shared.getEventList()
-        print("received event list with len: \(timetableEvents.count)")
-        if timetableEvents.isEmpty {
+        do {
+            let newEvents = try await courseEventProvider.retrieveNewEvents()
+            events = newEvents
+        } catch CourseTimetableError.FailToRetrieve {
+            events = nil
             errorMessage.showMessage(title: "Error Loading Timetable", subtitle: "Try again later")
             return
+        } catch {
+            print(error.localizedDescription)
+            events = nil
+            errorMessage.showMessage(title: "Unknown Error", subtitle: "Try again later")
+            return
         }
-        if let encoded = try? JSONEncoder().encode(timetableEvents) {
-            defaults.setValue(encoded, forKey: UserDefaults.DefaultKey.timetable.rawValue)
-            print("saved to user default")
+        if events != nil {
+            print("recevied events with \(events!.count)")
         }
     }
 }
