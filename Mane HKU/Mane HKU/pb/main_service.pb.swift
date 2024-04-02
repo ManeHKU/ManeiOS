@@ -20,6 +20,103 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+public struct Service_ListCoursesRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var pageSize: Int32 = 0
+
+  public var lastCode: String {
+    get {return _lastCode ?? String()}
+    set {_lastCode = newValue}
+  }
+  /// Returns true if `lastCode` has been explicitly set.
+  public var hasLastCode: Bool {return self._lastCode != nil}
+  /// Clears the value of `lastCode`. Subsequent reads from it will return its default value.
+  public mutating func clearLastCode() {self._lastCode = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _lastCode: String? = nil
+}
+
+public struct Service_SearchCourseRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var query: String = String()
+
+  public var pageSize: Int32 = 0
+
+  public var lastCode: String {
+    get {return _lastCode ?? String()}
+    set {_lastCode = newValue}
+  }
+  /// Returns true if `lastCode` has been explicitly set.
+  public var hasLastCode: Bool {return self._lastCode != nil}
+  /// Clears the value of `lastCode`. Subsequent reads from it will return its default value.
+  public mutating func clearLastCode() {self._lastCode = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _lastCode: String? = nil
+}
+
+public struct Service_CoursesResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var courses: [Courses_Course] = []
+
+  public var moreResults: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Service_GetCourseDetailRequest {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var courseCode: String = String()
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
+public struct Service_GetCourseDetailResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var course: Courses_Course {
+    get {return _course ?? Courses_Course()}
+    set {_course = newValue}
+  }
+  /// Returns true if `course` has been explicitly set.
+  public var hasCourse: Bool {return self._course != nil}
+  /// Clears the value of `course`. Subsequent reads from it will return its default value.
+  public mutating func clearCourse() {self._course = nil}
+
+  public var reviews: [Reviews_Review] = []
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _course: Courses_Course? = nil
+}
+
 public struct Service_UpsertTakenCoursesRequest {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -129,6 +226,11 @@ public struct Service_GetUpdatedURLsResponse {
 }
 
 #if swift(>=5.5) && canImport(_Concurrency)
+extension Service_ListCoursesRequest: @unchecked Sendable {}
+extension Service_SearchCourseRequest: @unchecked Sendable {}
+extension Service_CoursesResponse: @unchecked Sendable {}
+extension Service_GetCourseDetailRequest: @unchecked Sendable {}
+extension Service_GetCourseDetailResponse: @unchecked Sendable {}
 extension Service_UpsertTakenCoursesRequest: @unchecked Sendable {}
 extension Service_UpdateUserInfoRequest: @unchecked Sendable {}
 extension Service_GetUpdatedURLsRequest: @unchecked Sendable {}
@@ -139,6 +241,208 @@ extension Service_GetUpdatedURLsResponse.URLsList: @unchecked Sendable {}
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "service"
+
+extension Service_ListCoursesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ListCoursesRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "page_size"),
+    3: .standard(proto: "last_code"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.pageSize) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._lastCode) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if self.pageSize != 0 {
+      try visitor.visitSingularInt32Field(value: self.pageSize, fieldNumber: 1)
+    }
+    try { if let v = self._lastCode {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Service_ListCoursesRequest, rhs: Service_ListCoursesRequest) -> Bool {
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs._lastCode != rhs._lastCode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Service_SearchCourseRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".SearchCourseRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "query"),
+    2: .standard(proto: "page_size"),
+    3: .standard(proto: "last_code"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.query) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.pageSize) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self._lastCode) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.query.isEmpty {
+      try visitor.visitSingularStringField(value: self.query, fieldNumber: 1)
+    }
+    if self.pageSize != 0 {
+      try visitor.visitSingularInt32Field(value: self.pageSize, fieldNumber: 2)
+    }
+    try { if let v = self._lastCode {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 3)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Service_SearchCourseRequest, rhs: Service_SearchCourseRequest) -> Bool {
+    if lhs.query != rhs.query {return false}
+    if lhs.pageSize != rhs.pageSize {return false}
+    if lhs._lastCode != rhs._lastCode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Service_CoursesResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".CoursesResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "courses"),
+    2: .same(proto: "moreResults"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.courses) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.moreResults) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.courses.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.courses, fieldNumber: 1)
+    }
+    if self.moreResults != false {
+      try visitor.visitSingularBoolField(value: self.moreResults, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Service_CoursesResponse, rhs: Service_CoursesResponse) -> Bool {
+    if lhs.courses != rhs.courses {return false}
+    if lhs.moreResults != rhs.moreResults {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Service_GetCourseDetailRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetCourseDetailRequest"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "course_code"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.courseCode) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.courseCode.isEmpty {
+      try visitor.visitSingularStringField(value: self.courseCode, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Service_GetCourseDetailRequest, rhs: Service_GetCourseDetailRequest) -> Bool {
+    if lhs.courseCode != rhs.courseCode {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Service_GetCourseDetailResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".GetCourseDetailResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "course"),
+    2: .same(proto: "reviews"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._course) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.reviews) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._course {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    if !self.reviews.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.reviews, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Service_GetCourseDetailResponse, rhs: Service_GetCourseDetailResponse) -> Bool {
+    if lhs._course != rhs._course {return false}
+    if lhs.reviews != rhs.reviews {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
 
 extension Service_UpsertTakenCoursesRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".UpsertTakenCoursesRequest"

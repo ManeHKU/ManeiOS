@@ -18,6 +18,7 @@ enum HomeMenuType {
     case transcript
     case enrollmentStatus
     case calendar
+    case courseReviews
 }
 
 struct HomeView: View {
@@ -34,7 +35,8 @@ struct HomeView: View {
     private let homeMenuItems: [HomeMenuItem] = [
         HomeMenuItem(id: .transcript, title: "Transcript", subtitle: "See your academic records"),
         HomeMenuItem(id: .enrollmentStatus, title: "Enrollment Status", subtitle: "See your enrolled course status"),
-        HomeMenuItem(id: .calendar, title: "Timetable", subtitle: "See your personal timetable")
+        HomeMenuItem(id: .calendar, title: "Timetable", subtitle: "See your personal timetable"),
+        HomeMenuItem(id: .courseReviews, title: "Course Reviews", subtitle: "See course reviews or add your own review")
     ]
     
     var body: some View {
@@ -75,6 +77,8 @@ struct HomeView: View {
                         EnrollmentStatusView()
                     case .calendar:
                         TimetableView()
+                    case .courseReviews:
+                        CourseReviewListsView()
                     }
                 }
             }

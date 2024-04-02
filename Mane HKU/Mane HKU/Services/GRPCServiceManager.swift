@@ -13,13 +13,13 @@ import SwiftProtobuf
 import os
 
 final class GRPCServiceManager {
-    private let group = PlatformSupport.makeEventLoopGroup(loopCount: 1)
+    private let group = PlatformSupport.makeEventLoopGroup(loopCount: 1, networkPreference: .best)
     static let shared = GRPCServiceManager()
     var serviceClient: Service_MainServiceClientProtocol!
     var initClient: Init_InitServiceClientProtocol!
     private init() {
         // ConnectionTarget.hostAndPort("mane-service-uknkqgo4rq-df.a.run.app", 8080)
-        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 19794) , eventLoopGroup: group))
+        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 12306) , eventLoopGroup: group))
         serviceClient = Service_MainServiceNIOClient(channel: channel)
         initClient = Init_InitServiceNIOClient(channel: channel)
     }

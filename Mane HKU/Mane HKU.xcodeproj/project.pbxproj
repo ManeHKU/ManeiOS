@@ -79,6 +79,13 @@
 		B9F3DE322BAB5F9700A21178 /* CourseNotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE312BAB5F9700A21178 /* CourseNotificationManager.swift */; };
 		B9F3DE352BAEFEEA00A21178 /* CourseEventProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE342BAEFEEA00A21178 /* CourseEventProvider.swift */; };
 		B9F3DE372BAF448700A21178 /* CourseNotificationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */; };
+		B9F3DE392BB86E3900A21178 /* CourseReviewListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE382BB86E3900A21178 /* CourseReviewListsView.swift */; };
+		B9F3DE3C2BB9641E00A21178 /* CourseReviewListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE3B2BB9641E00A21178 /* CourseReviewListViewModel.swift */; };
+		B9F3DE3E2BB964DA00A21178 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE3D2BB964DA00A21178 /* Course.swift */; };
+		B9F3DE402BB965A600A21178 /* courses.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE3F2BB965A600A21178 /* courses.pb.swift */; };
+		B9F3DE422BBAF47500A21178 /* CourseReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE412BBAF47500A21178 /* CourseReviewDetailView.swift */; };
+		B9F3DE442BBB0AF600A21178 /* CourseReviewDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE432BBB0AF600A21178 /* CourseReviewDetailViewModel.swift */; };
+		B9F3DE462BBBC83F00A21178 /* reviews.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE452BBBC83F00A21178 /* reviews.pb.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -160,6 +167,13 @@
 		B9F3DE312BAB5F9700A21178 /* CourseNotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNotificationManager.swift; sourceTree = "<group>"; };
 		B9F3DE342BAEFEEA00A21178 /* CourseEventProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseEventProvider.swift; sourceTree = "<group>"; };
 		B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNotificationSetting.swift; sourceTree = "<group>"; };
+		B9F3DE382BB86E3900A21178 /* CourseReviewListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewListsView.swift; sourceTree = "<group>"; };
+		B9F3DE3B2BB9641E00A21178 /* CourseReviewListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewListViewModel.swift; sourceTree = "<group>"; };
+		B9F3DE3D2BB964DA00A21178 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		B9F3DE3F2BB965A600A21178 /* courses.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = courses.pb.swift; sourceTree = "<group>"; };
+		B9F3DE412BBAF47500A21178 /* CourseReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewDetailView.swift; sourceTree = "<group>"; };
+		B9F3DE432BBB0AF600A21178 /* CourseReviewDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewDetailViewModel.swift; sourceTree = "<group>"; };
+		B9F3DE452BBBC83F00A21178 /* reviews.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reviews.pb.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +227,7 @@
 		B942D8032B50181400A26DAD /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B9F3DE3A2BB86E3D00A21178 /* CourseReviews */,
 				B9F3DE2C2BAB0D5900A21178 /* CalendarViews */,
 				B942D8042B50182800A26DAD /* HomeView.swift */,
 				B98DB9272B7149FA0053FEF7 /* MainTabView.swift */,
@@ -262,6 +277,7 @@
 				B9442C4A2B7CF72E004DCF7D /* Transcript.swift */,
 				B99F37D12B8E415B0060DE0C /* EnrollmentStatus.swift */,
 				B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */,
+				B9F3DE3D2BB964DA00A21178 /* Course.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -269,6 +285,8 @@
 		B971B7482B66B03A00C4C72E /* pb */ = {
 			isa = PBXGroup;
 			children = (
+				B9F3DE452BBBC83F00A21178 /* reviews.pb.swift */,
+				B9F3DE3F2BB965A600A21178 /* courses.pb.swift */,
 				B971B74A2B66B05A00C4C72E /* health_check.grpc.swift */,
 				B971B74E2B66B05A00C4C72E /* health_check.pb.swift */,
 				B971B74B2B66B05A00C4C72E /* init_service.grpc.swift */,
@@ -382,6 +400,8 @@
 				B99F37CF2B8E40A80060DE0C /* EnrollmentStatusViewModel.swift */,
 				B9F3DE012B9A4F7700A21178 /* TimetableViewModel.swift */,
 				B9F3DE312BAB5F9700A21178 /* CourseNotificationManager.swift */,
+				B9F3DE3B2BB9641E00A21178 /* CourseReviewListViewModel.swift */,
+				B9F3DE432BBB0AF600A21178 /* CourseReviewDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -434,6 +454,15 @@
 				B9F3DE2F2BAB5F0B00A21178 /* CourseNotificationsView.swift */,
 			);
 			path = CalendarViews;
+			sourceTree = "<group>";
+		};
+		B9F3DE3A2BB86E3D00A21178 /* CourseReviews */ = {
+			isa = PBXGroup;
+			children = (
+				B9F3DE382BB86E3900A21178 /* CourseReviewListsView.swift */,
+				B9F3DE412BBAF47500A21178 /* CourseReviewDetailView.swift */,
+			);
+			path = CourseReviews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -600,6 +629,7 @@
 				B96F74EA2B9752F5002CAF5E /* Generics.swift in Sources */,
 				B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */,
 				B98DB9282B7149FA0053FEF7 /* MainTabView.swift in Sources */,
+				B9F3DE3E2BB964DA00A21178 /* Course.swift in Sources */,
 				B99F37C82B8CB3DE0060DE0C /* CookieHandler.swift in Sources */,
 				B99F37D22B8E415B0060DE0C /* EnrollmentStatus.swift in Sources */,
 				B971B7502B66B05A00C4C72E /* health_check.grpc.swift in Sources */,
@@ -609,12 +639,14 @@
 				B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */,
 				B971B7512B66B05A00C4C72E /* init_service.grpc.swift in Sources */,
 				B99F37CE2B8E408D0060DE0C /* EnrollmentStatusView.swift in Sources */,
+				B9F3DE442BBB0AF600A21178 /* CourseReviewDetailViewModel.swift in Sources */,
 				B99F37D02B8E40A80060DE0C /* EnrollmentStatusViewModel.swift in Sources */,
 				B9B375E62B5CF74900A594AA /* UserInfo.swift in Sources */,
 				B9E7E0BA2B482831006EE61B /* Color.swift in Sources */,
 				B9F3DE022B9A4F7700A21178 /* TimetableViewModel.swift in Sources */,
 				B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */,
 				B942D7F62B4EFFB900A26DAD /* ConfirmEmailViewModel.swift in Sources */,
+				B9F3DE422BBAF47500A21178 /* CourseReviewDetailView.swift in Sources */,
 				B9DD4BD12B5BF5F3009D3FB0 /* LoginViewModel.swift in Sources */,
 				B96F74EC2B97B22D002CAF5E /* SettingsView.swift in Sources */,
 				B9F3DE002B9A2C8400A21178 /* TimetableEvent.swift in Sources */,
@@ -625,19 +657,23 @@
 				B99F37CA2B8CC4370060DE0C /* AppDelegate.swift in Sources */,
 				B9442C4B2B7CF72E004DCF7D /* Transcript.swift in Sources */,
 				B910B13B2B52772700A54EAB /* LoginView.swift in Sources */,
+				B9F3DE462BBBC83F00A21178 /* reviews.pb.swift in Sources */,
 				B9F3DE302BAB5F0B00A21178 /* CourseNotificationsView.swift in Sources */,
 				B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */,
 				B91B986D2B62893000608766 /* UserDefault.swift in Sources */,
 				B9E7E0BE2B489301006EE61B /* SignUpViewModel.swift in Sources */,
 				B9DB4FC12B66625C0050CB9E /* GRPCServiceManager.swift in Sources */,
 				B942D7F22B4E820D00A26DAD /* ConfirmEmailView.swift in Sources */,
+				B9F3DE392BB86E3900A21178 /* CourseReviewListsView.swift in Sources */,
 				B942D7FB2B4FDAF900A26DAD /* AlertToast.swift in Sources */,
 				B9F3DE2E2BAB0D7300A21178 /* EventsDayView.swift in Sources */,
+				B9F3DE402BB965A600A21178 /* courses.pb.swift in Sources */,
 				B91B986B2B6283DC00608766 /* Parser.swift in Sources */,
 				B99763B22B56F7A800A439F1 /* UserManager.swift in Sources */,
 				B9DD4BD32B5BF636009D3FB0 /* AuthUtils.swift in Sources */,
 				B9F3DE322BAB5F9700A21178 /* CourseNotificationManager.swift in Sources */,
 				B9442C492B7CF1FF004DCF7D /* TranscriptViewModel.swift in Sources */,
+				B9F3DE3C2BB9641E00A21178 /* CourseReviewListViewModel.swift in Sources */,
 				B9442C472B7CF1C7004DCF7D /* TranscriptView.swift in Sources */,
 				B96F74EE2B98E3E5002CAF5E /* TimetableView.swift in Sources */,
 				B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */,
