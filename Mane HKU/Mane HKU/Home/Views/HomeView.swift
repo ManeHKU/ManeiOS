@@ -22,6 +22,7 @@ enum HomeMenuType {
 }
 
 struct HomeView: View {
+    @State private var alertToastManager = AlertToastManager()
     @Bindable private var homeVM: HomeViewModel = HomeViewModel()
     @State private var showSettingSheet = false
     
@@ -90,14 +91,25 @@ struct HomeView: View {
             SettingsView()
                 .presentationDetents([.medium, .large])
         }
-        .toast(isPresenting: $homeVM.loading) {
-            AlertToast(displayMode: .alert, type: .loading)
+        .environment(alertToastManager)
+        .toast(isPresenting: $alertToastManager.show){
+            alertToastManager.alertToast
         }
-        .toast(isPresenting: $homeVM.successMessage.show) {
-            AlertToast(displayMode: .alert, type: .complete(.green), title: homeVM.successMessage.title, subTitle: homeVM.successMessage.subtitle)
+        .toast(isPresenting: $alertToastManager.showLoading){
+            alertToastManager.loadingToast
         }
-        .toast(isPresenting: $homeVM.errorMessage.show) {
-            AlertToast.createErrorToast(title: homeVM.errorMessage.title, subtitle: homeVM.errorMessage.subtitle)
+        .onChange(of: homeVM.loading, initial: true) {
+            alertToastManager.showLoading = homeVM.loading
+        }
+        .onChange(of: homeVM.successMessage.show) {
+            if homeVM.successMessage.show {
+                alertToastManager.alertToast = AlertToast(displayMode: .alert, type: .complete(.green), title: homeVM.successMessage.title, subTitle: homeVM.successMessage.subtitle)
+            }
+        }
+        .onChange(of: homeVM.errorMessage.show) {
+            if homeVM.errorMessage.show {
+                alertToastManager.alertToast = AlertToast.createErrorToast(title: homeVM.errorMessage.title, subtitle: homeVM.errorMessage.subtitle)
+            }
         }
     }
 }

@@ -1,5 +1,5 @@
 {
-  "originHash" : "a4b2d4b75c95f55655503d5dd2d3947f71b1e6234bc5f0233f39d96aabba0e7b",
+  "originHash" : "7bfb9beaf29a7e97c861de40a2edd7c89de4d4f96335436bdc3f633b325ab8d3",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -47,6 +47,15 @@
       }
     },
     {
+      "identity" : "expandabletext",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/n3d1117/ExpandableText",
+      "state" : {
+        "branch" : "main",
+        "revision" : "2b0dd2f3d2870fe933ffe5c2ee057d2e9fa647e2"
+      }
+    },
+    {
       "identity" : "grpc-swift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/grpc/grpc-swift",
@@ -62,6 +71,15 @@
       "state" : {
         "revision" : "84e546727d66f1adc5439debad16270d0fdd04e7",
         "version" : "4.2.2"
+      }
+    },
+    {
+      "identity" : "markupeditor",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/stevengharris/MarkupEditor",
+      "state" : {
+        "revision" : "7f5dfc51ca0d54d41fa1cc978cbb51dedcfeda28",
+        "version" : "0.7.1"
       }
     },
     {

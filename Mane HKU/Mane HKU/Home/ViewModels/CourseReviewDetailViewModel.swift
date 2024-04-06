@@ -13,7 +13,9 @@ import GRPC
     var loading = false
     var serviceClient = GRPCServiceManager.shared.serviceClient!
     var courseDetail: Courses_Course?
-    var reviews: [Reviews_Review]?
+    var reviews: [Reviews_Review] = []
+    var addCourseMeta: Reviews_AddReviewMeta?
+    
     var errorMessage = ToastMessage()
     var normalMessage = ToastMessage()
     
@@ -25,10 +27,10 @@ import GRPC
     }
     
     func fetchCourseDetail() async {
+        loading = true
         var request = Service_GetCourseDetailRequest()
         request.courseCode = self.courseCode
         do {
-            loading = true
             let callOptions = try await GRPCServiceManager.shared.getCallOptionsWithToken()
             let unaryCall = serviceClient.getCourseDetails(request, callOptions: callOptions)
             print("received events")
@@ -39,9 +41,11 @@ import GRPC
                     if response.hasCourse {
                         self.courseDetail = response.course
                         self.reviews = response.reviews
+                        self.addCourseMeta = response.meta
                     } else {
                         self.errorMessage.showMessage(title: "Error", subtitle: "Unable to find course")
                     }
+                    self.loading = false
                 case .failure(let error):
                     print(error.localizedDescription)
                     if let status = error as? GRPCStatus {
@@ -56,8 +60,8 @@ import GRPC
                     } else {
                         self.errorMessage.showMessage(title: "Unknown error", subtitle: error.localizedDescription)
                     }
+                    self.loading = false
                 }
-                self.loading = false
             }
         } catch (UserManagerError.notAuthenticated) {
             print("unauthorized")

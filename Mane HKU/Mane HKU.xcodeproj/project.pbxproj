@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		B910B13B2B52772700A54EAB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B910B13A2B52772700A54EAB /* LoginView.swift */; };
+		B91841D82BBC7888009FC33F /* ExpandableText in Frameworks */ = {isa = PBXBuildFile; productRef = B91841D72BBC7888009FC33F /* ExpandableText */; };
+		B91841DA2BBDEEC6009FC33F /* AddCourseReviewSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91841D92BBDEEC5009FC33F /* AddCourseReviewSheetView.swift */; };
+		B91841DC2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91841DB2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift */; };
+		B91841E02BC05006009FC33F /* AlertToastManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91841DF2BC05006009FC33F /* AlertToastManager.swift */; };
+		B91841E32BC1E476009FC33F /* MarkupEditor in Frameworks */ = {isa = PBXBuildFile; productRef = B91841E22BC1E476009FC33F /* MarkupEditor */; };
 		B91B986B2B6283DC00608766 /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B986A2B6283DC00608766 /* Parser.swift */; };
 		B91B986D2B62893000608766 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = B91B986C2B62893000608766 /* UserDefault.swift */; };
 		B942D7F02B4E658F00A26DAD /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = B942D7EF2B4E658F00A26DAD /* SwiftSoup */; };
@@ -107,6 +112,9 @@
 
 /* Begin PBXFileReference section */
 		B910B13A2B52772700A54EAB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B91841D92BBDEEC5009FC33F /* AddCourseReviewSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseReviewSheetView.swift; sourceTree = "<group>"; };
+		B91841DB2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCourseReviewViewModel.swift; sourceTree = "<group>"; };
+		B91841DF2BC05006009FC33F /* AlertToastManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertToastManager.swift; sourceTree = "<group>"; };
 		B91B986A2B6283DC00608766 /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		B91B986C2B62893000608766 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		B942D7F12B4E820D00A26DAD /* ConfirmEmailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmEmailView.swift; sourceTree = "<group>"; };
@@ -184,12 +192,14 @@
 				B9F3DE292BAA18FD00A21178 /* MijickCalendarView in Frameworks */,
 				B9B0FAF52B26275B00B63C02 /* Realtime in Frameworks */,
 				B9B0FAF32B26275B00B63C02 /* PostgREST in Frameworks */,
+				B91841E32BC1E476009FC33F /* MarkupEditor in Frameworks */,
 				B9B0FAEA2B2626F300B63C02 /* GRPC in Frameworks */,
 				B942D8012B4FE8A600A26DAD /* AlertToast in Frameworks */,
 				B9B0FAF72B26275B00B63C02 /* Storage in Frameworks */,
 				B95B5F4A2B4BD56B001A7070 /* KeychainAccess in Frameworks */,
 				B942D7F02B4E658F00A26DAD /* SwiftSoup in Frameworks */,
 				B95B5F532B4C795A001A7070 /* Alamofire in Frameworks */,
+				B91841D82BBC7888009FC33F /* ExpandableText in Frameworks */,
 				B9B0FAFA2B26296A00B63C02 /* Supabase in Frameworks */,
 				B9B0FAEC2B2626F300B63C02 /* _GRPCCore in Frameworks */,
 				B9B0FAEE2B2626F300B63C02 /* protoc-gen-grpc-swift in Frameworks */,
@@ -378,6 +388,7 @@
 				B99763B12B56F7A800A439F1 /* UserManager.swift */,
 				B91B986C2B62893000608766 /* UserDefault.swift */,
 				B96F74E92B9752F5002CAF5E /* Generics.swift */,
+				B91841DF2BC05006009FC33F /* AlertToastManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -402,6 +413,7 @@
 				B9F3DE312BAB5F9700A21178 /* CourseNotificationManager.swift */,
 				B9F3DE3B2BB9641E00A21178 /* CourseReviewListViewModel.swift */,
 				B9F3DE432BBB0AF600A21178 /* CourseReviewDetailViewModel.swift */,
+				B91841DB2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -461,6 +473,7 @@
 			children = (
 				B9F3DE382BB86E3900A21178 /* CourseReviewListsView.swift */,
 				B9F3DE412BBAF47500A21178 /* CourseReviewDetailView.swift */,
+				B91841D92BBDEEC5009FC33F /* AddCourseReviewSheetView.swift */,
 			);
 			path = CourseReviews;
 			sourceTree = "<group>";
@@ -496,6 +509,8 @@
 				B942D7EF2B4E658F00A26DAD /* SwiftSoup */,
 				B942D8002B4FE8A600A26DAD /* AlertToast */,
 				B9F3DE282BAA18FD00A21178 /* MijickCalendarView */,
+				B91841D72BBC7888009FC33F /* ExpandableText */,
+				B91841E22BC1E476009FC33F /* MarkupEditor */,
 			);
 			productName = "Mane HKU";
 			productReference = B9B0FAB92B2608B500B63C02 /* Mane HKU.app */;
@@ -578,6 +593,8 @@
 				B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */,
 				B942D7FF2B4FE8A600A26DAD /* XCRemoteSwiftPackageReference "AlertToast" */,
 				B9F3DE272BAA18FD00A21178 /* XCRemoteSwiftPackageReference "CalendarView" */,
+				B91841D62BBC7888009FC33F /* XCRemoteSwiftPackageReference "ExpandableText" */,
+				B91841E12BC1E476009FC33F /* XCRemoteSwiftPackageReference "MarkupEditor" */,
 			);
 			productRefGroup = B9B0FABA2B2608B500B63C02 /* Products */;
 			projectDirPath = "";
@@ -644,6 +661,7 @@
 				B9B375E62B5CF74900A594AA /* UserInfo.swift in Sources */,
 				B9E7E0BA2B482831006EE61B /* Color.swift in Sources */,
 				B9F3DE022B9A4F7700A21178 /* TimetableViewModel.swift in Sources */,
+				B91841DC2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift in Sources */,
 				B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */,
 				B942D7F62B4EFFB900A26DAD /* ConfirmEmailViewModel.swift in Sources */,
 				B9F3DE422BBAF47500A21178 /* CourseReviewDetailView.swift in Sources */,
@@ -654,10 +672,12 @@
 				B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */,
 				B95B5F582B4C7CB0001A7070 /* APIService.swift in Sources */,
 				B9E7E0C02B489F36006EE61B /* String.swift in Sources */,
+				B91841DA2BBDEEC6009FC33F /* AddCourseReviewSheetView.swift in Sources */,
 				B99F37CA2B8CC4370060DE0C /* AppDelegate.swift in Sources */,
 				B9442C4B2B7CF72E004DCF7D /* Transcript.swift in Sources */,
 				B910B13B2B52772700A54EAB /* LoginView.swift in Sources */,
 				B9F3DE462BBBC83F00A21178 /* reviews.pb.swift in Sources */,
+				B91841E02BC05006009FC33F /* AlertToastManager.swift in Sources */,
 				B9F3DE302BAB5F0B00A21178 /* CourseNotificationsView.swift in Sources */,
 				B942D7F42B4EE04900A26DAD /* PortalAuth.swift in Sources */,
 				B91B986D2B62893000608766 /* UserDefault.swift in Sources */,
@@ -1014,6 +1034,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		B91841D62BBC7888009FC33F /* XCRemoteSwiftPackageReference "ExpandableText" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/n3d1117/ExpandableText";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		B91841E12BC1E476009FC33F /* XCRemoteSwiftPackageReference "MarkupEditor" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stevengharris/MarkupEditor";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.1;
+			};
+		};
 		B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/scinfu/SwiftSoup";
@@ -1081,6 +1117,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B91841D72BBC7888009FC33F /* ExpandableText */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B91841D62BBC7888009FC33F /* XCRemoteSwiftPackageReference "ExpandableText" */;
+			productName = ExpandableText;
+		};
+		B91841E22BC1E476009FC33F /* MarkupEditor */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B91841E12BC1E476009FC33F /* XCRemoteSwiftPackageReference "MarkupEditor" */;
+			productName = MarkupEditor;
+		};
 		B942D7EF2B4E658F00A26DAD /* SwiftSoup */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */;

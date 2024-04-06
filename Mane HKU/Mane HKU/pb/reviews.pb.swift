@@ -290,6 +290,20 @@ public struct Reviews_Review {
   fileprivate var _createdAt: SwiftProtobuf.Google_Protobuf_Timestamp? = nil
 }
 
+public struct Reviews_AddReviewMeta {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var userHasTakenCourse: Bool = false
+
+  public var userHasReviewed: Bool = false
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Reviews_AddReviewResult: @unchecked Sendable {}
 extension Reviews_AcademicYear: @unchecked Sendable {}
@@ -297,6 +311,7 @@ extension Reviews_Semester: @unchecked Sendable {}
 extension Reviews_AddReviewRequest: @unchecked Sendable {}
 extension Reviews_AddReviewResponse: @unchecked Sendable {}
 extension Reviews_Review: @unchecked Sendable {}
+extension Reviews_AddReviewMeta: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -513,6 +528,44 @@ extension Reviews_Review: SwiftProtobuf.Message, SwiftProtobuf._MessageImplement
     if lhs.rating != rhs.rating {return false}
     if lhs.lecturers != rhs.lecturers {return false}
     if lhs._createdAt != rhs._createdAt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Reviews_AddReviewMeta: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".AddReviewMeta"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .standard(proto: "user_has_taken_course"),
+    2: .standard(proto: "user_has_reviewed"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.userHasTakenCourse) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.userHasReviewed) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.userHasTakenCourse != false {
+      try visitor.visitSingularBoolField(value: self.userHasTakenCourse, fieldNumber: 1)
+    }
+    if self.userHasReviewed != false {
+      try visitor.visitSingularBoolField(value: self.userHasReviewed, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Reviews_AddReviewMeta, rhs: Reviews_AddReviewMeta) -> Bool {
+    if lhs.userHasTakenCourse != rhs.userHasTakenCourse {return false}
+    if lhs.userHasReviewed != rhs.userHasReviewed {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

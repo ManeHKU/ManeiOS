@@ -110,11 +110,21 @@ public struct Service_GetCourseDetailResponse {
 
   public var reviews: [Reviews_Review] = []
 
+  public var meta: Reviews_AddReviewMeta {
+    get {return _meta ?? Reviews_AddReviewMeta()}
+    set {_meta = newValue}
+  }
+  /// Returns true if `meta` has been explicitly set.
+  public var hasMeta: Bool {return self._meta != nil}
+  /// Clears the value of `meta`. Subsequent reads from it will return its default value.
+  public mutating func clearMeta() {self._meta = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
 
   fileprivate var _course: Courses_Course? = nil
+  fileprivate var _meta: Reviews_AddReviewMeta? = nil
 }
 
 public struct Service_UpsertTakenCoursesRequest {
@@ -407,6 +417,7 @@ extension Service_GetCourseDetailResponse: SwiftProtobuf.Message, SwiftProtobuf.
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "course"),
     2: .same(proto: "reviews"),
+    3: .same(proto: "meta"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -417,6 +428,7 @@ extension Service_GetCourseDetailResponse: SwiftProtobuf.Message, SwiftProtobuf.
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._course) }()
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.reviews) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._meta) }()
       default: break
       }
     }
@@ -433,12 +445,16 @@ extension Service_GetCourseDetailResponse: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.reviews.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.reviews, fieldNumber: 2)
     }
+    try { if let v = self._meta {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Service_GetCourseDetailResponse, rhs: Service_GetCourseDetailResponse) -> Bool {
     if lhs._course != rhs._course {return false}
     if lhs.reviews != rhs.reviews {return false}
+    if lhs._meta != rhs._meta {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

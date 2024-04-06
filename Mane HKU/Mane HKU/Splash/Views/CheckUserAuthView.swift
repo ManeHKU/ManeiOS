@@ -10,16 +10,20 @@ import AlertToast
 import Supabase
 
 struct SplashView: View {
-    @State private var isLoading = true
     @EnvironmentObject private var appRootManager: AppRootManager
+    @State private var loading = false
     
     var body: some View {
         ZStack {
             BackgroundAuthView()
+                .toast(isPresenting: $loading) {
+                    AlertToast(displayMode: .alert, type: .loading)
+                }
         }.onAppear {
+            loading = true
             Task {
                 let isTokenValid = await UserManager.shared.checkLocalTokenValid()
-                isLoading = false
+                loading = false
                 if isTokenValid {
                     appRootManager.currentRoot = .home
                 } else {
@@ -27,10 +31,6 @@ struct SplashView: View {
                 }
             }
         }
-        .toast(isPresenting: $isLoading) {
-            AlertToast(displayMode: .alert, type: .loading)
-        }
-        
     }
 }
 
