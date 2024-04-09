@@ -50,6 +50,31 @@ public protocol Service_MainServiceClientProtocol: GRPCClient {
     _ request: Reviews_AddReviewRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Reviews_AddReviewRequest, Reviews_AddReviewResponse>
+
+  func listLatestEvents(
+    _ request: Events_ListLatestEventsRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Events_ListLatestEventsRequest, Events_ListLatestEventsResponse>
+
+  func addEvent(
+    _ request: Events_AddEventRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Events_AddEventRequest, Events_AddEventResponse>
+
+  func applyEvent(
+    _ request: Events_ApplyEventRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Events_ApplyEventRequest, Events_ApplyEventResponse>
+
+  func getEventApplyInfo(
+    _ request: Events_GetEventApplyInfoRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Events_GetEventApplyInfoRequest, Events_GetEventApplyInfoResponse>
+
+  func listUserAppliedEvent(
+    _ request: Events_ListUserAppliedEventRequest,
+    callOptions: CallOptions?
+  ) -> UnaryCall<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse>
 }
 
 extension Service_MainServiceClientProtocol {
@@ -182,6 +207,96 @@ extension Service_MainServiceClientProtocol {
       interceptors: self.interceptors?.makeAddReviewInterceptors() ?? []
     )
   }
+
+  /// Unary call to ListLatestEvents
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ListLatestEvents.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func listLatestEvents(
+    _ request: Events_ListLatestEventsRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Events_ListLatestEventsRequest, Events_ListLatestEventsResponse> {
+    return self.makeUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listLatestEvents.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListLatestEventsInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to AddEvent
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to AddEvent.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func addEvent(
+    _ request: Events_AddEventRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Events_AddEventRequest, Events_AddEventResponse> {
+    return self.makeUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.addEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAddEventInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to ApplyEvent
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ApplyEvent.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func applyEvent(
+    _ request: Events_ApplyEventRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Events_ApplyEventRequest, Events_ApplyEventResponse> {
+    return self.makeUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.applyEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeApplyEventInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to GetEventApplyInfo
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to GetEventApplyInfo.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func getEventApplyInfo(
+    _ request: Events_GetEventApplyInfoRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Events_GetEventApplyInfoRequest, Events_GetEventApplyInfoResponse> {
+    return self.makeUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.getEventApplyInfo.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetEventApplyInfoInterceptors() ?? []
+    )
+  }
+
+  /// Unary call to ListUserAppliedEvent
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ListUserAppliedEvent.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func listUserAppliedEvent(
+    _ request: Events_ListUserAppliedEventRequest,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse> {
+    return self.makeUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listUserAppliedEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListUserAppliedEventInterceptors() ?? []
+    )
+  }
 }
 
 @available(*, deprecated)
@@ -280,6 +395,31 @@ public protocol Service_MainServiceAsyncClientProtocol: GRPCClient {
     _ request: Reviews_AddReviewRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Reviews_AddReviewRequest, Reviews_AddReviewResponse>
+
+  func makeListLatestEventsCall(
+    _ request: Events_ListLatestEventsRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Events_ListLatestEventsRequest, Events_ListLatestEventsResponse>
+
+  func makeAddEventCall(
+    _ request: Events_AddEventRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Events_AddEventRequest, Events_AddEventResponse>
+
+  func makeApplyEventCall(
+    _ request: Events_ApplyEventRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Events_ApplyEventRequest, Events_ApplyEventResponse>
+
+  func makeGetEventApplyInfoCall(
+    _ request: Events_GetEventApplyInfoRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Events_GetEventApplyInfoRequest, Events_GetEventApplyInfoResponse>
+
+  func makeListUserAppliedEventCall(
+    _ request: Events_ListUserAppliedEventRequest,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -375,6 +515,66 @@ extension Service_MainServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeAddReviewInterceptors() ?? []
     )
   }
+
+  public func makeListLatestEventsCall(
+    _ request: Events_ListLatestEventsRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Events_ListLatestEventsRequest, Events_ListLatestEventsResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listLatestEvents.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListLatestEventsInterceptors() ?? []
+    )
+  }
+
+  public func makeAddEventCall(
+    _ request: Events_AddEventRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Events_AddEventRequest, Events_AddEventResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.addEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAddEventInterceptors() ?? []
+    )
+  }
+
+  public func makeApplyEventCall(
+    _ request: Events_ApplyEventRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Events_ApplyEventRequest, Events_ApplyEventResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.applyEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeApplyEventInterceptors() ?? []
+    )
+  }
+
+  public func makeGetEventApplyInfoCall(
+    _ request: Events_GetEventApplyInfoRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Events_GetEventApplyInfoRequest, Events_GetEventApplyInfoResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.getEventApplyInfo.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetEventApplyInfoInterceptors() ?? []
+    )
+  }
+
+  public func makeListUserAppliedEventCall(
+    _ request: Events_ListUserAppliedEventRequest,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listUserAppliedEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListUserAppliedEventInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -462,6 +662,66 @@ extension Service_MainServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeAddReviewInterceptors() ?? []
     )
   }
+
+  public func listLatestEvents(
+    _ request: Events_ListLatestEventsRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Events_ListLatestEventsResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listLatestEvents.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListLatestEventsInterceptors() ?? []
+    )
+  }
+
+  public func addEvent(
+    _ request: Events_AddEventRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Events_AddEventResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.addEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeAddEventInterceptors() ?? []
+    )
+  }
+
+  public func applyEvent(
+    _ request: Events_ApplyEventRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Events_ApplyEventResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.applyEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeApplyEventInterceptors() ?? []
+    )
+  }
+
+  public func getEventApplyInfo(
+    _ request: Events_GetEventApplyInfoRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Events_GetEventApplyInfoResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.getEventApplyInfo.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeGetEventApplyInfoInterceptors() ?? []
+    )
+  }
+
+  public func listUserAppliedEvent(
+    _ request: Events_ListUserAppliedEventRequest,
+    callOptions: CallOptions? = nil
+  ) async throws -> Events_ListUserAppliedEventResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listUserAppliedEvent.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListUserAppliedEventInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -503,6 +763,21 @@ public protocol Service_MainServiceClientInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when invoking 'addReview'.
   func makeAddReviewInterceptors() -> [ClientInterceptor<Reviews_AddReviewRequest, Reviews_AddReviewResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'listLatestEvents'.
+  func makeListLatestEventsInterceptors() -> [ClientInterceptor<Events_ListLatestEventsRequest, Events_ListLatestEventsResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'addEvent'.
+  func makeAddEventInterceptors() -> [ClientInterceptor<Events_AddEventRequest, Events_AddEventResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'applyEvent'.
+  func makeApplyEventInterceptors() -> [ClientInterceptor<Events_ApplyEventRequest, Events_ApplyEventResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'getEventApplyInfo'.
+  func makeGetEventApplyInfoInterceptors() -> [ClientInterceptor<Events_GetEventApplyInfoRequest, Events_GetEventApplyInfoResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'listUserAppliedEvent'.
+  func makeListUserAppliedEventInterceptors() -> [ClientInterceptor<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse>]
 }
 
 public enum Service_MainServiceClientMetadata {
@@ -517,6 +792,11 @@ public enum Service_MainServiceClientMetadata {
       Service_MainServiceClientMetadata.Methods.searchCourses,
       Service_MainServiceClientMetadata.Methods.getCourseDetails,
       Service_MainServiceClientMetadata.Methods.addReview,
+      Service_MainServiceClientMetadata.Methods.listLatestEvents,
+      Service_MainServiceClientMetadata.Methods.addEvent,
+      Service_MainServiceClientMetadata.Methods.applyEvent,
+      Service_MainServiceClientMetadata.Methods.getEventApplyInfo,
+      Service_MainServiceClientMetadata.Methods.listUserAppliedEvent,
     ]
   )
 
@@ -562,6 +842,36 @@ public enum Service_MainServiceClientMetadata {
       path: "/service.MainService/AddReview",
       type: GRPCCallType.unary
     )
+
+    public static let listLatestEvents = GRPCMethodDescriptor(
+      name: "ListLatestEvents",
+      path: "/service.MainService/ListLatestEvents",
+      type: GRPCCallType.unary
+    )
+
+    public static let addEvent = GRPCMethodDescriptor(
+      name: "AddEvent",
+      path: "/service.MainService/AddEvent",
+      type: GRPCCallType.unary
+    )
+
+    public static let applyEvent = GRPCMethodDescriptor(
+      name: "ApplyEvent",
+      path: "/service.MainService/ApplyEvent",
+      type: GRPCCallType.unary
+    )
+
+    public static let getEventApplyInfo = GRPCMethodDescriptor(
+      name: "GetEventApplyInfo",
+      path: "/service.MainService/GetEventApplyInfo",
+      type: GRPCCallType.unary
+    )
+
+    public static let listUserAppliedEvent = GRPCMethodDescriptor(
+      name: "ListUserAppliedEvent",
+      path: "/service.MainService/ListUserAppliedEvent",
+      type: GRPCCallType.unary
+    )
   }
 }
 
@@ -582,6 +892,16 @@ public protocol Service_MainServiceProvider: CallHandlerProvider {
   func getCourseDetails(request: Service_GetCourseDetailRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Service_GetCourseDetailResponse>
 
   func addReview(request: Reviews_AddReviewRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Reviews_AddReviewResponse>
+
+  func listLatestEvents(request: Events_ListLatestEventsRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Events_ListLatestEventsResponse>
+
+  func addEvent(request: Events_AddEventRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Events_AddEventResponse>
+
+  func applyEvent(request: Events_ApplyEventRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Events_ApplyEventResponse>
+
+  func getEventApplyInfo(request: Events_GetEventApplyInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Events_GetEventApplyInfoResponse>
+
+  func listUserAppliedEvent(request: Events_ListUserAppliedEventRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Events_ListUserAppliedEventResponse>
 }
 
 extension Service_MainServiceProvider {
@@ -659,6 +979,51 @@ extension Service_MainServiceProvider {
         userFunction: self.addReview(request:context:)
       )
 
+    case "ListLatestEvents":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_ListLatestEventsRequest>(),
+        responseSerializer: ProtobufSerializer<Events_ListLatestEventsResponse>(),
+        interceptors: self.interceptors?.makeListLatestEventsInterceptors() ?? [],
+        userFunction: self.listLatestEvents(request:context:)
+      )
+
+    case "AddEvent":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_AddEventRequest>(),
+        responseSerializer: ProtobufSerializer<Events_AddEventResponse>(),
+        interceptors: self.interceptors?.makeAddEventInterceptors() ?? [],
+        userFunction: self.addEvent(request:context:)
+      )
+
+    case "ApplyEvent":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_ApplyEventRequest>(),
+        responseSerializer: ProtobufSerializer<Events_ApplyEventResponse>(),
+        interceptors: self.interceptors?.makeApplyEventInterceptors() ?? [],
+        userFunction: self.applyEvent(request:context:)
+      )
+
+    case "GetEventApplyInfo":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_GetEventApplyInfoRequest>(),
+        responseSerializer: ProtobufSerializer<Events_GetEventApplyInfoResponse>(),
+        interceptors: self.interceptors?.makeGetEventApplyInfoInterceptors() ?? [],
+        userFunction: self.getEventApplyInfo(request:context:)
+      )
+
+    case "ListUserAppliedEvent":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_ListUserAppliedEventRequest>(),
+        responseSerializer: ProtobufSerializer<Events_ListUserAppliedEventResponse>(),
+        interceptors: self.interceptors?.makeListUserAppliedEventInterceptors() ?? [],
+        userFunction: self.listUserAppliedEvent(request:context:)
+      )
+
     default:
       return nil
     }
@@ -705,6 +1070,31 @@ public protocol Service_MainServiceAsyncProvider: CallHandlerProvider, Sendable 
     request: Reviews_AddReviewRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> Reviews_AddReviewResponse
+
+  func listLatestEvents(
+    request: Events_ListLatestEventsRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Events_ListLatestEventsResponse
+
+  func addEvent(
+    request: Events_AddEventRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Events_AddEventResponse
+
+  func applyEvent(
+    request: Events_ApplyEventRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Events_ApplyEventResponse
+
+  func getEventApplyInfo(
+    request: Events_GetEventApplyInfoRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Events_GetEventApplyInfoResponse
+
+  func listUserAppliedEvent(
+    request: Events_ListUserAppliedEventRequest,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Events_ListUserAppliedEventResponse
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -789,6 +1179,51 @@ extension Service_MainServiceAsyncProvider {
         wrapping: { try await self.addReview(request: $0, context: $1) }
       )
 
+    case "ListLatestEvents":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_ListLatestEventsRequest>(),
+        responseSerializer: ProtobufSerializer<Events_ListLatestEventsResponse>(),
+        interceptors: self.interceptors?.makeListLatestEventsInterceptors() ?? [],
+        wrapping: { try await self.listLatestEvents(request: $0, context: $1) }
+      )
+
+    case "AddEvent":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_AddEventRequest>(),
+        responseSerializer: ProtobufSerializer<Events_AddEventResponse>(),
+        interceptors: self.interceptors?.makeAddEventInterceptors() ?? [],
+        wrapping: { try await self.addEvent(request: $0, context: $1) }
+      )
+
+    case "ApplyEvent":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_ApplyEventRequest>(),
+        responseSerializer: ProtobufSerializer<Events_ApplyEventResponse>(),
+        interceptors: self.interceptors?.makeApplyEventInterceptors() ?? [],
+        wrapping: { try await self.applyEvent(request: $0, context: $1) }
+      )
+
+    case "GetEventApplyInfo":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_GetEventApplyInfoRequest>(),
+        responseSerializer: ProtobufSerializer<Events_GetEventApplyInfoResponse>(),
+        interceptors: self.interceptors?.makeGetEventApplyInfoInterceptors() ?? [],
+        wrapping: { try await self.getEventApplyInfo(request: $0, context: $1) }
+      )
+
+    case "ListUserAppliedEvent":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<Events_ListUserAppliedEventRequest>(),
+        responseSerializer: ProtobufSerializer<Events_ListUserAppliedEventResponse>(),
+        interceptors: self.interceptors?.makeListUserAppliedEventInterceptors() ?? [],
+        wrapping: { try await self.listUserAppliedEvent(request: $0, context: $1) }
+      )
+
     default:
       return nil
     }
@@ -824,6 +1259,26 @@ public protocol Service_MainServiceServerInterceptorFactoryProtocol: Sendable {
   /// - Returns: Interceptors to use when handling 'addReview'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeAddReviewInterceptors() -> [ServerInterceptor<Reviews_AddReviewRequest, Reviews_AddReviewResponse>]
+
+  /// - Returns: Interceptors to use when handling 'listLatestEvents'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeListLatestEventsInterceptors() -> [ServerInterceptor<Events_ListLatestEventsRequest, Events_ListLatestEventsResponse>]
+
+  /// - Returns: Interceptors to use when handling 'addEvent'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeAddEventInterceptors() -> [ServerInterceptor<Events_AddEventRequest, Events_AddEventResponse>]
+
+  /// - Returns: Interceptors to use when handling 'applyEvent'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeApplyEventInterceptors() -> [ServerInterceptor<Events_ApplyEventRequest, Events_ApplyEventResponse>]
+
+  /// - Returns: Interceptors to use when handling 'getEventApplyInfo'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeGetEventApplyInfoInterceptors() -> [ServerInterceptor<Events_GetEventApplyInfoRequest, Events_GetEventApplyInfoResponse>]
+
+  /// - Returns: Interceptors to use when handling 'listUserAppliedEvent'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeListUserAppliedEventInterceptors() -> [ServerInterceptor<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse>]
 }
 
 public enum Service_MainServiceServerMetadata {
@@ -838,6 +1293,11 @@ public enum Service_MainServiceServerMetadata {
       Service_MainServiceServerMetadata.Methods.searchCourses,
       Service_MainServiceServerMetadata.Methods.getCourseDetails,
       Service_MainServiceServerMetadata.Methods.addReview,
+      Service_MainServiceServerMetadata.Methods.listLatestEvents,
+      Service_MainServiceServerMetadata.Methods.addEvent,
+      Service_MainServiceServerMetadata.Methods.applyEvent,
+      Service_MainServiceServerMetadata.Methods.getEventApplyInfo,
+      Service_MainServiceServerMetadata.Methods.listUserAppliedEvent,
     ]
   )
 
@@ -881,6 +1341,36 @@ public enum Service_MainServiceServerMetadata {
     public static let addReview = GRPCMethodDescriptor(
       name: "AddReview",
       path: "/service.MainService/AddReview",
+      type: GRPCCallType.unary
+    )
+
+    public static let listLatestEvents = GRPCMethodDescriptor(
+      name: "ListLatestEvents",
+      path: "/service.MainService/ListLatestEvents",
+      type: GRPCCallType.unary
+    )
+
+    public static let addEvent = GRPCMethodDescriptor(
+      name: "AddEvent",
+      path: "/service.MainService/AddEvent",
+      type: GRPCCallType.unary
+    )
+
+    public static let applyEvent = GRPCMethodDescriptor(
+      name: "ApplyEvent",
+      path: "/service.MainService/ApplyEvent",
+      type: GRPCCallType.unary
+    )
+
+    public static let getEventApplyInfo = GRPCMethodDescriptor(
+      name: "GetEventApplyInfo",
+      path: "/service.MainService/GetEventApplyInfo",
+      type: GRPCCallType.unary
+    )
+
+    public static let listUserAppliedEvent = GRPCMethodDescriptor(
+      name: "ListUserAppliedEvent",
+      path: "/service.MainService/ListUserAppliedEvent",
       type: GRPCCallType.unary
     )
   }

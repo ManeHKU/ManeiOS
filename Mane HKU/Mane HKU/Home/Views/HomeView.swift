@@ -19,6 +19,7 @@ enum HomeMenuType {
     case enrollmentStatus
     case calendar
     case courseReviews
+    case campusEvent
 }
 
 struct HomeView: View {
@@ -37,7 +38,8 @@ struct HomeView: View {
         HomeMenuItem(id: .transcript, title: "Transcript", subtitle: "See your academic records"),
         HomeMenuItem(id: .enrollmentStatus, title: "Enrollment Status", subtitle: "See your enrolled course status"),
         HomeMenuItem(id: .calendar, title: "Timetable", subtitle: "See your personal timetable"),
-        HomeMenuItem(id: .courseReviews, title: "Course Reviews", subtitle: "See course reviews or add your own review")
+        HomeMenuItem(id: .courseReviews, title: "Course Reviews", subtitle: "See course reviews or add your own review"),
+        HomeMenuItem(id: .campusEvent, title: "Campus Events", subtitle: "Check out the latest events happening in HKU!")
     ]
     
     var body: some View {
@@ -80,6 +82,8 @@ struct HomeView: View {
                         TimetableView()
                     case .courseReviews:
                         CourseReviewListsView()
+                    case .campusEvent:
+                        CampusEventContentEditorView()
                     }
                 }
             }

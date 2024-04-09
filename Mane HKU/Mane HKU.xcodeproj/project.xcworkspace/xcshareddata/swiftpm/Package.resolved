@@ -1,5 +1,5 @@
 {
-  "originHash" : "7bfb9beaf29a7e97c861de40a2edd7c89de4d4f96335436bdc3f633b325ab8d3",
+  "originHash" : "1c38dfcb051511b73065e5e430dddfef3ff9511213b3810fface9ed0834dd250",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -74,12 +74,12 @@
       }
     },
     {
-      "identity" : "markupeditor",
+      "identity" : "rich-editor-swiftui",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/stevengharris/MarkupEditor",
+      "location" : "https://github.com/canopas/rich-editor-swiftui",
       "state" : {
-        "revision" : "7f5dfc51ca0d54d41fa1cc978cbb51dedcfeda28",
-        "version" : "0.7.1"
+        "branch" : "main",
+        "revision" : "254ed8d47973c1f4f4fd28a9b813793b73bd0fdf"
       }
     },
     {
