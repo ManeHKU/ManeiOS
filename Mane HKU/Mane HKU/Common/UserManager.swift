@@ -8,6 +8,7 @@
 import Foundation
 import Supabase
 import NIOCore
+import SwiftUI
 
 let key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh4cHRyZGxmdXR2YnNuZ2hnbHBwIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTYyNjM1NDcsImV4cCI6MjAxMTgzOTU0N30.lJyolDw6LaK1G2jeXDEgnNb9E9ZCzS2gd6EkcBPigHA"
 
@@ -105,6 +106,23 @@ final actor UserManager {
         let jwtTokens = JWTToken(jwt: accessToken, refreshToken: refreshToken)
         KeychainManager.shared.secureSave(key: .jwtToken, value: jwtTokens)
         print("updated KC local token")
+    }
+    
+    func getEventImage(at path: String) async -> Image? {
+        if path.isEmpty {
+            return nil
+        }
+        guard let data = try? await supabase.storage
+          .from("event")
+          .download(path: path) else {
+            return nil
+        }
+        
+        guard let uiImage = UIImage(data: data) else {
+            return nil
+        }
+        
+        return Image(uiImage: uiImage)
     }
 }
 

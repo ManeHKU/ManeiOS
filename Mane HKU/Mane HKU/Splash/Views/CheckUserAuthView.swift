@@ -19,16 +19,14 @@ struct SplashView: View {
                 .toast(isPresenting: $loading) {
                     AlertToast(displayMode: .alert, type: .loading)
                 }
-        }.onAppear {
+        }.task {
             loading = true
-            Task {
-                let isTokenValid = await UserManager.shared.checkLocalTokenValid()
-                loading = false
-                if isTokenValid {
-                    appRootManager.currentRoot = .home
-                } else {
-                    appRootManager.currentRoot = .authentication
-                }
+            let isTokenValid = await UserManager.shared.checkLocalTokenValid()
+            loading = false
+            if isTokenValid {
+                appRootManager.currentRoot = .home
+            } else {
+                appRootManager.currentRoot = .authentication
             }
         }
     }

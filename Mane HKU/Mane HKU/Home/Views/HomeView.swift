@@ -83,7 +83,7 @@ struct HomeView: View {
                     case .courseReviews:
                         CourseReviewListsView()
                     case .campusEvent:
-                        CampusEventContentEditorView()
+                        CampusEventListView()
                     }
                 }
             }

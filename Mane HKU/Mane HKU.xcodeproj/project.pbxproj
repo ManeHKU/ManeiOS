@@ -87,13 +87,18 @@
 		B9F3DE372BAF448700A21178 /* CourseNotificationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */; };
 		B9F3DE392BB86E3900A21178 /* CourseReviewListsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE382BB86E3900A21178 /* CourseReviewListsView.swift */; };
 		B9F3DE3C2BB9641E00A21178 /* CourseReviewListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE3B2BB9641E00A21178 /* CourseReviewListViewModel.swift */; };
-		B9F3DE3E2BB964DA00A21178 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE3D2BB964DA00A21178 /* Course.swift */; };
 		B9F3DE402BB965A600A21178 /* courses.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE3F2BB965A600A21178 /* courses.pb.swift */; };
 		B9F3DE422BBAF47500A21178 /* CourseReviewDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE412BBAF47500A21178 /* CourseReviewDetailView.swift */; };
 		B9F3DE442BBB0AF600A21178 /* CourseReviewDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE432BBB0AF600A21178 /* CourseReviewDetailViewModel.swift */; };
 		B9F3DE462BBBC83F00A21178 /* reviews.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9F3DE452BBBC83F00A21178 /* reviews.pb.swift */; };
-		B9FBC76B2BC482E30000B9DC /* AddReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC76A2BC482E30000B9DC /* AddReviewView.swift */; };
 		B9FBC76D2BC5B79A0000B9DC /* events.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC76C2BC5B7990000B9DC /* events.pb.swift */; };
+		B9FBC76F2BC5D2C10000B9DC /* CampusEventListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC76E2BC5D2C10000B9DC /* CampusEventListView.swift */; };
+		B9FBC7712BC5D37A0000B9DC /* CampusEventListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC7702BC5D37A0000B9DC /* CampusEventListViewModel.swift */; };
+		B9FBC7752BC6B8DC0000B9DC /* CampusEventDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC7742BC6B8DC0000B9DC /* CampusEventDetailedView.swift */; };
+		B9FBC7792BC6C5110000B9DC /* ImageWithBlurredText.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC7782BC6C5110000B9DC /* ImageWithBlurredText.swift */; };
+		B9FBC77B2BC7194D0000B9DC /* ApplyEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC77A2BC7194D0000B9DC /* ApplyEventView.swift */; };
+		B9FBC77D2BC71ADA0000B9DC /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC77C2BC71ADA0000B9DC /* LazyView.swift */; };
+		B9FBC77F2BC728A60000B9DC /* ApplyEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC77E2BC728A60000B9DC /* ApplyEventViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -181,13 +186,18 @@
 		B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseNotificationSetting.swift; sourceTree = "<group>"; };
 		B9F3DE382BB86E3900A21178 /* CourseReviewListsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewListsView.swift; sourceTree = "<group>"; };
 		B9F3DE3B2BB9641E00A21178 /* CourseReviewListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewListViewModel.swift; sourceTree = "<group>"; };
-		B9F3DE3D2BB964DA00A21178 /* Course.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
 		B9F3DE3F2BB965A600A21178 /* courses.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = courses.pb.swift; sourceTree = "<group>"; };
 		B9F3DE412BBAF47500A21178 /* CourseReviewDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewDetailView.swift; sourceTree = "<group>"; };
 		B9F3DE432BBB0AF600A21178 /* CourseReviewDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseReviewDetailViewModel.swift; sourceTree = "<group>"; };
 		B9F3DE452BBBC83F00A21178 /* reviews.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = reviews.pb.swift; sourceTree = "<group>"; };
-		B9FBC76A2BC482E30000B9DC /* AddReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReviewView.swift; sourceTree = "<group>"; };
 		B9FBC76C2BC5B7990000B9DC /* events.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = events.pb.swift; sourceTree = "<group>"; };
+		B9FBC76E2BC5D2C10000B9DC /* CampusEventListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventListView.swift; sourceTree = "<group>"; };
+		B9FBC7702BC5D37A0000B9DC /* CampusEventListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventListViewModel.swift; sourceTree = "<group>"; };
+		B9FBC7742BC6B8DC0000B9DC /* CampusEventDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CampusEventDetailedView.swift; sourceTree = "<group>"; };
+		B9FBC7782BC6C5110000B9DC /* ImageWithBlurredText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWithBlurredText.swift; sourceTree = "<group>"; };
+		B9FBC77A2BC7194D0000B9DC /* ApplyEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyEventView.swift; sourceTree = "<group>"; };
+		B9FBC77C2BC71ADA0000B9DC /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
+		B9FBC77E2BC728A60000B9DC /* ApplyEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyEventViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,7 +245,9 @@
 			isa = PBXGroup;
 			children = (
 				B91841E52BC1E580009FC33F /* CampusEventContentEditorView.swift */,
-				B9FBC76A2BC482E30000B9DC /* AddReviewView.swift */,
+				B9FBC76E2BC5D2C10000B9DC /* CampusEventListView.swift */,
+				B9FBC7742BC6B8DC0000B9DC /* CampusEventDetailedView.swift */,
+				B9FBC77A2BC7194D0000B9DC /* ApplyEventView.swift */,
 			);
 			path = CampusEvents;
 			sourceTree = "<group>";
@@ -303,7 +315,6 @@
 				B9442C4A2B7CF72E004DCF7D /* Transcript.swift */,
 				B99F37D12B8E415B0060DE0C /* EnrollmentStatus.swift */,
 				B9F3DE362BAF448700A21178 /* CourseNotificationSetting.swift */,
-				B9F3DE3D2BB964DA00A21178 /* Course.swift */,
 			);
 			path = Types;
 			sourceTree = "<group>";
@@ -406,6 +417,8 @@
 				B91B986C2B62893000608766 /* UserDefault.swift */,
 				B96F74E92B9752F5002CAF5E /* Generics.swift */,
 				B91841DF2BC05006009FC33F /* AlertToastManager.swift */,
+				B9FBC7782BC6C5110000B9DC /* ImageWithBlurredText.swift */,
+				B9FBC77C2BC71ADA0000B9DC /* LazyView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -431,6 +444,8 @@
 				B9F3DE3B2BB9641E00A21178 /* CourseReviewListViewModel.swift */,
 				B9F3DE432BBB0AF600A21178 /* CourseReviewDetailViewModel.swift */,
 				B91841DB2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift */,
+				B9FBC7702BC5D37A0000B9DC /* CampusEventListViewModel.swift */,
+				B9FBC77E2BC728A60000B9DC /* ApplyEventViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -663,22 +678,27 @@
 				B96F74EA2B9752F5002CAF5E /* Generics.swift in Sources */,
 				B9E7E0B82B48183B006EE61B /* AuthSetupView.swift in Sources */,
 				B98DB9282B7149FA0053FEF7 /* MainTabView.swift in Sources */,
-				B9F3DE3E2BB964DA00A21178 /* Course.swift in Sources */,
+				B9FBC76F2BC5D2C10000B9DC /* CampusEventListView.swift in Sources */,
 				B99F37C82B8CB3DE0060DE0C /* CookieHandler.swift in Sources */,
 				B99F37D22B8E415B0060DE0C /* EnrollmentStatus.swift in Sources */,
 				B971B7502B66B05A00C4C72E /* health_check.grpc.swift in Sources */,
 				B9B0FABF2B2608B500B63C02 /* ContentView.swift in Sources */,
 				B96591882B5547EA00FD1B91 /* CheckUserAuthView.swift in Sources */,
+				B9FBC77B2BC7194D0000B9DC /* ApplyEventView.swift in Sources */,
 				B9F3DE372BAF448700A21178 /* CourseNotificationSetting.swift in Sources */,
 				B9B0FABD2B2608B500B63C02 /* ManeApp.swift in Sources */,
 				B971B7512B66B05A00C4C72E /* init_service.grpc.swift in Sources */,
 				B99F37CE2B8E408D0060DE0C /* EnrollmentStatusView.swift in Sources */,
 				B9F3DE442BBB0AF600A21178 /* CourseReviewDetailViewModel.swift in Sources */,
+				B9FBC7712BC5D37A0000B9DC /* CampusEventListViewModel.swift in Sources */,
 				B99F37D02B8E40A80060DE0C /* EnrollmentStatusViewModel.swift in Sources */,
 				B9B375E62B5CF74900A594AA /* UserInfo.swift in Sources */,
+				B9FBC7792BC6C5110000B9DC /* ImageWithBlurredText.swift in Sources */,
+				B9FBC77F2BC728A60000B9DC /* ApplyEventViewModel.swift in Sources */,
 				B9E7E0BA2B482831006EE61B /* Color.swift in Sources */,
 				B9F3DE022B9A4F7700A21178 /* TimetableViewModel.swift in Sources */,
 				B91841DC2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift in Sources */,
+				B9FBC77D2BC71ADA0000B9DC /* LazyView.swift in Sources */,
 				B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */,
 				B91841E62BC1E580009FC33F /* CampusEventContentEditorView.swift in Sources */,
 				B942D7F62B4EFFB900A26DAD /* ConfirmEmailViewModel.swift in Sources */,
@@ -692,7 +712,6 @@
 				B9E7E0C02B489F36006EE61B /* String.swift in Sources */,
 				B9FBC76D2BC5B79A0000B9DC /* events.pb.swift in Sources */,
 				B91841DA2BBDEEC6009FC33F /* AddCourseReviewSheetView.swift in Sources */,
-				B9FBC76B2BC482E30000B9DC /* AddReviewView.swift in Sources */,
 				B99F37CA2B8CC4370060DE0C /* AppDelegate.swift in Sources */,
 				B9442C4B2B7CF72E004DCF7D /* Transcript.swift in Sources */,
 				B910B13B2B52772700A54EAB /* LoginView.swift in Sources */,
@@ -720,6 +739,7 @@
 				B9442C432B7CE654004DCF7D /* AppRootManager.swift in Sources */,
 				B971B74F2B66B05A00C4C72E /* main_service.pb.swift in Sources */,
 				B971B7532B66B05A00C4C72E /* main_service.grpc.swift in Sources */,
+				B9FBC7752BC6B8DC0000B9DC /* CampusEventDetailedView.swift in Sources */,
 				B9F3DE352BAEFEEA00A21178 /* CourseEventProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

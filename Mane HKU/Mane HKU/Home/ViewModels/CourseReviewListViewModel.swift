@@ -40,7 +40,7 @@ import GRPC
             loading = true
             let callOptions = try await GRPCServiceManager.shared.getCallOptionsWithToken()
             let unaryCall = serviceClient.listCourses(request, callOptions: callOptions)
-            print("received events")
+            print("received course reviews")
             unaryCall.response.whenComplete { result in
                 switch result {
                 case .success(let response):
