@@ -40,6 +40,7 @@ struct ImageWithBlurredText: View {
                     .bold()
                     .padding(.all, 20)
                     .foregroundStyle(textColor)
+                    .multilineTextAlignment(.center)
             } else {
                 ProgressView()
             }

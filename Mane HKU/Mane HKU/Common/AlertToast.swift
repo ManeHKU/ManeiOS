@@ -26,7 +26,7 @@ struct ToastMessage {
     var title: String = ""
     var subtitle: String? = nil
     
-    mutating func showMessage(title: String, subtitle: String) {
+    mutating func showMessage(title: String, subtitle: String?) {
         self.title = title
         self.subtitle = subtitle
         self.show = true

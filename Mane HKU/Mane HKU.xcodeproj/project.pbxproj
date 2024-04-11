@@ -99,6 +99,8 @@
 		B9FBC77B2BC7194D0000B9DC /* ApplyEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC77A2BC7194D0000B9DC /* ApplyEventView.swift */; };
 		B9FBC77D2BC71ADA0000B9DC /* LazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC77C2BC71ADA0000B9DC /* LazyView.swift */; };
 		B9FBC77F2BC728A60000B9DC /* ApplyEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC77E2BC728A60000B9DC /* ApplyEventViewModel.swift */; };
+		B9FBC7812BC73ADA0000B9DC /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC7802BC73ADA0000B9DC /* AddEventView.swift */; };
+		B9FBC7832BC7DE330000B9DC /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC7822BC7DE330000B9DC /* AddEventViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +200,8 @@
 		B9FBC77A2BC7194D0000B9DC /* ApplyEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyEventView.swift; sourceTree = "<group>"; };
 		B9FBC77C2BC71ADA0000B9DC /* LazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyView.swift; sourceTree = "<group>"; };
 		B9FBC77E2BC728A60000B9DC /* ApplyEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyEventViewModel.swift; sourceTree = "<group>"; };
+		B9FBC7802BC73ADA0000B9DC /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
+		B9FBC7822BC7DE330000B9DC /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +252,7 @@
 				B9FBC76E2BC5D2C10000B9DC /* CampusEventListView.swift */,
 				B9FBC7742BC6B8DC0000B9DC /* CampusEventDetailedView.swift */,
 				B9FBC77A2BC7194D0000B9DC /* ApplyEventView.swift */,
+				B9FBC7802BC73ADA0000B9DC /* AddEventView.swift */,
 			);
 			path = CampusEvents;
 			sourceTree = "<group>";
@@ -446,6 +451,7 @@
 				B91841DB2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift */,
 				B9FBC7702BC5D37A0000B9DC /* CampusEventListViewModel.swift */,
 				B9FBC77E2BC728A60000B9DC /* ApplyEventViewModel.swift */,
+				B9FBC7822BC7DE330000B9DC /* AddEventViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -699,6 +705,7 @@
 				B9F3DE022B9A4F7700A21178 /* TimetableViewModel.swift in Sources */,
 				B91841DC2BBDEF1F009FC33F /* AddCourseReviewViewModel.swift in Sources */,
 				B9FBC77D2BC71ADA0000B9DC /* LazyView.swift in Sources */,
+				B9FBC7832BC7DE330000B9DC /* AddEventViewModel.swift in Sources */,
 				B95B5F502B4C5ECA001A7070 /* BackgroundAuthView.swift in Sources */,
 				B91841E62BC1E580009FC33F /* CampusEventContentEditorView.swift in Sources */,
 				B942D7F62B4EFFB900A26DAD /* ConfirmEmailViewModel.swift in Sources */,
@@ -737,6 +744,7 @@
 				B96F74EE2B98E3E5002CAF5E /* TimetableView.swift in Sources */,
 				B95B5F472B4BD453001A7070 /* KeychainManager.swift in Sources */,
 				B9442C432B7CE654004DCF7D /* AppRootManager.swift in Sources */,
+				B9FBC7812BC73ADA0000B9DC /* AddEventView.swift in Sources */,
 				B971B74F2B66B05A00C4C72E /* main_service.pb.swift in Sources */,
 				B971B7532B66B05A00C4C72E /* main_service.grpc.swift in Sources */,
 				B9FBC7752BC6B8DC0000B9DC /* CampusEventDetailedView.swift in Sources */,

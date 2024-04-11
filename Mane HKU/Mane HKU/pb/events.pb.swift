@@ -532,6 +532,29 @@ public struct Events_GetEventApplyInfoResponse {
   fileprivate var _applyInfo: Events_ApplyInfo? = nil
 }
 
+public struct Events_ListUserOrganizationAdminResponse {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var organizations: [Events_OrganizerInfo] = []
+
+  public var errorMessage: String {
+    get {return _errorMessage ?? String()}
+    set {_errorMessage = newValue}
+  }
+  /// Returns true if `errorMessage` has been explicitly set.
+  public var hasErrorMessage: Bool {return self._errorMessage != nil}
+  /// Clears the value of `errorMessage`. Subsequent reads from it will return its default value.
+  public mutating func clearErrorMessage() {self._errorMessage = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public init() {}
+
+  fileprivate var _errorMessage: String? = nil
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Events_EventStatus: @unchecked Sendable {}
 extension Events_SortBy: @unchecked Sendable {}
@@ -551,6 +574,7 @@ extension Events_ListUserAppliedEventRequest: @unchecked Sendable {}
 extension Events_ListUserAppliedEventResponse: @unchecked Sendable {}
 extension Events_GetEventApplyInfoRequest: @unchecked Sendable {}
 extension Events_GetEventApplyInfoResponse: @unchecked Sendable {}
+extension Events_ListUserOrganizationAdminResponse: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -1298,6 +1322,48 @@ extension Events_GetEventApplyInfoResponse: SwiftProtobuf.Message, SwiftProtobuf
   public static func ==(lhs: Events_GetEventApplyInfoResponse, rhs: Events_GetEventApplyInfoResponse) -> Bool {
     if lhs._applyInfo != rhs._applyInfo {return false}
     if lhs.userApplied != rhs.userApplied {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Events_ListUserOrganizationAdminResponse: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ListUserOrganizationAdminResponse"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "organizations"),
+    2: .standard(proto: "error_message"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.organizations) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self._errorMessage) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.organizations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.organizations, fieldNumber: 1)
+    }
+    try { if let v = self._errorMessage {
+      try visitor.visitSingularStringField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Events_ListUserOrganizationAdminResponse, rhs: Events_ListUserOrganizationAdminResponse) -> Bool {
+    if lhs.organizations != rhs.organizations {return false}
+    if lhs._errorMessage != rhs._errorMessage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

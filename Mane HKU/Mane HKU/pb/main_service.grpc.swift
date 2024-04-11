@@ -75,6 +75,11 @@ public protocol Service_MainServiceClientProtocol: GRPCClient {
     _ request: Events_ListUserAppliedEventRequest,
     callOptions: CallOptions?
   ) -> UnaryCall<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse>
+
+  func listUserOrganizationAdmin(
+    _ request: SwiftProtobuf.Google_Protobuf_Empty,
+    callOptions: CallOptions?
+  ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, Events_ListUserOrganizationAdminResponse>
 }
 
 extension Service_MainServiceClientProtocol {
@@ -297,6 +302,24 @@ extension Service_MainServiceClientProtocol {
       interceptors: self.interceptors?.makeListUserAppliedEventInterceptors() ?? []
     )
   }
+
+  /// Unary call to ListUserOrganizationAdmin
+  ///
+  /// - Parameters:
+  ///   - request: Request to send to ListUserOrganizationAdmin.
+  ///   - callOptions: Call options.
+  /// - Returns: A `UnaryCall` with futures for the metadata, status and response.
+  public func listUserOrganizationAdmin(
+    _ request: SwiftProtobuf.Google_Protobuf_Empty,
+    callOptions: CallOptions? = nil
+  ) -> UnaryCall<SwiftProtobuf.Google_Protobuf_Empty, Events_ListUserOrganizationAdminResponse> {
+    return self.makeUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listUserOrganizationAdmin.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListUserOrganizationAdminInterceptors() ?? []
+    )
+  }
 }
 
 @available(*, deprecated)
@@ -420,6 +443,11 @@ public protocol Service_MainServiceAsyncClientProtocol: GRPCClient {
     _ request: Events_ListUserAppliedEventRequest,
     callOptions: CallOptions?
   ) -> GRPCAsyncUnaryCall<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse>
+
+  func makeListUserOrganizationAdminCall(
+    _ request: SwiftProtobuf.Google_Protobuf_Empty,
+    callOptions: CallOptions?
+  ) -> GRPCAsyncUnaryCall<SwiftProtobuf.Google_Protobuf_Empty, Events_ListUserOrganizationAdminResponse>
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -575,6 +603,18 @@ extension Service_MainServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeListUserAppliedEventInterceptors() ?? []
     )
   }
+
+  public func makeListUserOrganizationAdminCall(
+    _ request: SwiftProtobuf.Google_Protobuf_Empty,
+    callOptions: CallOptions? = nil
+  ) -> GRPCAsyncUnaryCall<SwiftProtobuf.Google_Protobuf_Empty, Events_ListUserOrganizationAdminResponse> {
+    return self.makeAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listUserOrganizationAdmin.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListUserOrganizationAdminInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -722,6 +762,18 @@ extension Service_MainServiceAsyncClientProtocol {
       interceptors: self.interceptors?.makeListUserAppliedEventInterceptors() ?? []
     )
   }
+
+  public func listUserOrganizationAdmin(
+    _ request: SwiftProtobuf.Google_Protobuf_Empty,
+    callOptions: CallOptions? = nil
+  ) async throws -> Events_ListUserOrganizationAdminResponse {
+    return try await self.performAsyncUnaryCall(
+      path: Service_MainServiceClientMetadata.Methods.listUserOrganizationAdmin.path,
+      request: request,
+      callOptions: callOptions ?? self.defaultCallOptions,
+      interceptors: self.interceptors?.makeListUserOrganizationAdminInterceptors() ?? []
+    )
+  }
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -778,6 +830,9 @@ public protocol Service_MainServiceClientInterceptorFactoryProtocol: Sendable {
 
   /// - Returns: Interceptors to use when invoking 'listUserAppliedEvent'.
   func makeListUserAppliedEventInterceptors() -> [ClientInterceptor<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse>]
+
+  /// - Returns: Interceptors to use when invoking 'listUserOrganizationAdmin'.
+  func makeListUserOrganizationAdminInterceptors() -> [ClientInterceptor<SwiftProtobuf.Google_Protobuf_Empty, Events_ListUserOrganizationAdminResponse>]
 }
 
 public enum Service_MainServiceClientMetadata {
@@ -797,6 +852,7 @@ public enum Service_MainServiceClientMetadata {
       Service_MainServiceClientMetadata.Methods.applyEvent,
       Service_MainServiceClientMetadata.Methods.getEventApplyInfo,
       Service_MainServiceClientMetadata.Methods.listUserAppliedEvent,
+      Service_MainServiceClientMetadata.Methods.listUserOrganizationAdmin,
     ]
   )
 
@@ -872,6 +928,12 @@ public enum Service_MainServiceClientMetadata {
       path: "/service.MainService/ListUserAppliedEvent",
       type: GRPCCallType.unary
     )
+
+    public static let listUserOrganizationAdmin = GRPCMethodDescriptor(
+      name: "ListUserOrganizationAdmin",
+      path: "/service.MainService/ListUserOrganizationAdmin",
+      type: GRPCCallType.unary
+    )
   }
 }
 
@@ -902,6 +964,8 @@ public protocol Service_MainServiceProvider: CallHandlerProvider {
   func getEventApplyInfo(request: Events_GetEventApplyInfoRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Events_GetEventApplyInfoResponse>
 
   func listUserAppliedEvent(request: Events_ListUserAppliedEventRequest, context: StatusOnlyCallContext) -> EventLoopFuture<Events_ListUserAppliedEventResponse>
+
+  func listUserOrganizationAdmin(request: SwiftProtobuf.Google_Protobuf_Empty, context: StatusOnlyCallContext) -> EventLoopFuture<Events_ListUserOrganizationAdminResponse>
 }
 
 extension Service_MainServiceProvider {
@@ -1024,6 +1088,15 @@ extension Service_MainServiceProvider {
         userFunction: self.listUserAppliedEvent(request:context:)
       )
 
+    case "ListUserOrganizationAdmin":
+      return UnaryServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+        responseSerializer: ProtobufSerializer<Events_ListUserOrganizationAdminResponse>(),
+        interceptors: self.interceptors?.makeListUserOrganizationAdminInterceptors() ?? [],
+        userFunction: self.listUserOrganizationAdmin(request:context:)
+      )
+
     default:
       return nil
     }
@@ -1095,6 +1168,11 @@ public protocol Service_MainServiceAsyncProvider: CallHandlerProvider, Sendable 
     request: Events_ListUserAppliedEventRequest,
     context: GRPCAsyncServerCallContext
   ) async throws -> Events_ListUserAppliedEventResponse
+
+  func listUserOrganizationAdmin(
+    request: SwiftProtobuf.Google_Protobuf_Empty,
+    context: GRPCAsyncServerCallContext
+  ) async throws -> Events_ListUserOrganizationAdminResponse
 }
 
 @available(macOS 10.15, iOS 13, tvOS 13, watchOS 6, *)
@@ -1224,6 +1302,15 @@ extension Service_MainServiceAsyncProvider {
         wrapping: { try await self.listUserAppliedEvent(request: $0, context: $1) }
       )
 
+    case "ListUserOrganizationAdmin":
+      return GRPCAsyncServerHandler(
+        context: context,
+        requestDeserializer: ProtobufDeserializer<SwiftProtobuf.Google_Protobuf_Empty>(),
+        responseSerializer: ProtobufSerializer<Events_ListUserOrganizationAdminResponse>(),
+        interceptors: self.interceptors?.makeListUserOrganizationAdminInterceptors() ?? [],
+        wrapping: { try await self.listUserOrganizationAdmin(request: $0, context: $1) }
+      )
+
     default:
       return nil
     }
@@ -1279,6 +1366,10 @@ public protocol Service_MainServiceServerInterceptorFactoryProtocol: Sendable {
   /// - Returns: Interceptors to use when handling 'listUserAppliedEvent'.
   ///   Defaults to calling `self.makeInterceptors()`.
   func makeListUserAppliedEventInterceptors() -> [ServerInterceptor<Events_ListUserAppliedEventRequest, Events_ListUserAppliedEventResponse>]
+
+  /// - Returns: Interceptors to use when handling 'listUserOrganizationAdmin'.
+  ///   Defaults to calling `self.makeInterceptors()`.
+  func makeListUserOrganizationAdminInterceptors() -> [ServerInterceptor<SwiftProtobuf.Google_Protobuf_Empty, Events_ListUserOrganizationAdminResponse>]
 }
 
 public enum Service_MainServiceServerMetadata {
@@ -1298,6 +1389,7 @@ public enum Service_MainServiceServerMetadata {
       Service_MainServiceServerMetadata.Methods.applyEvent,
       Service_MainServiceServerMetadata.Methods.getEventApplyInfo,
       Service_MainServiceServerMetadata.Methods.listUserAppliedEvent,
+      Service_MainServiceServerMetadata.Methods.listUserOrganizationAdmin,
     ]
   )
 
@@ -1371,6 +1463,12 @@ public enum Service_MainServiceServerMetadata {
     public static let listUserAppliedEvent = GRPCMethodDescriptor(
       name: "ListUserAppliedEvent",
       path: "/service.MainService/ListUserAppliedEvent",
+      type: GRPCCallType.unary
+    )
+
+    public static let listUserOrganizationAdmin = GRPCMethodDescriptor(
+      name: "ListUserOrganizationAdmin",
+      path: "/service.MainService/ListUserOrganizationAdmin",
       type: GRPCCallType.unary
     )
   }

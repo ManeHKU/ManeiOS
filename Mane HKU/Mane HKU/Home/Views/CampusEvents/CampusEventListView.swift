@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import AlertToast
 
 struct CampusEventListView: View {
     @Environment(AlertToastManager.self) private var alertToast: AlertToastManager
     @Bindable private var listVM = CampusEventListViewModel()
+    @State private var goToAddEvent = false
     var body: some View {
         VStack {
             Menu("Sort By", systemImage: "line.3.horizontal.decrease") {
@@ -48,6 +50,28 @@ struct CampusEventListView: View {
             .navigationDestination(for: Events_ListLatestEventsResponse.FullEventInfo.self, destination: CampusEventDetailedView.init)
             Spacer()
         }
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button("Add Event", systemImage: "calendar.badge.plus") {
+                    Task {
+                        await listVM.fetchUserOrganizationAdmin {
+                            goToAddEvent.toggle()
+                        }
+                    }
+                }
+                .disabled(listVM.loading || (listVM.userIsAdminOfOrganizations?.isEmpty ?? false))
+            }
+        }
+        .onChange(of: listVM.userIsAdminOfOrganizations) {
+            if let adminList = listVM.userIsAdminOfOrganizations {
+                if adminList.isEmpty {
+                    alertToast.alertToast = AlertToast(displayMode: .hud, type: .error(.red), title: "Unauthorized!", subTitle: "You are not admin of any organizations!")
+                }
+            }
+        }
+        .navigationDestination(isPresented: $goToAddEvent) {
+            LazyView(AddEventView(orgs: listVM.userIsAdminOfOrganizations!))
+        }
         .onChange(of: listVM.loading, initial: true) {
             alertToast.showLoading = listVM.loading
         }
@@ -68,7 +92,7 @@ struct CampusEventListView: View {
                 case .open:
                     "Open"
                 case .closed:
-                    "Cloased"
+                    "Closed"
                 case .unavailable:
                     "Unavailable"
                 case .UNRECOGNIZED(_):

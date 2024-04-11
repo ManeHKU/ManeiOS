@@ -9,7 +9,7 @@ import SwiftUI
 import RichEditorSwiftUI
 
 struct CampusEventContentEditorView: View {
-    @ObservedObject var state: RichEditorState = .init(input: "Hello World")
+    @ObservedObject var state: RichEditorState
     @Environment(\.colorScheme) var colorScheme
     
     
@@ -51,7 +51,7 @@ extension View {
     }
 }
 
-
-#Preview {
-    CampusEventContentEditorView()
-}
+//
+//#Preview {
+//    CampusEventContentEditorView()
+//}

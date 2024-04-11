@@ -124,6 +124,24 @@ final actor UserManager {
         
         return Image(uiImage: uiImage)
     }
+    
+    func addEventImage(from itemID: String, data image: Data, fileType: String) async throws -> String {
+        if itemID.isEmpty {
+            throw AddImageError.itemIDError
+        }
+        do {
+            let key = "public/images/\(itemID)"
+            let _ = try await supabase.storage.from("event").upload(path: key, file: image, options: FileOptions(contentType: fileType, upsert: true))
+            return key
+        } catch (let error) {
+            print("error during upload \(error.localizedDescription)")
+            throw AddImageError.failedToUpload(error.localizedDescription)
+        }
+    }
+}
+
+enum AddImageError: Error {
+    case itemIDError, failedToUpload(String)
 }
 
 enum UserManagerError: Error {
