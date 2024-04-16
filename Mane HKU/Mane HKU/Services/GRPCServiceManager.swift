@@ -18,8 +18,10 @@ final class GRPCServiceManager {
     var serviceClient: Service_MainServiceClientProtocol!
     var initClient: Init_InitServiceClientProtocol!
     private init() {
-        // ConnectionTarget.hostAndPort("mane-service-uknkqgo4rq-df.a.run.app", 8080)
-        let channel = ClientConnection(configuration: .default(target: ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 12533) , eventLoopGroup: group))
+        let builder = ClientConnection.usingTLSBackedByNIOSSL(on: group)
+        builder.withTLS(certificateVerification: .fullVerification)
+        let channel = builder.connect(host: "mane-service-uknkqgo4rq-df.a.run.app")
+//        let channel = ClientConnection(configuration: .default(ConnectionTarget.hostAndPort("0.tcp.ap.ngrok.io", 17966) , eventLoopGroup: group)
         serviceClient = Service_MainServiceNIOClient(channel: channel)
         initClient = Init_InitServiceNIOClient(channel: channel)
     }
