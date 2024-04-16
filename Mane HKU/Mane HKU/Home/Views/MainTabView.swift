@@ -15,9 +15,9 @@ struct MainTabView: View {
                     Label("Home", systemImage: "house.fill")
                 }
             
-            Text("testy boi")
+            GPTView()
                 .tabItem {
-                    Label("Test", systemImage: "testtube.2")
+                    Label("Assistant", systemImage: "sparkles")
                 }
         }
     }
