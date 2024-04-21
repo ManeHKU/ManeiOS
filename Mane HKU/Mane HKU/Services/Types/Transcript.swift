@@ -33,6 +33,31 @@ struct Transcript: Codable {
             return output
         }
     }
+    var courseGPTDescription: String {
+        get {
+            guard let courseLists = courseLists else {
+                return ""
+            }
+            var output = "The user's past course history is as follows (You can use the course grade to give advice to user): \"\"\" \n"
+            for (year, coursesBySemester) in courseLists {
+                var currentOutput = "In \(year): {"
+                for semester in semesterOrder {
+                    if let courses = coursesBySemester[semester] {
+                        for course in courses {
+                            if course.grade == .UNRELEASED {
+                                continue
+                            }
+                            currentOutput.append("\(course.title) (\(course.code)): \(course.grade.description), \n")
+                        }
+                    }
+                }
+                currentOutput.append("}\n")
+                output.append(currentOutput)
+            }
+            output.append("\"\"\"\n")
+            return output
+        }
+    }
     var takenOrPassedCourses: [String] {
         get {
             var output: [String] = []
@@ -55,6 +80,34 @@ struct Transcript: Codable {
     var ug5ePassed: Bool?
     var latestGPA: Double?
     var GPAs: YearSemesterDict<GPAHistory>?
+    
+    var GPADescription: String {
+        get {
+            guard let GPAs = GPAs else {
+                return ""
+            }
+            var output = "The user's GPA history is as follows: \"\"\" \n"
+            for (year, semesterGPA) in GPAs {
+                var currentOutput = "In \(year): {"
+                for semester in semesterOrder {
+                    if let gpaResult = semesterGPA[semester] {
+                        currentOutput.append("\(semester.description): Cumlative GPA is \(gpaResult.cGPA), Semester GPA is \(gpaResult.sGPA), \n")
+                    }
+                }
+                currentOutput.append("}\n")
+                output.append(currentOutput)
+            }
+            output.append("\"\"\"\n")
+            return output
+        }
+    }
+    
+    
+    var gptDescription: String {
+        get {
+            "The user is year \(year) student currently studying in \(program.isEmpty ? "unknown": program) program in the University of Hong Kong. The user's latest GPA is \(latestGPA == nil ? "unknown": "\(String(latestGPA!))/4.3").\n\(courseGPTDescription)\(GPADescription)"
+        }
+    }
 }
 
 enum Grade: String, Codable {

@@ -26,7 +26,9 @@ final actor UserManager {
     }
     
     public var token: String? {
-        session?.accessToken
+        get async {
+            try? await supabase.auth.session.accessToken
+        }
     }
     
     private init() {

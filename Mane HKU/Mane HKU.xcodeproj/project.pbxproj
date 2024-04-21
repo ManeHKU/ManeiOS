@@ -101,6 +101,10 @@
 		B9FBC77F2BC728A60000B9DC /* ApplyEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC77E2BC728A60000B9DC /* ApplyEventViewModel.swift */; };
 		B9FBC7812BC73ADA0000B9DC /* AddEventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC7802BC73ADA0000B9DC /* AddEventView.swift */; };
 		B9FBC7832BC7DE330000B9DC /* AddEventViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC7822BC7DE330000B9DC /* AddEventViewModel.swift */; };
+		B9FBC7862BC88C0B0000B9DC /* OpenAI in Frameworks */ = {isa = PBXBuildFile; productRef = B9FBC7852BC88C0B0000B9DC /* OpenAI */; };
+		B9FBC78A2BC88C5A0000B9DC /* GPTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC7892BC88C5A0000B9DC /* GPTView.swift */; };
+		B9FBC78D2BC9D6490000B9DC /* GPTViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC78C2BC9D6490000B9DC /* GPTViewModel.swift */; };
+		B9FBC78F2BC9DFAA0000B9DC /* MessageRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9FBC78E2BC9DFAA0000B9DC /* MessageRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -202,6 +206,9 @@
 		B9FBC77E2BC728A60000B9DC /* ApplyEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyEventViewModel.swift; sourceTree = "<group>"; };
 		B9FBC7802BC73ADA0000B9DC /* AddEventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventView.swift; sourceTree = "<group>"; };
 		B9FBC7822BC7DE330000B9DC /* AddEventViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEventViewModel.swift; sourceTree = "<group>"; };
+		B9FBC7892BC88C5A0000B9DC /* GPTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTView.swift; sourceTree = "<group>"; };
+		B9FBC78C2BC9D6490000B9DC /* GPTViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPTViewModel.swift; sourceTree = "<group>"; };
+		B9FBC78E2BC9DFAA0000B9DC /* MessageRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B9F3DE292BAA18FD00A21178 /* MijickCalendarView in Frameworks */,
+				B9FBC7862BC88C0B0000B9DC /* OpenAI in Frameworks */,
 				B9B0FAF52B26275B00B63C02 /* Realtime in Frameworks */,
 				B9B0FAF32B26275B00B63C02 /* PostgREST in Frameworks */,
 				B9B0FAEA2B2626F300B63C02 /* GRPC in Frameworks */,
@@ -369,6 +377,7 @@
 				B95B5F542B4C7B32001A7070 /* Services */,
 				B9B10E6A2B3DE14900A12CB6 /* Common */,
 				B942D8022B50180800A26DAD /* Home */,
+				B9FBC7872BC88C2D0000B9DC /* Assistant */,
 				B9B10E752B3DF70500A12CB6 /* Auth */,
 				B9B0FABC2B2608B500B63C02 /* ManeApp.swift */,
 				B9B0FABE2B2608B500B63C02 /* ContentView.swift */,
@@ -516,6 +525,32 @@
 			path = CourseReviews;
 			sourceTree = "<group>";
 		};
+		B9FBC7872BC88C2D0000B9DC /* Assistant */ = {
+			isa = PBXGroup;
+			children = (
+				B9FBC78B2BC88D050000B9DC /* ViewModels */,
+				B9FBC7882BC88C4D0000B9DC /* Views */,
+			);
+			path = Assistant;
+			sourceTree = "<group>";
+		};
+		B9FBC7882BC88C4D0000B9DC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B9FBC7892BC88C5A0000B9DC /* GPTView.swift */,
+				B9FBC78E2BC9DFAA0000B9DC /* MessageRow.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B9FBC78B2BC88D050000B9DC /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				B9FBC78C2BC9D6490000B9DC /* GPTViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -549,6 +584,7 @@
 				B9F3DE282BAA18FD00A21178 /* MijickCalendarView */,
 				B91841D72BBC7888009FC33F /* ExpandableText */,
 				B91841ED2BC3D75E009FC33F /* RichEditorSwiftUI */,
+				B9FBC7852BC88C0B0000B9DC /* OpenAI */,
 			);
 			productName = "Mane HKU";
 			productReference = B9B0FAB92B2608B500B63C02 /* Mane HKU.app */;
@@ -633,6 +669,7 @@
 				B9F3DE272BAA18FD00A21178 /* XCRemoteSwiftPackageReference "CalendarView" */,
 				B91841D62BBC7888009FC33F /* XCRemoteSwiftPackageReference "ExpandableText" */,
 				B91841EC2BC3D75E009FC33F /* XCRemoteSwiftPackageReference "rich-editor-swiftui" */,
+				B9FBC7842BC88C0B0000B9DC /* XCRemoteSwiftPackageReference "OpenAI" */,
 			);
 			productRefGroup = B9B0FABA2B2608B500B63C02 /* Products */;
 			projectDirPath = "";
@@ -712,6 +749,8 @@
 				B9F3DE422BBAF47500A21178 /* CourseReviewDetailView.swift in Sources */,
 				B9DD4BD12B5BF5F3009D3FB0 /* LoginViewModel.swift in Sources */,
 				B96F74EC2B97B22D002CAF5E /* SettingsView.swift in Sources */,
+				B9FBC78F2BC9DFAA0000B9DC /* MessageRow.swift in Sources */,
+				B9FBC78A2BC88C5A0000B9DC /* GPTView.swift in Sources */,
 				B9F3DE002B9A2C8400A21178 /* TimetableEvent.swift in Sources */,
 				B942D8052B50182800A26DAD /* HomeView.swift in Sources */,
 				B9E8861E2B46E242005ADADA /* SignUpView.swift in Sources */,
@@ -738,6 +777,7 @@
 				B99763B22B56F7A800A439F1 /* UserManager.swift in Sources */,
 				B9DD4BD32B5BF636009D3FB0 /* AuthUtils.swift in Sources */,
 				B9F3DE322BAB5F9700A21178 /* CourseNotificationManager.swift in Sources */,
+				B9FBC78D2BC9D6490000B9DC /* GPTViewModel.swift in Sources */,
 				B9442C492B7CF1FF004DCF7D /* TranscriptViewModel.swift in Sources */,
 				B9F3DE3C2BB9641E00A21178 /* CourseReviewListViewModel.swift in Sources */,
 				B9442C472B7CF1C7004DCF7D /* TranscriptView.swift in Sources */,
@@ -1154,6 +1194,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		B9FBC7842BC88C0B0000B9DC /* XCRemoteSwiftPackageReference "OpenAI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/MacPaw/OpenAI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.7;
+			};
+		};
 		B9FF5DE42B3DDC9800A6B17C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/SwiftLint.git";
@@ -1244,6 +1292,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B9F3DE272BAA18FD00A21178 /* XCRemoteSwiftPackageReference "CalendarView" */;
 			productName = MijickCalendarView;
+		};
+		B9FBC7852BC88C0B0000B9DC /* OpenAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B9FBC7842BC88C0B0000B9DC /* XCRemoteSwiftPackageReference "OpenAI" */;
+			productName = OpenAI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

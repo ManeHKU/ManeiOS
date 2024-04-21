@@ -24,15 +24,31 @@ struct GPTView: View {
             }
             if let openAI {
                 Spacer()
-                ScrollView {
-                    VStack(spacing: 10) {
-                        ForEach(gptVM.messages, id: \.id) { message in
-                            MessageRow(message: message)
+                ScrollViewReader { proxy in
+                    ScrollView {
+                        VStack(spacing: 10) {
+                            ForEach(gptVM.messages, id: \.id) { message in
+                                MessageRow(message: message, retryQuery: gptVM.retryQuery)
+                                    .id(message.id)
+                            }
+                        }
+                    }
+                    .onChange(of: gptVM.messages.count) { @MainActor in
+                        withAnimation {
+                            proxy.scrollTo(gptVM.messages[gptVM.messages.endIndex - 1].id, anchor: .bottom)
                         }
                     }
                 }
                 .onTapGesture {
                     isTextFieldFocused = false
+                }
+                if gptVM.retrievingInfo {
+                    HStack(alignment: .center, spacing: 5) {
+                        ProgressView()
+                        Text("Retrieving extra info to assistant...")
+                            .foregroundStyle(.secondary)
+                    }
+                    .font(.footnote)
                 }
                 HStack(alignment: .center) {
                     TextField("Send message", text: $gptVM.inputMessage, axis: .vertical)
@@ -42,14 +58,14 @@ struct GPTView: View {
                         Task { @MainActor in
                             isTextFieldFocused = false
                             //                            scrollToBottom(proxy: proxy)
-                            gptVM.sendMessage()
+                            gptVM.sendMessageFromUser()
                         }
                     } label: {
                         Image(systemName: "paperplane.circle.fill")
                             .rotationEffect(.degrees(45))
                             .font(.system(size: 30))
                     }
-                    .disabled(gptVM.openAILoading || gptVM.inputMessage.isEmpty)
+                    .disabled(gptVM.openAILoading || gptVM.inputMessage.isEmpty || gptVM.stopMessage)
                 }.frame(maxWidth: .infinity)
             }
         }
