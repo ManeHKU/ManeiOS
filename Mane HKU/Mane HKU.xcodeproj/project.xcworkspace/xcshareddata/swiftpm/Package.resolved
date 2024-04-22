@@ -1,5 +1,5 @@
 {
-  "originHash" : "7ac39530272225882296ecc27ba1c8c608df8d0d1b22e006dcf48c7750da4f21",
+  "originHash" : "b53c75a5148362aadfb8182ad9fa0527436dbe90e7ff13882358e10bca2aca5e",
   "pins" : [
     {
       "identity" : "alamofire",
@@ -80,15 +80,6 @@
       "state" : {
         "revision" : "99593869a02555e456865dd7f742e7a5add24e06",
         "version" : "0.2.8"
-      }
-    },
-    {
-      "identity" : "rich-editor-swiftui",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/canopas/rich-editor-swiftui",
-      "state" : {
-        "branch" : "main",
-        "revision" : "254ed8d47973c1f4f4fd28a9b813793b73bd0fdf"
       }
     },
     {
