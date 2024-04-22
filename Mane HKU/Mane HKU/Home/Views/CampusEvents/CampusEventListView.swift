@@ -18,11 +18,11 @@ struct CampusEventListView: View {
                 Menu("Event Creation Time") {
                     Button("Nearest First") {
                         listVM.sortBy = .createdAt
-                        listVM.direction = .ASC
+                        listVM.direction = .DESC
                     }
                     Button("Furthest First") {
                         listVM.sortBy = .createdAt
-                        listVM.direction = .DESC
+                        listVM.direction = .ASC
                     }
                 }
                 Menu("Event Starting Time") {
