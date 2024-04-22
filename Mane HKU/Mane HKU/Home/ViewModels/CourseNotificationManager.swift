@@ -89,8 +89,9 @@ final class CourseNotificationManager {
                         byAdding: .hour,
                         value: -1,
                         to: event.eventStartDate)!
-                    let comps = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: oneHourEarlier)
-                    let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: false)
+                    print(oneHourEarlier.description)
+                    let timeInterval = oneHourEarlier.timeIntervalSince1970 - Date.now.timeIntervalSince1970
+                    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
         
                     let request = UNNotificationRequest(identifier: event.eventID, content: content, trigger: trigger)
                     currentNotificationCenter.add(request) { result in

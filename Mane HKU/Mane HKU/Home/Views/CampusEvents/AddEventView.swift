@@ -8,7 +8,6 @@
 import SwiftUI
 import PhotosUI
 import AlertToast
-import RichEditorSwiftUI
 
 struct AddEventView: View {
     @Environment(AlertToastManager.self) private var alertToast: AlertToastManager
