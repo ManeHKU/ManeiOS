@@ -17,6 +17,17 @@ final class CourseNotificationManager {
     @ObservationIgnored let defaults: UserDefaults = UserDefaults.standard
     var notificationSettings: CourseNotificationSettings = [] {
         didSet {
+            if oldValue.isEmpty {
+                for (idx, newSettings) in notificationSettings.enumerated() {
+                    if newSettings.noMoreFutureEvents {
+                        continue
+                    }
+                    if !newSettings.allEvents.contains(where: {$0.eventStartDate > Date.now}) {
+                        notificationSettings[idx].notificationOn = false
+                        notificationSettings[idx].noMoreFutureEvents = true
+                    }
+                }
+            }
             if !notificationSettings.isEmpty {
                 if let encoded = try? JSONEncoder().encode(notificationSettings) {
                     defaults.setValue(encoded, forKey: UserDefaults.DefaultKey.courseNotification.rawValue)
@@ -50,8 +61,9 @@ final class CourseNotificationManager {
                         }
                         return
                     } catch {
-                        self.notificationSettings = []
-                        print("Unable to decode user default transcript, need to retrieve new data again")
+                        print("Unable to decode user default notification, need to retrieve new data again")
+                        let newSettings = self.getLastestNotificationSettings()
+                        self.notificationSettings = newSettings
                     }
                 } else if !self.defaults.isKeyPresent(key: .courseNotification) {
                     // First time, initing the noti settings
@@ -70,12 +82,16 @@ final class CourseNotificationManager {
                 let onlyFutureEvents = courseNotiSetting.allEvents.filter {
                     $0.eventStartDate > Date.now
                 }
+                if onlyFutureEvents.isEmpty {
+                    print("no more future events stop enabling....")
+                    let idx = notificationSettings.firstIndex(of: courseNotiSetting)!
+                    notificationSettings[idx].notificationOn = false
+                    notificationSettings[idx].noMoreFutureEvents = true
+                    return
+                }
                 let formatter = DateFormatter()
                 formatter.timeStyle = .short
                 print("enabling over \(onlyFutureEvents.count)")
-                
-                let calendar = Calendar.current
-                let minusOneHour = DateComponents(hour: -1)
                 
                 for event in onlyFutureEvents {
                     let content = UNMutableNotificationContent()
@@ -108,7 +124,7 @@ final class CourseNotificationManager {
                             print("removed all requests for this ")
                         }
                     }
-                    print("added the request for \(id) on \(trigger.nextTriggerDate())")
+                    print("added the request for \(id) on \(String(describing: trigger.nextTriggerDate()))")
                 }
             } else {
                 // remove noti
@@ -122,12 +138,17 @@ final class CourseNotificationManager {
     }
     
     private func getLastestNotificationSettings() -> CourseNotificationSettings {
-        var eventsByCourseName = coursEventProvider.courseEventsByTitle
+        let eventsByCourseName = coursEventProvider.courseEventsByTitle
         let sortedCourseTitles = eventsByCourseName.keys.sorted()
         var notiSettings: CourseNotificationSettings = []
         for key in sortedCourseTitles {
             let event = eventsByCourseName[key]!
-            notiSettings.append(CourseNotificationSetting(id: key, notificationOn: false, allEvents: event))
+            let haveFutureEvents = event.contains {
+                $0.eventStartDate > Date.now
+            }
+            var courseNotiSetting = CourseNotificationSetting(id: key, notificationOn: false, allEvents: event)
+            courseNotiSetting.noMoreFutureEvents = !haveFutureEvents
+            notiSettings.append(courseNotiSetting)
         }
         return notiSettings
     }

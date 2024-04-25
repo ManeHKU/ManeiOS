@@ -24,8 +24,8 @@ enum PortalURLs: String {
     case transcript = "https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_TSRPT_WEB_STDT.GBL?FolderPath=PORTAL_ROOT_OBJECT.Z_SIS_MENU.Z_ACADEMIC_RECORDS.Z_TSRPT_WEB_STDT_GBL&IsFolder=false&IgnoreParamTempl=FolderPath,IsFolder&PortalActualURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_TSRPT_WEB_STDT.GBL&PortalContentURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/Z_SS_MENU.Z_TSRPT_WEB_STDT.GBL&PortalContentProvider=PSFT_CS&PortalCRefLabel=Transcript (Student Copy)&PortalRegistryName=EMPLOYEE&PortalServletURI=https://sis-eportal.hku.hk/psp/ptlprod/&PortalURI=https://sis-eportal.hku.hk/psc/ptlprod/&PortalHostNode=EMPL&NoCrumbs=yes&PortalKeyStruct=yes"
     case enrollmentStatus = "https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL?pslnkid=Z_ENROLLMENT_STATUS_LNK&FolderPath=PORTAL_ROOT_OBJECT.Z_SIS_MENU.Z_ENROLLMENT.Z_ENROLLMENT_STATUS_LNK&IsFolder=false&IgnoreParamTempl=FolderPath,IsFolder&PortalActualURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL?pslnkid=Z_ENROLLMENT_STATUS_LNK&PortalContentURL=https://sis-main.hku.hk/psc/sisprod/EMPLOYEE/PSFT_CS/c/SA_LEARNER_SERVICES.SSS_STUDENT_CENTER.GBL?pslnkid=Z_ENROLLMENT_STATUS_LNK&PortalContentProvider=PSFT_CS&PortalCRefLabel=Enrollment Status&PortalRegistryName=EMPLOYEE&PortalServletURI=https://sis-eportal.hku.hk/psp/ptlprod/&PortalURI=https://sis-eportal.hku.hk/psc/ptlprod/&PortalHostNode=EMPL&NoCrumbs=yes&PortalKeyStruct=yes"
     case calendarLogin = "https://hkuesd.hku.hk/eventcalendar/servlet/EventCalendarLogin"
-    case calendarToken = "https://nhkuesd.hku.hk/eventcalendar/app/www/index.html?token="
-    case calendarEventList = "https://nhkuesd.hku.hk/eventcalendar/servlet/EventList"
+//    case calendarToken = "https://nhkuesd.hku.hk/eventcalendar/app/www/index.html?token="
+    case calendarEventList = "https://hkuesd.hku.hk/eventcalendar/servlet/EventList"
 }
 
 let doNotFollowRedirector = Redirector(behavior: .doNotFollow)
@@ -268,7 +268,7 @@ func signinToEmailCalendar(using session: Session) async -> (client: Session, re
                         return
                     }
                     
-                    if finalURL.starts(with: "https://nhkuesd.hku.hk/eventcalendar/app/www/index.html?token") {
+                    if finalURL.starts(with: "https://hkuesd.hku.hk/eventcalendar/app/www/index.html?token") {
                         logger.info("Found url with token")
                         guard let tokenAfterIndex = finalURL.range(of: "?token=")?.upperBound else {
                             logger.error("cannot find token param")

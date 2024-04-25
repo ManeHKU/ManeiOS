@@ -16,6 +16,13 @@ import AlertToast
         }
     }
     
+    var showBanner = false
+    var bannerToast = AlertToast(displayMode: .banner(.slide), type: .regular, title: "SOME TITLE"){
+        didSet{
+            showBanner.toggle()
+        }
+    }
+    
     var showLoading = false
-    var loadingToast = AlertToast(displayMode: .alert, type: .loading)
+    let loadingToast = AlertToast(displayMode: .alert, type: .loading)
 }

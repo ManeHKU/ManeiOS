@@ -54,7 +54,7 @@ struct ApplyEventView: View {
         .navigationTitle("Apply Event")
         .onChange(of: applyVM.errorMessage.show) {
             if applyVM.errorMessage.show {
-                alertToast.alertToast = AlertToast(displayMode: .banner(.slide), type: .error(.red), title: applyVM.errorMessage.title, subTitle: applyVM.errorMessage.subtitle)
+                alertToast.bannerToast = AlertToast(displayMode: .banner(.slide), type: .error(.red), title: applyVM.errorMessage.title, subTitle: applyVM.errorMessage.subtitle)
             }
         }
         .onChange(of: applyVM.appliedEvent) {

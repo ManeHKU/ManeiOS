@@ -126,7 +126,7 @@ struct AddEventView: View {
                 alertToast.alertToast = AlertToast(displayMode: .alert, type: .error(.red), title: addVM.errorAlert.title)
             }
             .onChange(of: addVM.errorMessage.show) {
-                alertToast.alertToast = AlertToast(displayMode: .banner(.slide), type: .error(.red), title: addVM.errorAlert.title, subTitle: addVM.errorMessage.subtitle)
+                alertToast.bannerToast = AlertToast(displayMode: .banner(.slide), type: .error(.red), title: addVM.errorAlert.title, subTitle: addVM.errorMessage.subtitle)
             }
             .onChange(of: addVM.addEventResult) {
                 if let result = addVM.addEventResult {

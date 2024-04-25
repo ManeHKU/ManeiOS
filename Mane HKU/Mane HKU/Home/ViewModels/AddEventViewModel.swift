@@ -197,7 +197,7 @@ enum ImageState {
                     if let status = error as? GRPCStatus {
                         if status.code == .unauthenticated {
                             Task {
-                                try? await UserManager.shared.supabase.auth.refreshSession()
+                                _ = try? await UserManager.shared.supabase.auth.refreshSession()
                                 self.errorMessage.showMessage(title: "Unauthorized action", subtitle: "Please try again later")
                             }
                         } else if status.code == .invalidArgument || status.code == .aborted {

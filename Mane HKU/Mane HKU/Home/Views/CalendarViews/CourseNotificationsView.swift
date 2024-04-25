@@ -29,6 +29,8 @@ struct CourseNotificationsView: View {
                         NotificationCenterView()
                     case .ephemeral:
                         Text("impossible")
+                    @unknown default:
+                        Text("Unknown status. Please try again later.")
                     }
                 }
                 else {
@@ -71,6 +73,7 @@ struct CourseNotificationsView: View {
 }
 
 struct NotificationCenterView: View {
+    @Environment(AlertToastManager.self) private var alertToast: AlertToastManager
     @Bindable private var courseNotiManager = CourseNotificationManager()
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
@@ -87,6 +90,7 @@ struct NotificationCenterView: View {
                     Section(header: Text("Notifications Setting")) {
                         ForEach($courseNotiManager.notificationSettings, id: \.id) { $course in
                             Toggle(course.id, isOn: $course.notificationOn)
+                                .disabled(course.noMoreFutureEvents)
                                 .onChange(of: course.notificationOn) { _, newValue in
                                     courseNotiManager.updateCourseNotiSetting(id: course.id, to: newValue)
                                 }
@@ -97,8 +101,10 @@ struct NotificationCenterView: View {
             }
         }
         .padding(.all, 15)
-        .toast(isPresenting: $courseNotiManager.bannerMessage.show) {
-            AlertToast(displayMode: .banner(.slide), type: .regular, title: courseNotiManager.bannerMessage.title, subTitle: courseNotiManager.bannerMessage.subtitle)
+        .onChange(of: courseNotiManager.bannerMessage.show) {
+            if courseNotiManager.bannerMessage.show {
+                alertToast.bannerToast = AlertToast(displayMode: .banner(.slide), type: .regular, title: courseNotiManager.bannerMessage.title, subTitle: courseNotiManager.bannerMessage.subtitle)
+            }
         }
     }
 }

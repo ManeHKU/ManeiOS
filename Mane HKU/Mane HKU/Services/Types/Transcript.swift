@@ -11,10 +11,7 @@ let semesterOrder: [Semester] = [.SUMMER, .SEM2, .SEM1]
 
 struct Transcript: Codable {
     let program: String
-//    let curriculum: [String]
     let year: UInt8
-//    let majors: [String]?
-//    let minors: [String]?
     
     var courseLists: YearSemesterDictArray<Course>?
     var allCourses: [String] {

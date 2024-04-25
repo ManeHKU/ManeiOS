@@ -10,6 +10,7 @@ import AlertToast
 
 struct TranscriptView: View {
     @Bindable private var transcriptVM: TranscriptViewModel = TranscriptViewModel()
+    @Environment(AlertToastManager.self) private var alertToast: AlertToastManager
     
     var titleSection: some View {
         VStack {
@@ -82,11 +83,13 @@ struct TranscriptView: View {
         .padding(.bottom, 0)
         .navigationTitle("Transcript")
         .navigationBarTitleDisplayMode(.large)
-        .toast(isPresenting: $transcriptVM.loading) {
-            AlertToast(displayMode: .alert, type: .loading)
+        .onChange(of: transcriptVM.loading, initial: true) {
+            alertToast.showLoading = transcriptVM.loading
         }
-        .toast(isPresenting: $transcriptVM.normalMessage.show) {
-            AlertToast(displayMode: .banner(.slide), type: .error(.red), title: transcriptVM.normalMessage.title, subTitle: transcriptVM.normalMessage.subtitle)
+        .onChange(of: transcriptVM.normalMessage.show) {
+            if transcriptVM.normalMessage.show {
+                alertToast.alertToast = AlertToast(type: .error(.red), title: transcriptVM.normalMessage.title, subTitle: transcriptVM.normalMessage.subtitle)
+            }
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {

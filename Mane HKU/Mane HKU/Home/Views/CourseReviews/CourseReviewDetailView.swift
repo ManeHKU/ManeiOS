@@ -68,12 +68,12 @@ struct CourseReviewDetailView: View {
         }
         .onChange(of: detailVM.errorMessage.show) {
             if detailVM.errorMessage.show {
-                alertToast.alertToast = AlertToast(displayMode: .banner(.slide), type: .error(.pink), title: detailVM.errorMessage.title, subTitle: detailVM.errorMessage.subtitle)
+                alertToast.bannerToast = AlertToast(displayMode: .banner(.slide), type: .error(.pink), title: detailVM.errorMessage.title, subTitle: detailVM.errorMessage.subtitle)
             }
         }
         .onChange(of: detailVM.normalMessage.show) {
             if detailVM.normalMessage.show {
-                alertToast.alertToast = AlertToast(displayMode: .banner(.slide), type: .regular, title: detailVM.normalMessage.title, subTitle: detailVM.normalMessage.subtitle)
+                alertToast.bannerToast = AlertToast(displayMode: .banner(.slide), type: .regular, title: detailVM.normalMessage.title, subTitle: detailVM.normalMessage.subtitle)
             }
         }
         .toolbar {
@@ -84,10 +84,10 @@ struct CourseReviewDetailView: View {
                         return
                     }
                     if meta.userHasReviewed {
-                        alertToast.alertToast = AlertToast(displayMode: .banner(.slide), type: .error(.pink), title: "Whoops!😢", subTitle:  "You have reviewed the course already!")
+                        alertToast.bannerToast = AlertToast(displayMode: .banner(.slide), type: .error(.pink), title: "Whoops!😢", subTitle:  "You have reviewed the course already!")
                         return
                     } else if !meta.userHasTakenCourse{
-                        alertToast.alertToast = AlertToast(displayMode: .banner(.slide), type: .error(.pink), title: "Whoops!😢", subTitle:   "You cannot review course you haven't taken!")
+                        alertToast.bannerToast = AlertToast(displayMode: .banner(.slide), type: .error(.pink), title: "Whoops!😢", subTitle:   "You cannot review course you haven't taken!")
                         return
                     }
                     addReviewSheet.toggle()
@@ -107,8 +107,10 @@ struct CourseReviewDetailView: View {
             }
         }
         .padding(.horizontal, 15)
-        .toast(isPresenting: $successAddReviewAlert) {
-            AlertToast(displayMode: .alert, type: .complete(.green), title: "Review added!")
+        .onChange(of: successAddReviewAlert) {
+            if successAddReviewAlert {
+                alertToast.alertToast = AlertToast(displayMode: .alert, type: .complete(.green), title: "Review added 🎉")
+            }
         }
         .onChange(of: addReviewResult) {
             if addReviewResult == .success {

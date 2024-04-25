@@ -655,7 +655,6 @@
 			packageReferences = (
 				B9B0FAE62B2626F300B63C02 /* XCRemoteSwiftPackageReference "grpc-swift" */,
 				B9B0FAEF2B26275B00B63C02 /* XCRemoteSwiftPackageReference "supabase-swift" */,
-				B9FF5DE42B3DDC9800A6B17C /* XCRemoteSwiftPackageReference "SwiftLint" */,
 				B95B5F482B4BD56B001A7070 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 				B95B5F512B4C7959001A7070 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B942D7EE2B4E658F00A26DAD /* XCRemoteSwiftPackageReference "SwiftSoup" */,
@@ -1184,14 +1183,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 0.2.7;
-			};
-		};
-		B9FF5DE42B3DDC9800A6B17C /* XCRemoteSwiftPackageReference "SwiftLint" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/SwiftLint.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.54.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */

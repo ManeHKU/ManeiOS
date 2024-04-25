@@ -36,7 +36,7 @@ import SwiftProtobuf
             loading = false
         }
         let loginResult = Task(priority: .userInitiated) { () -> Bool in
-            await PortalScraper.shared.resetSession()
+            PortalScraper.shared.resetSession()
             guard let portalId = KeychainManager.shared.secureGet(key: .PortalId) else {
                 print("Portal id doesn't exist")
                 return false

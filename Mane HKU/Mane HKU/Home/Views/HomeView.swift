@@ -91,16 +91,19 @@ struct HomeView: View {
             .navigationTitle("Home")
             .navigationBarTitleDisplayMode(.large)
         }
-        .sheet(isPresented: $showSettingSheet) {
-            SettingsView()
-                .presentationDetents([.medium, .large])
-        }
-        .environment(alertToastManager)
         .toast(isPresenting: $alertToastManager.show){
             alertToastManager.alertToast
         }
         .toast(isPresenting: $alertToastManager.showLoading){
             alertToastManager.loadingToast
+        }
+        .toast(isPresenting: $alertToastManager.showBanner){
+            alertToastManager.bannerToast
+        }
+        .environment(alertToastManager)
+        .sheet(isPresented: $showSettingSheet) {
+            SettingsView()
+                .presentationDetents([.medium, .large])
         }
         .onChange(of: homeVM.loading, initial: true) {
             alertToastManager.showLoading = homeVM.loading

@@ -15,6 +15,7 @@ struct CourseNotificationSetting: Codable, Equatable {
     let id: String
     var notificationOn = false
     var allEvents: TimetableEvents
+    var noMoreFutureEvents = false
 }
 
 typealias CourseNotificationSettings = [CourseNotificationSetting]

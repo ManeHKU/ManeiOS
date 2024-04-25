@@ -10,6 +10,7 @@ import AlertToast
 
 struct EnrollmentStatusView: View {
     @Bindable private var enrollmentVM: EnrollmentStatusViewModel = EnrollmentStatusViewModel()
+    @Environment(AlertToastManager.self) private var alertToast: AlertToastManager
     let semesterOrder: [Semester] = {
         let monthDigit = Int(Date.now.formatted(Date.FormatStyle().month(.defaultDigits))) ?? -1
         //        return [.SEM1, .SEM2, .SUMMER]
@@ -53,12 +54,14 @@ struct EnrollmentStatusView: View {
         .padding(.bottom, 0)
         .navigationTitle("Enrollment Status")
         .navigationBarTitleDisplayMode(.large)
-        .toast(isPresenting: $enrollmentVM.loading) {
-            AlertToast(displayMode: .alert, type: .loading)
+        .onChange(of: enrollmentVM.loading, initial: true) {
+            alertToast.showLoading = enrollmentVM.loading
         }
-        .toast(isPresenting: $enrollmentVM.normalMessage.show) {
-                    AlertToast(displayMode: .hud, type: .regular, title: enrollmentVM.normalMessage.title, subTitle: enrollmentVM.normalMessage.subtitle)
-                }
+        .onChange(of: enrollmentVM.normalMessage.show) {
+            if enrollmentVM.normalMessage.show {
+                alertToast.alertToast = AlertToast(displayMode: .hud, type: .regular, title: enrollmentVM.normalMessage.title, subTitle: enrollmentVM.normalMessage.subtitle)
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Refresh", systemImage: "arrow.clockwise") {
