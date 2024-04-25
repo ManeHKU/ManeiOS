@@ -76,7 +76,7 @@ struct getCourseDetailArgument: Decodable {
         print(error)
         print(error.error.message)
         if error.error.message == "failed_jwt" {
-            try? await UserManager.shared.supabase.auth.refreshSession()
+            _ = try? await UserManager.shared.supabase.auth.refreshSession()
             await setUpOpenAI()
             retryQuery(.init(message: message, error: "Unknown Error", retryQuery: query))
         } else {
@@ -210,7 +210,6 @@ struct getCourseDetailArgument: Decodable {
                 case .failure(let error):
                     debugPrint("received failutre: \(error)\n\n")
                     let jsonData = try! JSONEncoder().encode(newQuery)
-                    debugPrint(String(data: jsonData, encoding: String.Encoding.utf8))
                     self.openAILoading = false
                     let retryMessage = Message.retry(RetryOpenAI(message: newMessage, error: error.localizedDescription, retryQuery: newQuery))
                     self.messages[self.messages.endIndex - 1] = retryMessage
