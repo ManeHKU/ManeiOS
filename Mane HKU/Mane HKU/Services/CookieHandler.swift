@@ -39,7 +39,7 @@ final class CookieHandler {
             print("saving \(cookie.name) in \(cookie.domain)")
         }
         
-        print("\(self.getCookie(forURL: "hkuportal.hku.hk"))")
+//        print("\(self.getCookie(forURL: "hkuportal.hku.hk"))")
         
         defaults.set(cookieDict, forKey: UserDefaults.DefaultKey.cookies.rawValue)
     }

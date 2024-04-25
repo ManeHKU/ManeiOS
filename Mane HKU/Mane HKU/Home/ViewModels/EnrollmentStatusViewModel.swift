@@ -23,7 +23,7 @@ import Foundation
                 loading = false
                 return
             } catch {
-                print("Unable to decode user default transcript, need to retrieve new data again")
+                print("Unable to decode user default enrollment status, need to retrieve new data again")
             }
         }
         print("retrieving new enrollment status....")

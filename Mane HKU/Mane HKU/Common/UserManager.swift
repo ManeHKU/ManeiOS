@@ -73,14 +73,14 @@ final actor UserManager {
             case .initialSession:
                 print("initialised")
             case .signedIn:
-                print("signed in \(String(describing: session?.user))")
+                print("signed in")
                 self.session = session
                 updateKeychainToken()
                 let nickname = self.session?.user.userMetadata["nickname"]?.stringValue ?? ""
                 let defaults = UserDefaults.standard
                 defaults.set(nickname, forKey: UserDefaults.DefaultKey.nickname.rawValue)
             case .signedOut:
-                print("signed out: \(String(describing: session?.user))")
+                print("signing out")
                 self.session = nil
                 do {
                     try KeychainManager.shared.removeAll()
@@ -91,7 +91,7 @@ final actor UserManager {
                     print("cannot remove all data: \(error)")
                 }
             case .tokenRefreshed:
-                print("refreshed token: \(String(describing: session))")
+                print("token refreshed")
                 self.session = session
                 updateKeychainToken()
             default:

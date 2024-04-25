@@ -39,7 +39,7 @@ extension Keychain {
         let keychain = KeychainManager.shared
         do {
             let encodedData = try JSONEncoder().encode(value)
-            print("encodedJWT: \(encodedData)")
+//            print("encodedJWT: \(encodedData)")
             try keychain.set(encodedData, key: key.rawValue)
             logger.info("Saved to keychain")
             return true
@@ -71,7 +71,7 @@ extension Keychain {
             guard let data = try keychain.getData(key.rawValue) else { return nil }
             logger.info("Recevied data")
             let decodedData = try JSONDecoder().decode(dataType, from: data)
-            print("decodedData: \(decodedData)")
+//            print("decodedData: \(decodedData)")
             return decodedData
         } catch {
             print(error)
