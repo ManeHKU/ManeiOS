@@ -36,12 +36,13 @@ final class CookieHandler {
         
         for cookie in self.getCookies() {
             cookieDict[cookie.name] = cookie.properties as AnyObject?
-            print("saving \(cookie.name) in \(cookie.domain)")
+//            print("saving \(cookie.name) in \(cookie.domain)")
         }
         
 //        print("\(self.getCookie(forURL: "hkuportal.hku.hk"))")
         
         defaults.set(cookieDict, forKey: UserDefaults.DefaultKey.cookies.rawValue)
+        print("saved all the cookies into user defaults!")
     }
     
     func restoreCookies() {
