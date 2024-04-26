@@ -83,7 +83,7 @@ struct Transcript: Codable {
             guard let GPAs = GPAs else {
                 return ""
             }
-            var output = "The user's GPA history is as follows: \"\"\" \n"
+            var output = "The user's GPA history is as follows:\n \"\"\" \n"
             for (year, semesterGPA) in GPAs {
                 var currentOutput = "In \(year): {"
                 for semester in semesterOrder {

@@ -35,7 +35,7 @@ struct GPTView: View {
                     }
                     .onChange(of: gptVM.messages.count) { @MainActor in
                         withAnimation {
-                            proxy.scrollTo(gptVM.messages[gptVM.messages.endIndex - 1].id, anchor: .bottom)
+                            proxy.scrollTo(gptVM.messages.last!.id, anchor: .bottom)
                         }
                     }
                 }
@@ -57,13 +57,19 @@ struct GPTView: View {
                     Button {
                         Task { @MainActor in
                             isTextFieldFocused = false
-                            //                            scrollToBottom(proxy: proxy)
                             gptVM.sendMessageFromUser()
                         }
                     } label: {
-                        Image(systemName: "paperplane.circle.fill")
-                            .rotationEffect(.degrees(45))
-                            .font(.system(size: 30))
+                        Group {
+                            if gptVM.openAILoading {
+                                ProgressView()
+                                    .tint(.accent)
+                                    .padding(.horizontal, 5)
+                            } else {
+                                Image(systemName: "paperplane.circle.fill")
+                            }
+                        }
+                        .font(.system(size: 30))
                     }
                     .disabled(gptVM.openAILoading || gptVM.inputMessage.isEmpty || gptVM.stopMessage)
                 }.frame(maxWidth: .infinity)

@@ -16,12 +16,18 @@ struct MessageRow: View {
         case .success(let chatCompleteMessage):
             switch chatCompleteMessage{
             case .assistant(let message):
-                if message.toolCalls == nil || message.toolCalls!.isEmpty {
+                if let content = message.content {
                     HStack {
                         Image(systemName: "sparkles")
                             .font(.callout)
-                        Text(try! AttributedString(markdown: message.content ?? "EMPTY MESSAGE", options:  AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)))
-                            .multilineTextAlignment(.leading)
+                        VStack(alignment: .leading) {
+                            Text(try! AttributedString(markdown: content, options:  AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)))
+                                .multilineTextAlignment(.leading)
+                            if message.toolCalls != nil && !message.toolCalls!.isEmpty  {
+                                Label("Retrieved relevant context for assistant!", systemImage: "checkmark.circle.fill")
+                                    .font(.footnote)
+                            }
+                        }
                         Spacer()
                     }
                     .foregroundStyle(.accent)
